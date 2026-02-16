@@ -7,8 +7,8 @@ const Footer = () => {
     const socialLinks = [
         { icon: Github, href: '#', label: 'GitHub' },
         // { icon: Twitter, href: '#', label: 'Twitter' },
-        { icon: Linkedin, href: '#', label: 'LinkedIn' },
-        { icon: Instagram, href: '#', label: 'Instagram' },
+        { icon: Linkedin, href: 'https://in.linkedin.com/company/caldim-engineering?trk=public_post_feed-actor-name', label: 'LinkedIn' },
+        { icon: Instagram, href: '', label: 'Instagram' },
     ]
 
     const footerLinks = [
@@ -24,19 +24,19 @@ const Footer = () => {
         {
             title: 'Services',
             links: [
-                { name: 'Web Development', href: '#' },
-                { name: 'AI Solutions', href: '#' },
-                { name: 'UI/UX Design', href: '#' },
-                { name: 'Cloud Services', href: '#' },
+                { name: 'Web Development' },
+                { name: 'AI Solutions' },
+                { name: 'UI/UX Design' },
+                { name: 'Cloud Services' },
             ]
         },
         {
             title: 'Resources',
             links: [
-                { name: 'Documentation', href: '#' },
-                { name: 'Privacy Policy', href: '#' },
-                { name: 'Terms of Service', href: '#' },
-                { name: 'Support', href: '#' },
+                { name: 'Documentation' },
+                { name: 'Privacy Policy' },
+                { name: 'Terms of Service' },
+                { name: 'Support' },  
             ]
         }
     ]
@@ -104,12 +104,18 @@ const Footer = () => {
                             <ul className="space-y-4">
                                 {group.links.map((link, index) => (
                                     <li key={index}>
-                                        <Link
-                                            to={link.href}
-                                            className="text-gray-500 hover:text-cyan-400 transition-all inline-block hover:translate-x-1 duration-200 text-sm"
-                                        >
-                                            {link.name}
-                                        </Link>
+                                        {link.href ? (
+                                            <Link
+                                                to={link.href}
+                                                className="text-gray-500 hover:text-cyan-400 transition-all inline-block hover:translate-x-1 duration-200 text-sm"
+                                            >
+                                                {link.name}
+                                            </Link>
+                                        ) : (
+                                            <span className="text-gray-500 text-sm cursor-default">
+                                                {link.name}
+                                            </span>
+                                        )}
                                     </li>
                                 ))}
                             </ul>

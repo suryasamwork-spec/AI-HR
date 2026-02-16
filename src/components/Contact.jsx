@@ -61,7 +61,7 @@ const Contact = () => {
             icon: Terminal,
             title: 'NODE.LOCATION',
             value: 'Hosur, Tamil Nadu',
-            link: '#',
+            link: 'https://www.google.com/maps/search/?api=1&query=12.754579,77.834673',
         },
     ]
 
@@ -221,6 +221,8 @@ const Contact = () => {
                                     <motion.a
                                         key={index}
                                         href={info.link}
+                                        target={info.link.startsWith('http') ? '_blank' : undefined}
+                                        rel={info.link.startsWith('http') ? 'noopener noreferrer' : undefined}
                                         initial={{ opacity: 0, x: 30 }}
                                         whileInView={{ opacity: 1, x: 0 }}
                                         viewport={{ once: true }}

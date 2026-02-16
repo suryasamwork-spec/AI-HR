@@ -1,12 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { Github, Play, ArrowLeft, Shield, Cpu, Zap, ChevronRight, Layers, BarChart3, PieChart, TrendingUp, Search, Sparkles } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
+import loginPageImg from '../assets/loginpage.jpg'
+
 
 const ProjectsPage = () => {
+    const location = useLocation()
+
     useEffect(() => {
         window.scrollTo(0, 0)
-    }, [])
+        if (location.state && typeof location.state.projectIndex === 'number') {
+            setActiveIndex(location.state.projectIndex)
+        }
+    }, [location])
 
     const projects = [
         {
@@ -129,101 +136,15 @@ const ProjectsPage = () => {
                     <span className="text-[10px] font-black uppercase tracking-[0.4em]">Project Repository</span>
                 </Link> */}
 
-                <div className="flex flex-col lg:flex-row items-center gap-24 min-h-[650px]">
-                    {/* LEFT: The Detail Reveal Engine */}
-                    <div className="flex-1 w-full order-2 lg:order-1 relative h-[500px] flex flex-col justify-center">
-                        <AnimatePresence mode="wait">
-                            <motion.div
-                                key={activeIndex}
-                                initial="initial"
-                                animate="animate"
-                                exit="exit"
-                                className="space-y-12"
-                            >
-                                {/* Sequential Entry: Stage 1 (Top Meta) */}
-                                <motion.div
-                                    variants={{
-                                        initial: { opacity: 0, y: 20, filter: 'blur(10px)' },
-                                        animate: { opacity: 1, y: 0, filter: 'blur(0px)' },
-                                        exit: { opacity: 0, y: -20, filter: 'blur(10px)' }
-                                    }}
-                                    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                                    className="flex items-center gap-6"
-                                >
-                                    <div className="w-12 h-[1px] bg-gradient-to-r from-cyan-400 to-transparent" />
-                                    <span className="text-[10px] font-black uppercase tracking-[0.6em] text-cyan-400">0{projects[activeIndex].id} // {projects[activeIndex].tagline}</span>
-                                </motion.div>
-
-                                {/* Stage 2: Hero Title Reveal */}
-                                <motion.div
-                                    variants={{
-                                        initial: { opacity: 0, scale: 0.9, x: 100 },
-                                        animate: { opacity: 1, scale: 1, x: 0 },
-                                        exit: { opacity: 0, scale: 1.1, x: -100 }
-                                    }}
-                                    transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                                >
-                                    <h1 className="text-7xl md:text-9xl font-black leading-[0.85] tracking-tighter text-white mb-6 select-none underline-offset-8">
-                                        {projects[activeIndex].title.split(' ').map((word, i) => (
-                                            <span key={i} className="block last:opacity-40">
-                                                {word}
-                                            </span>
-                                        ))}
-                                    </h1>
-                                </motion.div>
-
-                                {/* Stage 3: Content Body & Actions */}
-                                <motion.div
-                                    variants={{
-                                        initial: { opacity: 0, x: 50, filter: 'blur(5px)' },
-                                        animate: { opacity: 1, x: 0, filter: 'blur(0px)' },
-                                        exit: { opacity: 0, x: -50, filter: 'blur(5px)' }
-                                    }}
-                                    transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                                    className="space-y-10"
-                                >
-                                    <p className="text-xl text-blue-100/40 leading-relaxed max-w-xl font-light border-l border-white/10 pl-8">
-                                        {projects[activeIndex].fullDescription}
-                                    </p>
-
-                                    <div className="flex flex-wrap gap-3">
-                                        {projects[activeIndex].tech.map((t, i) => (
-                                            <span key={i} className="px-6 py-2.5 bg-white/5 border border-white/5 rounded-2xl text-cyan-300 text-[9px] font-black uppercase tracking-[0.2em] backdrop-blur-3xl shadow-xl">
-                                                {t}
-                                            </span>
-                                        ))}
-                                    </div>
-
-                                    <div className="flex gap-4 pt-4">
-                                        <motion.button
-                                            whileHover={{ scale: 1.05, x: 10, backgroundColor: 'rgba(255,255,255,1)' }}
-                                            whileTap={{ scale: 0.95 }}
-                                            className="px-10 py-5 bg-white text-black font-black uppercase text-[10px] tracking-[0.4em] rounded-full shadow-2xl transition-all flex items-center gap-3"
-                                        >
-                                            <Sparkles size={14} />
-                                            Live Demo
-                                        </motion.button>
-                                        <motion.button
-                                            whileHover={{ scale: 1.05, x: 10, background: "rgba(255,255,255,0.08)" }}
-                                            whileTap={{ scale: 0.95 }}
-                                            className="px-10 py-5 bg-white/5 text-white font-black uppercase text-[10px] tracking-[0.4em] rounded-full border border-white/10 backdrop-blur-xl transition-all"
-                                        >
-                                            Technical Docs
-                                        </motion.button>
-                                    </div>
-                                </motion.div>
-                            </motion.div>
-                        </AnimatePresence>
-                    </div>
-
-                    {/* RIGHT: The 3D Hyper-Stack (Redesigned Interaction) */}
+                <div className="flex flex-col items-center gap-12">
+                    {/* TOP: The 3D Hyper-Stack (Compact Image Section) */}
                     <div
-                        className="flex-1 w-full max-w-[550px] h-[600px] relative order-1 lg:order-2 flex items-center justify-center select-none cursor-pointer"
+                        className="w-full max-w-5xl h-[450px] relative flex items-center justify-center select-none cursor-pointer"
                         onClick={handleNext}
                         style={{ perspective: '3000px' }}
                     >
                         <motion.div
-                            className="relative w-full h-[500px]"
+                            className="relative w-full max-w-3xl aspect-video"
                             style={{
                                 rotateX,
                                 rotateY,
@@ -245,8 +166,8 @@ const ProjectsPage = () => {
                                             animate={{
                                                 opacity: stackPos === 0 ? 1 : 0.4 - stackPos * 0.1,
                                                 scale: 1 - stackPos * 0.1,
-                                                z: stackPos * -150,
-                                                x: stackPos * 60,
+                                                z: stackPos * -120,
+                                                x: stackPos * 40,
                                                 rotateY: stackPos * -15,
                                                 rotateZ: stackPos * 2,
                                             }}
@@ -263,44 +184,23 @@ const ProjectsPage = () => {
                                                 stiffness: 100,
                                                 damping: 20
                                             }}
-                                            className="absolute inset-0 rounded-[4rem] bg-[#0A0E27] border border-white/10 shadow-[0_80px_100px_rgba(0,0,0,0.5)] overflow-hidden group"
+                                            className="absolute inset-0 rounded-[2rem] bg-[#0A0E27] border border-white/10 shadow-[0_40px_60px_rgba(0,0,0,0.5)] overflow-hidden group"
                                             style={{ transformStyle: 'preserve-3d' }}
                                         >
                                             {/* Visual Aesthetic Layers */}
                                             <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-20`} />
                                             <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay" />
 
-                                            <div className="absolute inset-8 rounded-[3.5rem] overflow-hidden bg-black/40 border border-white/5 flex flex-col items-center justify-center p-12 text-center backdrop-blur-3xl">
-                                                <motion.div
-                                                    animate={{
-                                                        y: stackPos === 0 ? [0, -15, 0] : 0,
-                                                        rotate: stackPos === 0 ? [0, 5, -5, 0] : 0
-                                                    }}
-                                                    transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-                                                    className={`w-44 h-44 bg-gradient-to-br ${project.gradient} rounded-[3rem] flex items-center justify-center shadow-[0_40px_80px_rgba(0,0,0,0.6)] mb-12 relative group-hover:scale-110 transition-transform duration-700`}
-                                                >
-                                                    <project.icon className="text-white w-20 h-20" strokeWidth={1} />
-                                                    <div className="absolute inset-0 bg-white/20 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity rounded-full scale-150" />
-                                                </motion.div>
-
-                                                <div className="space-y-6">
-                                                    <div className="flex items-center justify-center gap-3">
-                                                        <div className="h-[1px] w-6 bg-cyan-400/50" />
-                                                        <div className="text-[10px] font-black uppercase tracking-[0.5em] text-cyan-400">DATA_SET_{project.id}</div>
-                                                        <div className="h-[1px] w-6 bg-cyan-400/50" />
-                                                    </div>
-                                                    <div className="text-4xl font-black text-white leading-tight uppercase tracking-tighter">{project.title}</div>
-                                                    <div className="w-16 h-1 bg-white/10 mx-auto rounded-full group-hover:w-32 group-hover:bg-cyan-400 transition-all duration-700" />
-                                                </div>
+                                            <div className="absolute inset-2 rounded-[1.5rem] overflow-hidden border border-white/10 bg-black/20 flex items-center justify-center">
+                                                <img src={loginPageImg} alt="Project Preview" className="w-full h-full object-contain" />
                                             </div>
 
-                                            
+
                                             {stackPos === 0 && (
-                                                <div className="absolute inset-x-0 bottom-16 flex justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0">
-                                                    <div className="bg-black/60 backdrop-blur-2xl border border-white/20 px-10 py-4 rounded-full flex items-center gap-6 shadow-2xl">
-                                                        <span className="text-[9px] font-black tracking-[0.4em] text-cyan-400">SWIPE ARCHIVE</span>
-                                                        <div className="w-8 h-8 rounded-full bg-cyan-400 flex items-center justify-center">
-                                                            <ChevronRight size={14} className="text-black" />
+                                                <div className="absolute inset-x-0 bottom-8 flex justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0">
+                                                    <div className="bg-black/60 backdrop-blur-2xl border border-white/20 px-6 py-2 rounded-full flex items-center gap-4 shadow-2xl">
+                                                        <div className="w-6 h-6 rounded-full bg-cyan-400 flex items-center justify-center">
+                                                            <ChevronRight size={12} className="text-black" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -310,6 +210,74 @@ const ProjectsPage = () => {
                                 })}
                             </AnimatePresence>
                         </motion.div>
+                    </div>
+
+                    {/* BOTTOM: The Detail Reveal Engine (Compact & Centered) */}
+                    <div className="w-full max-w-3xl relative flex flex-col items-center text-center">
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={activeIndex}
+                                initial="initial"
+                                animate="animate"
+                                exit="exit"
+                                className="space-y-6"
+                            >
+                                {/* Stage 2: Hero Title Reveal */}
+                                <motion.div
+                                    variants={{
+                                        initial: { opacity: 0, scale: 0.9, y: 20 },
+                                        animate: { opacity: 1, scale: 1, y: 0 },
+                                        exit: { opacity: 0, scale: 1.1, y: -20 }
+                                    }}
+                                    transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                                >
+                                    <h1 className="text-5xl md:text-6xl font-black leading-tight tracking-tighter text-white mb-2 select-none">
+                                        {projects[activeIndex].title}
+                                    </h1>
+                                </motion.div>
+
+                                {/* Stage 3: Content Body & Actions */}
+                                <motion.div
+                                    variants={{
+                                        initial: { opacity: 0, y: 30, filter: 'blur(5px)' },
+                                        animate: { opacity: 1, y: 0, filter: 'blur(0px)' },
+                                        exit: { opacity: 0, y: -30, filter: 'blur(5px)' }
+                                    }}
+                                    transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                                    className="space-y-6 flex flex-col items-center"
+                                >
+                                    <p className="text-lg text-blue-100/60 leading-relaxed max-w-xl font-light">
+                                        {projects[activeIndex].fullDescription}
+                                    </p>
+
+                                    <div className="flex flex-wrap justify-center gap-2">
+                                        {projects[activeIndex].tech.map((t, i) => (
+                                            <span key={i} className="px-4 py-1.5 bg-white/5 border border-white/5 rounded-xl text-cyan-300 text-[8px] font-black uppercase tracking-[0.2em] backdrop-blur-3xl shadow-xl">
+                                                {t}
+                                            </span>
+                                        ))}
+                                    </div>
+
+                                    <div className="flex justify-center gap-4 pt-2">
+                                        <motion.button
+                                            whileHover={{ scale: 1.05, y: -2, backgroundColor: 'rgba(255,255,255,1)' }}
+                                            whileTap={{ scale: 0.95 }}
+                                            className="px-8 py-3.5 bg-white text-black font-black uppercase text-[9px] tracking-[0.3em] rounded-full shadow-2xl transition-all flex items-center gap-2"
+                                        >
+                                            <Sparkles size={12} />
+                                            Live Demo
+                                        </motion.button>
+                                        <motion.button
+                                            whileHover={{ scale: 1.05, y: -2, background: "rgba(255,255,255,0.08)" }}
+                                            whileTap={{ scale: 0.95 }}
+                                            className="px-8 py-3.5 bg-white/5 text-white font-black uppercase text-[9px] tracking-[0.3em] rounded-full border border-white/10 backdrop-blur-xl transition-all"
+                                        >
+                                            Technical Docs
+                                        </motion.button>
+                                    </div>
+                                </motion.div>
+                            </motion.div>
+                        </AnimatePresence>
                     </div>
                 </div>
 
@@ -330,7 +298,7 @@ const ProjectsPage = () => {
                                         animate={{ opacity: 1, y: 0 }}
                                         className="absolute -bottom-2 left-1/2 -translate-x-1/2 text-[8px] font-black tracking-widest text-cyan-400"
                                     >
-                                        SELECTION.0{p.id}
+                                        {/* SELECTION.0{p.id} */}
                                     </motion.span>
                                 )}
                             </AnimatePresence>

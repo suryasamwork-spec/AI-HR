@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Award, Target, Heart, Lightbulb, Users, Code, Globe, Shield } from 'lucide-react'
+import caldimLogo from '../assets/caldim-logo.png'
+
 
 const AboutPage = () => {
     useEffect(() => {
@@ -28,20 +30,52 @@ const AboutPage = () => {
                 <div className="absolute top-0 right-0 w-96 h-96 bg-blue-600/10 blur-[100px] rounded-full" />
                 <div className="absolute bottom-0 left-0 w-96 h-96 bg-cyan-600/10 blur-[100px] rounded-full" />
 
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    className="text-center relative z-10"
-                >
-                    <h1 className="text-5xl md:text-7xl font-bold text-gradient mb-8">
-                        Our Story & Vision
-                    </h1>
-                    <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
-                        At CALDIM, we believe in the power of technology to transform businesses and lives.
-                        Our journey is driven by a commitment to excellence, innovation, and client success.
-                    </p>
-                </motion.div>
+                <div className="flex flex-col lg:flex-row items-center gap-16 relative z-10">
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
+                        animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                        transition={{ duration: 1, ease: "easeOut" }}
+                        whileHover={{ scale: 1.05, rotate: 5 }}
+                        className="flex-1 flex justify-center lg:justify-end"
+                    >
+                        <div className="relative group">
+                            <motion.div
+                                animate={{
+                                    y: [0, -15, 0],
+                                    rotate: [0, 2, 0]
+                                }}
+                                transition={{
+                                    duration: 6,
+                                    repeat: Infinity,
+                                    ease: "easeInOut"
+                                }}
+                                className="relative z-10 w-64 h-64 md:w-80 md:h-80"
+                            >
+                                <img
+                                    src={caldimLogo}
+                                    alt="CALDIM Logo"
+                                    className="w-full h-full object-contain filter drop-shadow-[0_0_30px_rgba(34,211,238,0.3)] group-hover:drop-shadow-[0_0_50px_rgba(34,211,238,0.5)] transition-all duration-500"
+                                />
+                            </motion.div>
+                            <div className="absolute inset-0 bg-cyan-400/20 blur-[100px] rounded-full scale-150 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                        </div>
+                    </motion.div>
+
+                    <motion.div
+                        initial={{ opacity: 0, x: 30 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8, delay: 0.2 }}
+                        className="flex-1 text-center lg:text-left"
+                    >
+                        <h1 className="text-5xl md:text-7xl font-bold text-gradient mb-8">
+                            Our Story & Vision
+                        </h1>
+                        <p className="text-xl text-gray-400 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                            At CALDIM, we believe in the power of technology to transform businesses and lives.
+                            Our journey is driven by a commitment to excellence, innovation, and client success.
+                        </p>
+                    </motion.div>
+                </div>
             </section>
 
             {/* Stats Section */}

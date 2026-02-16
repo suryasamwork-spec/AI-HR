@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import { Menu, X } from 'lucide-react'
+import React, { useState, useEffect, useRef } from 'react'
+import { Menu, X, ChevronDown } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 
 const Header = () => {
     const [isScrolled, setIsScrolled] = useState(false)
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+    const [isProjectsDropdownOpen, setIsProjectsDropdownOpen] = useState(false)
+    const dropdownRef = useRef(null)
     const navigate = useNavigate()
     const location = useLocation()
 
@@ -13,23 +15,46 @@ const Header = () => {
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 20)
         }
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setIsProjectsDropdownOpen(false)
+            }
+        }
         window.addEventListener('scroll', handleScroll)
-        return () => window.removeEventListener('scroll', handleScroll)
+        document.addEventListener('mousedown', handleClickOutside)
+        return () => {
+            window.removeEventListener('scroll', handleScroll)
+            document.removeEventListener('mousedown', handleClickOutside)
+        }
     }, [])
 
     const navLinks = [
         { name: 'Home', href: '/', sectionId: 'home' },
-        { name: 'Projects', href: '/projects' },
-        { name: 'Feature Ideas', href: '/', sectionId: 'features' },
+        { name: 'Projects', href: '/projects', hasDropdown: true },
+        // { name: 'Feature Ideas', href: '/', sectionId: 'features' },
         { name: 'About Us', href: '/about' },
         { name: 'Contact', href: '/', sectionId: 'contact' },
     ]
 
+    const projectsList = [
+        { id: 1, title: 'Data Insights Pro' },
+        { id: 2, title: 'Cloud Neural Matrix' },
+        { id: 3, title: 'SecureFlow Suite' },
+        { id: 4, title: 'Venture Predictor' }
+    ]
+
     const handleNavClick = (e, link) => {
+        if (link.hasDropdown) {
+            e.preventDefault()
+            setIsProjectsDropdownOpen(!isProjectsDropdownOpen)
+            return
+        }
+
         e.preventDefault()
         setIsMobileMenuOpen(false)
+        setIsProjectsDropdownOpen(false)
 
-        if (link.href === '/about' || link.href === '/projects') {
+        if (link.href === '/about') {
             navigate(link.href)
             return
         }
@@ -42,6 +67,12 @@ const Header = () => {
                 element.scrollIntoView({ behavior: 'smooth' })
             }
         }
+    }
+
+    const handleProjectItemClick = (projectId) => {
+        setIsProjectsDropdownOpen(false)
+        setIsMobileMenuOpen(false)
+        navigate('/projects', { state: { projectIndex: projectId - 1 } })
     }
 
     // Handle scroll to section after navigation
@@ -74,32 +105,36 @@ const Header = () => {
                     <Link
                         to="/"
                         className="flex items-center space-x-3 group"
-                        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                        onClick={() => {
+                            window.scrollTo({ top: 0, behavior: 'smooth' })
+                            setIsProjectsDropdownOpen(false)
+                            setIsMobileMenuOpen(false)
+                        }}
                     >
                         <div className="relative w-12 h-12 flex items-center justify-center">
                             <svg viewBox="0 0 100 60" className="w-full h-full filter drop-shadow-[0_0_10px_rgba(59,130,246,0.3)]">
-                                    <defs>
-                                        <linearGradient id="logo-gradient-footer" x1="0%" y1="0%" x2="0%" y2="100%">
-                                            <stop offset="0%" stopColor="#ffffff" />
-                                            <stop offset="100%" stopColor="#ffffff" />
-                                        </linearGradient>
-                                    </defs>
-                                    <path
-                                        d="M48 5 L10 26 L10 54 Q10 58 14 58 L48 58 L48 48 L18 48 Q16 48 16 46 L16 34 L48 16 Z"
-                                        fill="url(#logo-gradient-footer)"
-                                        stroke="#A7C7E7"
-                                        strokeWidth="1.5"
-                                        strokeLinejoin="round"
-                                    />
-                                    <path
-                                        d="M52 5 L52 58 L86 58 Q90 58 90 54 L90 26 L52 5 Z M62 18 V46 L80 46 V28 Z"
-                                        fill="url(#logo-gradient-footer)"
-                                        fillRule="evenodd"
-                                        stroke="#A7C7E7"
-                                        strokeWidth="1.5"
-                                        strokeLinejoin="round"
-                                    />
-                                </svg>
+                                <defs>
+                                    <linearGradient id="logo-gradient-footer" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" stopColor="#ffffff" />
+                                        <stop offset="100%" stopColor="#ffffff" />
+                                    </linearGradient>
+                                </defs>
+                                <path
+                                    d="M48 5 L10 26 L10 54 Q10 58 14 58 L48 58 L48 48 L18 48 Q16 48 16 46 L16 34 L48 16 Z"
+                                    fill="url(#logo-gradient-footer)"
+                                    stroke="#A7C7E7"
+                                    strokeWidth="1.5"
+                                    strokeLinejoin="round"
+                                />
+                                <path
+                                    d="M52 5 L52 58 L86 58 Q90 58 90 54 L90 26 L52 5 Z M62 18 V46 L80 46 V28 Z"
+                                    fill="url(#logo-gradient-footer)"
+                                    fillRule="evenodd"
+                                    stroke="#A7C7E7"
+                                    strokeWidth="1.5"
+                                    strokeLinejoin="round"
+                                />
+                            </svg>
                         </div>
                         <span className="text-2xl font-bold tracking-[0.2em] text-white group-hover:text-cyan-400 transition-colors">
                             CALDIM
@@ -109,16 +144,59 @@ const Header = () => {
                     {/* Desktop Navigation */}
                     <div className="hidden md:flex items-center space-x-8">
                         {navLinks.map((link, index) => (
-                            <motion.button
-                                key={link.name}
-                                onClick={(e) => handleNavClick(e, link)}
-                                className="nav-link text-sm uppercase tracking-widest font-semibold bg-transparent border-none cursor-pointer"
-                                initial={{ opacity: 0, y: -20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: index * 0.1 }}
-                            >
-                                {link.name}
-                            </motion.button>
+                            <div key={link.name} className="relative" ref={link.hasDropdown ? dropdownRef : null}>
+                                <motion.button
+                                    onClick={(e) => handleNavClick(e, link)}
+                                    className={`nav-link text-sm uppercase tracking-widest font-semibold bg-transparent border-none cursor-pointer flex items-center gap-1 ${isProjectsDropdownOpen && link.hasDropdown ? 'text-cyan-400' : ''}`}
+                                    initial={{ opacity: 0, y: -20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: index * 0.1 }}
+                                >
+                                    {link.name}
+                                    {link.hasDropdown && (
+                                        <ChevronDown size={14} className={`transition-transform duration-300 ${isProjectsDropdownOpen ? 'rotate-180' : ''}`} />
+                                    )}
+                                </motion.button>
+
+                                {/* Dropdown Menu */}
+                                {link.hasDropdown && (
+                                    <AnimatePresence>
+                                        {isProjectsDropdownOpen && (
+                                            <motion.div
+                                                initial={{ opacity: 0, y: 15, scale: 0.95 }}
+                                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                                exit={{ opacity: 0, y: 15, scale: 0.95 }}
+                                                transition={{ duration: 0.2 }}
+                                                className="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-64 bg-[#080e3b] border border-white/10 rounded-2xl overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.5)] backdrop-blur-xl"
+                                            >
+                                                <div className="py-3">
+                                                    {projectsList.map((project) => (
+                                                        <button
+                                                            key={project.id}
+                                                            onClick={() => handleProjectItemClick(project.id)}
+                                                            className="w-full px-6 py-4 text-left text-[10px] font-black uppercase tracking-[0.2em] text-white/60 hover:text-cyan-400 hover:bg-white/5 transition-all flex items-center justify-between group"
+                                                        >
+                                                            {project.title}
+                                                            <X size={12} className="opacity-0 group-hover:opacity-100 transition-opacity rotate-45" />
+                                                        </button>
+                                                    ))}
+                                                    <div className="border-t border-white/5 mt-2">
+                                                        <button
+                                                            onClick={() => {
+                                                                setIsProjectsDropdownOpen(false)
+                                                                navigate('/projects')
+                                                            }}
+                                                            className="w-full px-6 py-4 text-left text-[10px] font-black uppercase tracking-[0.4em] text-cyan-400 hover:bg-cyan-400/10 transition-all"
+                                                        >
+                                                            View All Projects
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                )}
+                            </div>
                         ))}
                     </div>
 
@@ -141,15 +219,40 @@ const Header = () => {
                             transition={{ duration: 0.3 }}
                             className="md:hidden overflow-hidden bg-black/90 backdrop-blur-xl rounded-2xl mt-4 px-6 border border-white/5"
                         >
-                            <div className="py-6 space-y-6">
+                            <div className="py-6 space-y-4">
                                 {navLinks.map((link) => (
-                                    <button
-                                        key={link.name}
-                                        onClick={(e) => handleNavClick(e, link)}
-                                        className="block w-full text-left text-lg font-medium text-gray-400 hover:text-cyan-400 transition-colors bg-transparent border-none cursor-pointer"
-                                    >
-                                        {link.name}
-                                    </button>
+                                    <div key={link.name}>
+                                        <button
+                                            onClick={(e) => handleNavClick(e, link)}
+                                            className="flex items-center justify-between w-full text-left text-lg font-medium text-gray-400 hover:text-cyan-400 transition-colors bg-transparent border-none cursor-pointer py-2"
+                                        >
+                                            {link.name}
+                                            {link.hasDropdown && <ChevronDown size={18} className={isProjectsDropdownOpen ? 'rotate-180' : ''} />}
+                                        </button>
+
+                                        {link.hasDropdown && isProjectsDropdownOpen && (
+                                            <div className="pl-4 mt-2 mb-4 space-y-2 border-l border-white/10">
+                                                {projectsList.map((project) => (
+                                                    <button
+                                                        key={project.id}
+                                                        onClick={() => handleProjectItemClick(project.id)}
+                                                        className="block w-full text-left text-sm font-medium text-gray-500 hover:text-white py-2"
+                                                    >
+                                                        {project.title}
+                                                    </button>
+                                                ))}
+                                                <button
+                                                    onClick={() => {
+                                                        setIsMobileMenuOpen(false)
+                                                        navigate('/projects')
+                                                    }}
+                                                    className="block w-full text-left text-sm font-bold text-cyan-400 py-2"
+                                                >
+                                                    View All
+                                                </button>
+                                            </div>
+                                        )}
+                                    </div>
                                 ))}
                             </div>
                         </motion.div>
