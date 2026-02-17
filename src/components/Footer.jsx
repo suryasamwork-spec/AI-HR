@@ -72,7 +72,7 @@ const Footer = () => {
                                         strokeLinejoin="round"
                                     />
                                 </svg>
-                            </div>
+                            </div>  
                             <span className="text-2xl font-bold tracking-[0.2em] text-white">CALDIM</span>
                         </Link>
                         <p className="text-gray-400 mb-6 leading-relaxed max-w-sm">
@@ -126,10 +126,10 @@ const Footer = () => {
                 {/* Bottom Bar */}
                 <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
                     <p className="text-gray-500 text-xs tracking-wider uppercase font-medium">
-                        © {new Date().getFullYear()} CALDIM. All rights reserved.
+                        © {new Date().getFullYear()} H23. All rights reserved.
                     </p>
                     <p className="text-gray-500 text-xs tracking-wider uppercase font-medium flex items-center gap-2">
-                        Crafted with <span className="text-cyan-500/80 animate-pulse text-lg">✦</span> by CALDIM
+                        Crafted with <span className="text-cyan-500/80 animate-pulse text-lg">✦</span> by H23
                     </p>
                 </div>
             </div>

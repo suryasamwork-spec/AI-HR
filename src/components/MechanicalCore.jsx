@@ -93,26 +93,46 @@ const MechanicalCore = () => {
                                 delay: layer.id * 0.2,
                                 y: { duration: 6, repeat: Infinity, ease: 'easeInOut' }
                             }}
-                            className="absolute w-48 h-64 sm:w-64 sm:h-80 backdrop-blur-3xl rounded-[2rem] sm:rounded-[3rem] border border-white/10 group shadow-[0_50px_100px_rgba(0,0,0,0.4)] hidden sm:block"
+                            className="absolute w-48 h-64 sm:w-64 sm:h-80 backdrop-blur-[40px] rounded-[2.5rem] sm:rounded-[3.5rem] border border-white/20 group shadow-[0_50px_100px_rgba(0,0,0,0.6)] hidden sm:block overflow-hidden"
                             style={{
-                                background: 'linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02))',
-                                transformStyle: 'preserve-3d'
+                                background: 'linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.01))',
+                                transformStyle: 'preserve-3d',
+                                boxShadow: 'inset 0 0 40px rgba(255,255,255,0.05), shadow-[0_50px_100px_rgba(0,0,0,0.6)]'
                             }}
                         >
+                            {/* Hyper-Realistic Glass Reflection Sheen */}
+                            <motion.div
+                                className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+                                style={{
+                                    transform: 'translateX(-100%)',
+                                }}
+                                animate={{
+                                    translateX: ['100%', '-100%']
+                                }}
+                                transition={{
+                                    duration: 3,
+                                    repeat: Infinity,
+                                    ease: "linear"
+                                }}
+                            />
+
+                            {/* Internal Gloss / Rim Lighting */}
+                            <div className="absolute inset-0 p-[1px] rounded-[3.5rem] bg-gradient-to-br from-white/30 via-transparent to-transparent opacity-40 pointer-events-none" />
+
                             {/* Inner Glass Content */}
-                            <div className="w-full h-full p-8 rounded-[3rem] flex flex-col justify-between relative overflow-hidden">
+                            <div className="w-full h-full p-8 rounded-[3.5rem] flex flex-col justify-between relative z-10">
                                 <div className="space-y-4">
-                                    <div className={`w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform duration-500`}>
+                                    <div className={`w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shadow-inner group-hover:scale-110 group-hover:border-white/30 transition-all duration-500`}>
                                         <layer.icon className={`w-7 h-7 ${layer.color}`} strokeWidth={1.5} />
                                     </div>
-                                    <div className="text-[9px] font-black tracking-[0.4em] text-white/20">{layer.label}</div>
+                                    <div className="text-[9px] font-black tracking-[0.4em] text-white/30">{layer.label}</div>
                                 </div>
 
-                                {/* Simulated UI Elements (PROMPT: Dashboard in action / UI Mockup) */}
+                                {/* Simulated UI Elements */}
                                 <div className="space-y-4">
-                                    <div className="h-[2px] w-full bg-white/5 relative overflow-hidden">
+                                    <div className="h-[2px] w-full bg-white/10 relative overflow-hidden rounded-full">
                                         <motion.div
-                                            className="absolute inset-y-0 left-0 bg-cyan-400"
+                                            className="absolute inset-y-0 left-0 bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.8)]"
                                             animate={{ width: ['0%', '100%', '0%'] }}
                                             transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: layer.id * 0.5 }}
                                         />
@@ -122,20 +142,17 @@ const MechanicalCore = () => {
                                             {[...Array(5)].map((_, i) => (
                                                 <motion.div
                                                     key={i}
-                                                    className="w-1.5 bg-cyan-400/40 rounded-full"
+                                                    className="w-1.5 bg-cyan-400/30 rounded-full"
                                                     animate={{ height: [10, Math.random() * 30 + 10, 10] }}
                                                     transition={{ duration: 2, repeat: Infinity, delay: i * 0.2 }}
                                                 />
                                             ))}
                                         </div>
-                                        <div className="w-6 h-6 rounded-full border border-white/10 flex items-center justify-center">
-                                            <div className="w-1 h-1 bg-cyan-400 rounded-full animate-pulse" />
+                                        <div className="w-8 h-8 rounded-full border border-white/10 bg-white/5 flex items-center justify-center">
+                                            <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse shadow-[0_0_8px_rgba(34,211,238,0.8)]" />
                                         </div>
                                     </div>
                                 </div>
-
-                                {/* Glass Reflection Sheen */}
-                                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
                             </div>
                         </motion.div>
                     ))}

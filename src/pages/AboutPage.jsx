@@ -153,63 +153,73 @@ const AboutPage = () => {
                     <h2 className="text-4xl md:text-6xl font-black mb-6 uppercase">Manage your entire community <br /> in a single system</h2>
                     <p className="text-gray-400 mb-20">Who is Nextcent suitable for?</p>
 
-                    <div className="relative h-[800px] flex items-center justify-center">
-                        {/* THE ORBITAL MAP (Surrounds circularly) */}
+                    <div className="relative h-[850px] flex items-center justify-start lg:pl-32">
+                        {/* 1. THE CURVED ARCHIVE (Flowing on the right) */}
                         <div className="hidden lg:block absolute inset-0">
                             {valuePoints.map((point, index) => {
-                                const angle = (index * 72) - 90;
-                                const radius = 400;
+                                // Narrower angular range to keep everything vertically centered
+                                const startAngle = -65;
+                                const endAngle = 65;
+                                const angle = startAngle + (index * (endAngle - startAngle) / (valuePoints.length - 1));
+                                const radius = 420; // Tightened radius for single-view 
+
+                                // Origin center is at 30% left
                                 const x = Math.cos((angle * Math.PI) / 180) * radius;
                                 const y = Math.sin((angle * Math.PI) / 180) * radius;
 
                                 return (
                                     <motion.div
                                         key={index}
-                                        initial={{ opacity: 0, scale: 0.8 }}
-                                        whileInView={{ opacity: 1, scale: 1 }}
+                                        initial={{ opacity: 0, x: 50 }}
+                                        whileInView={{ opacity: 1, x: 0 }}
                                         viewport={{ once: true }}
-                                        transition={{ delay: index * 0.1, duration: 0.8 }}
+                                        transition={{ delay: index * 0.1, duration: 1 }}
                                         style={{
-                                            left: `calc(50% + ${x}px)`,
+                                            left: `calc(30% + ${x}px)`,
                                             top: `calc(50% + ${y}px)`,
                                             transform: 'translate(-50%, -50%)',
                                         }}
                                         className="absolute w-72 group"
                                     >
                                         {/* Visual Node Point */}
-                                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 z-20">
+                                        <div className="absolute top-1/2 left-0 -translate-x-full -translate-y-1/2 w-3 h-3 z-20">
                                             <div className="absolute inset-0 bg-cyan-400 rounded-full animate-ping opacity-20" />
                                             <div className="absolute inset-0.5 bg-cyan-400 rounded-full shadow-[0_0_10px_#22d3ee]" />
                                         </div>
 
-                                        {/* Connector Line */}
-                                        <div className="absolute top-1/2 left-1/2 w-[1px] h-32 bg-gradient-to-t from-cyan-400/40 via-cyan-400/10 to-transparent -z-10 group-hover:h-48 transition-all duration-700 origin-bottom"
-                                            style={{ transform: `translate(-50%, -100%) rotate(${angle + 90}deg)` }} />
+                                        {/* Connector Line pointing towards center logo */}
+                                        <div className="absolute top-1/2 left-0 w-32 h-[1px] bg-gradient-to-r from-cyan-400/40 via-cyan-400/10 to-transparent -z-10 group-hover:w-48 transition-all duration-700 origin-left"
+                                            style={{ transform: `translate(-100%, -50%) rotate(${180 - angle}deg)` }} />
 
-                                        {/* Card Content */}
-                                        <div className="p-8 rounded-[2rem] bg-black/60 backdrop-blur-2xl border border-white/10 transition-all duration-500 hover:bg-cyan-500/10 hover:border-cyan-400/40 text-center group-hover:-translate-y-2">
-                                            <div className="text-cyan-400 text-[10px] font-black tracking-[0.4em] uppercase mb-3 opacity-60">NODE.0{index + 1}</div>
-                                            <h3 className="text-white text-lg font-black uppercase mb-3 tracking-tighter leading-tight">{point.title}</h3>
-                                            <p className="text-gray-500 text-xs leading-relaxed uppercase tracking-wider">{point.desc}</p>
+                                        {/* Card Content (Ultra-Compact for single view) */}
+                                        <div className="p-6 rounded-[2rem] bg-black/60 backdrop-blur-3xl border border-white/10 transition-all duration-500 hover:bg-cyan-500/10 hover:border-cyan-400/40 text-left group-hover:translate-x-3">
+                                            <div className="text-cyan-400 text-[9px] font-black tracking-[0.4em] uppercase mb-2 opacity-60">NODE.0{index + 1}</div>
+                                            <h3 className="text-white text-base font-black uppercase mb-2 tracking-tighter leading-tight">{point.title}</h3>
+                                            <p className="text-gray-500 text-[9px] leading-relaxed uppercase tracking-widest">{point.desc}</p>
                                         </div>
                                     </motion.div>
                                 );
                             })}
                         </div>
 
-                        {/* Central Hub */}
+                        {/* Central Hub (Fixed on Left) */}
                         <motion.div
                             ref={imageRef}
-                            style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
-                            className="relative z-20"
+                            style={{
+                                rotateX,
+                                rotateY,
+                                transformStyle: 'preserve-3d',
+                                left: '30%'
+                            }}
+                            className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 z-20 hidden lg:block"
                         >
-                            <div className="absolute inset-0 bg-cyan-400/20 blur-[100px] rounded-full scale-150 animate-pulse" />
-                            <div className="relative w-64 h-64 md:w-80 md:h-80 bg-black/60 backdrop-blur-3xl rounded-full border border-white/20 flex items-center justify-center overflow-hidden">
+                            <div className="absolute inset-0 bg-cyan-400/20 blur-[120px] rounded-full scale-150 animate-pulse" />
+                            <div className="relative w-72 h-72 bg-black/60 backdrop-blur-3xl rounded-full border border-white/20 flex items-center justify-center overflow-hidden">
                                 <img src={caldimLogo} alt="CALDIM" className="w-1/2 h-1/2 object-contain" />
                             </div>
                         </motion.div>
 
-                        {/* Mobile List View */}
+                        {/* Mobile List View stays the same for clarity */}
                         <div className="lg:hidden mt-20 grid grid-cols-1 md:grid-cols-2 gap-6 px-4">
                             {valuePoints.map((point, index) => (
                                 <div key={index} className="p-8 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-md">

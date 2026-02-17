@@ -74,6 +74,18 @@ const ProjectsPage = () => {
     const [isAnimating, setIsAnimating] = useState(false)
     const [internalImgIndex, setInternalImgIndex] = useState(0)
 
+    // Sync with navigation state (from Header dropdown)
+    useEffect(() => {
+        if (location.state?.projectIndex !== undefined) {
+            const index = location.state.projectIndex
+            // Only update if it's different to prevent redundant renders
+            if (index !== activeIndex) {
+                setActiveIndex(index)
+                setInternalImgIndex(0)
+            }
+        }
+    }, [location.state, activeIndex])
+
     // Auto-cycle internal images every 4 seconds for the active project
     useEffect(() => {
         const interval = setInterval(() => {
@@ -114,27 +126,27 @@ const ProjectsPage = () => {
 
     const getProjectData = (index) => projects[(index + projects.length) % projects.length]
 
+    const currentProject = projects[activeIndex]
+
     return (
         <div
-            className="pt-24 min-h-screen bg-[#010826] text-white overflow-hidden relative cursor-default"
+            className="pt-32 min-h-screen bg-[#010826] text-white overflow-hidden relative cursor-default"
             onMouseMove={handleMouseMove}
         >
             {/* Background Data Stream Particles */}
             <div className="absolute inset-0 pointer-events-none opacity-20">
-                {[...Array(10)].map((_, i) => (
+                {[...Array(12)].map((_, i) => (
                     <motion.div
                         key={i}
                         className="absolute h-[1px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent"
                         initial={{
-                            width: Math.random() * 200 + 100,
+                            width: Math.random() * 300 + 100,
                             x: -500,
                             y: Math.random() * 100 + "%"
                         }}
-                        animate={{
-                            x: ['-100%', '200%'],
-                        }}
+                        animate={{ x: ['-100%', '200%'] }}
                         transition={{
-                            duration: Math.random() * 5 + 5,
+                            duration: Math.random() * 5 + 7,
                             repeat: Infinity,
                             ease: "linear",
                             delay: Math.random() * 10
@@ -143,203 +155,218 @@ const ProjectsPage = () => {
                 ))}
             </div>
 
-            <section className="max-w-[1440px] xl:max-w-[1600px] 2xl:max-w-[1800px] mx-auto px-6 py-8 sm:py-12 relative z-10">
-                <div className="flex flex-col items-center gap-8 sm:gap-12">
-                    {/* TOP: The 3D Hyper-Stack */}
-                    <div
-                        className="w-full max-w-6xl h-[350px] sm:h-[500px] relative flex items-center justify-center select-none cursor-pointer"
-                        onClick={handleNext}
-                        style={{ perspective: '4000px' }}
-                    >
-                        <motion.div
-                            className="relative w-full max-w-xs sm:max-w-3xl aspect-video"
-                            style={{
-                                rotateX,
-                                rotateY,
-                                transformStyle: 'preserve-3d'
-                            }}
-                        >
-                            <AnimatePresence initial={false}>
-                                {[2, 1, 0].map((stackPos) => {
-                                    const project = getProjectData(activeIndex + stackPos)
-                                    const currentImages = project.images || [project.image]
+            <section className="max-w-[1700px] mx-auto px-6 lg:px-12 py-8 relative z-10">
+                {/* Breadcrumbs / Context Header */}
+                {/* <div className="flex items-center gap-2 mb-8 text-[10px] font-black uppercase tracking-[0.3em] text-white/40">
+                    <span className="hover:text-cyan-400 cursor-pointer transition-colors">Digital Archive</span>
+                    <ChevronRight size={10} />
+                    <span className="hover:text-cyan-400 cursor-pointer transition-colors">Systems & Infra</span>
+                    <ChevronRight size={10} />
+                    <span className="text-cyan-400">{currentProject.title}</span>
+                </div> */}
 
-                                    return (
-                                        <motion.div
-                                            key={project.id}
-                                            initial={{
-                                                opacity: 0,
-                                                z: -500,
-                                                x: 500,
-                                                rotateY: 45
-                                            }}
-                                            animate={{
-                                                opacity: stackPos === 0 ? 1 : 0.4 - stackPos * 0.1,
-                                                scale: 1 - stackPos * 0.1,
-                                                z: stackPos * -80,
-                                                x: stackPos * 30,
-                                                rotateY: stackPos * -15,
-                                                rotateZ: stackPos * 2,
-                                            }}
-                                            exit={{
-                                                opacity: 0,
-                                                x: -800,
-                                                rotateZ: -45,
-                                                rotateY: -90,
-                                                scale: 1.2,
-                                                filter: 'blur(20px)'
-                                            }}
-                                            transition={{
-                                                type: "spring",
-                                                stiffness: 100,
-                                                damping: 20
-                                            }}
-                                            className="absolute inset-0 rounded-[1.5rem] sm:rounded-[2rem] bg-[#0A0E27] border border-white/10 shadow-[0_40px_60px_rgba(0,0,0,0.5)] overflow-hidden group/card"
-                                            style={{ transformStyle: 'preserve-3d' }}
-                                        >
-                                            <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-20`} />
-                                            <div className="absolute inset-2 rounded-[1rem] sm:rounded-[1.5rem] overflow-hidden border border-white/10 bg-black/20 flex items-center justify-center">
-                                                <AnimatePresence mode="wait">
-                                                    <motion.img
-                                                        key={`${project.id}-${internalImgIndex}`}
-                                                        src={currentImages[stackPos === 0 ? internalImgIndex : 0]}
-                                                        alt="Project Preview"
-                                                        initial={{ opacity: 0, scale: 1.1 }}
-                                                        animate={{ opacity: 1, scale: 1 }}
-                                                        exit={{ opacity: 0, scale: 0.9 }}
-                                                        transition={{ duration: 0.6 }}
-                                                        className="w-full h-full object-contain"
-                                                    />
-                                                </AnimatePresence>
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
 
-                                                {/* Navigation Dots for Internal Images */}
-                                                {stackPos === 0 && (
-                                                    <div className="absolute bottom-4 flex gap-1.5 z-30">
-                                                        {currentImages.map((_, dotIdx) => (
-                                                            <div
-                                                                key={dotIdx}
-                                                                className={`h-1 rounded-full transition-all duration-500 ${dotIdx === internalImgIndex ? 'w-6 bg-cyan-400' : 'w-1.5 bg-white/20'}`}
-                                                            />
-                                                        ))}
-                                                    </div>
-                                                )}
-                                            </div>
+                    {/* LEFT COLUMN: Gallery & Project Navbar */}
+                    <div className="lg:col-span-7 space-y-8">
 
-                                            {stackPos === 0 && (
-                                                <div className="absolute inset-x-0 bottom-4 sm:bottom-8 flex justify-center opacity-0 group-hover/card:opacity-100 transition-all duration-500 transform translate-y-4 group-hover/card:translate-y-0 z-40">
-                                                    <div
-                                                        className="bg-black/60 backdrop-blur-2xl border border-white/20 px-4 sm:px-6 py-1.5 sm:py-2 rounded-full flex items-center gap-4 shadow-2xl hover:bg-black/80 transition-colors"
-                                                        onClick={handleInternalNext}
-                                                    >
-                                                        <span className="text-[10px] font-black uppercase tracking-widest text-white/70">Next View</span>
-                                                        <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-cyan-400 flex items-center justify-center">
-                                                            <ChevronRight size={12} className="text-black" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            )}
-                                        </motion.div>
-                                    )
-                                })}
+                        {/* PROJECT NAVBAR (Above Image) */}
+                        {/* <div className="p-2 rounded-2xl bg-white/[0.02] border border-white/5 backdrop-blur-md flex items-center justify-between gap-2 overflow-x-auto no-scrollbar">
+                            <div className="flex items-center gap-1 px-4 border-r border-white/10 mr-2">
+                                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white/20 whitespace-nowrap">Archives</span>
+                            </div>
+                            <div className="flex items-center gap-2 flex-1">
+                                {projects.map((project, idx) => (
+                                    <button
+                                        key={project.id}
+                                        onClick={() => {
+                                            if (!isAnimating && activeIndex !== idx) {
+                                                setIsAnimating(true)
+                                                setActiveIndex(idx)
+                                                setInternalImgIndex(0)
+                                                setTimeout(() => setIsAnimating(false), 500)
+                                            }
+                                        }}
+                                        className={`px-6 py-3 rounded-xl border transition-all duration-300 flex items-center gap-3 relative flex-shrink-0 ${activeIndex === idx ? 'bg-cyan-400/10 border-cyan-400/30' : 'bg-transparent border-transparent hover:bg-white/5'}`}
+                                    >
+                                        <div className={`w-6 h-6 rounded-lg flex items-center justify-center border transition-colors ${activeIndex === idx ? 'bg-cyan-400 border-cyan-400 font-bold' : 'bg-white/5 border-white/10 group-hover:border-white/20'}`}>
+                                            <project.icon size={12} className={activeIndex === idx ? 'text-black' : 'text-cyan-400'} />
+                                        </div>
+                                        <span className={`text-[10px] font-black uppercase tracking-widest ${activeIndex === idx ? 'text-cyan-400' : 'text-white/40 group-hover:text-white'}`}>
+                                            {project.title}
+                                        </span>
+
+                                        {activeIndex === idx && (
+                                            <motion.div
+                                                layoutId="activeTabGlow"
+                                                className="absolute inset-0 rounded-xl border border-cyan-400/50 pointer-events-none"
+                                                initial={{ opacity: 0 }}
+                                                animate={{ opacity: 1 }}
+                                            />
+                                        )}
+                                    </button>
+                                ))}
+                            </div>
+                        </div> */}
+
+                        {/* Image Gallery (Main View) */}
+                        <div className="aspect-video relative rounded-[2.5rem] bg-black/40 border border-white/10 overflow-hidden shadow-2xl group flex items-center justify-center p-8">
+                            {/* Ambient Glow behind image */}
+                            <div className={`absolute inset-0 bg-gradient-to-br ${currentProject.gradient} opacity-5 blur-3xl`} />
+
+                            <AnimatePresence mode="wait">
+                                <motion.img
+                                    key={`${currentProject.id}-${internalImgIndex}`}
+                                    src={currentProject.images[internalImgIndex]}
+                                    alt={currentProject.title}
+                                    initial={{ opacity: 0, scale: 0.95 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    exit={{ opacity: 0, scale: 1.05 }}
+                                    transition={{ duration: 0.5 }}
+                                    className="w-full h-full object-contain relative z-10"
+                                />
                             </AnimatePresence>
-                        </motion.div>
+
+                            {/* Zoom/Expand Icon Overlay */}
+                            {/* <div className="absolute top-6 right-6 p-4 rounded-full bg-white/5 border border-white/10 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer hover:bg-white/10 z-20">
+                                <Sparkles size={24} className="text-cyan-400" />
+                            </div> */}
+                        </div>
+
+                        {/* Thumbnails */}
+                        <div className="flex gap-4 overflow-x-auto pb-4 no-scrollbar">
+                            {currentProject.images.map((img, idx) => (
+                                <button
+                                    key={idx}
+                                    onClick={() => setInternalImgIndex(idx)}
+                                    className={`relative flex-shrink-0 w-28 aspect-square rounded-2xl overflow-hidden border-2 transition-all duration-300 ${internalImgIndex === idx ? 'border-cyan-400 scale-105 shadow-[0_0_20px_rgba(34,211,238,0.3)]' : 'border-white/5 opacity-50 hover:opacity-100'}`}
+                                >
+                                    <img src={img} className="w-full h-full object-cover" alt="view" />
+                                </button>
+                            ))}
+                        </div>
                     </div>
 
-                    {/* BOTTOM: Detail Reveal */}
-                    <div className="w-full max-w-3xl relative flex flex-col items-center text-center">
+                    {/* RIGHT COLUMN: Project Information */}
+                    <div className="lg:col-span-5">
                         <AnimatePresence mode="wait">
                             <motion.div
-                                key={activeIndex}
-                                initial="initial"
-                                animate="animate"
-                                exit="exit"
-                                className="space-y-4 sm:space-y-6"
+                                key={currentProject.id}
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -20 }}
+                                transition={{ duration: 0.5 }}
+                                className="space-y-8"
                             >
-                                <motion.div
-                                    variants={{
-                                        initial: { opacity: 0, scale: 0.9, y: 20 },
-                                        animate: { opacity: 1, scale: 1, y: 0 },
-                                        exit: { opacity: 0, scale: 1.1, y: -20 }
-                                    }}
-                                    transition={{ duration: 0.6, delay: 0.1 }}
-                                >
-                                    <h1 className="text-4xl sm:text-6xl md:text-7xl font-black leading-tight tracking-tighter text-white select-none">
-                                        {projects[activeIndex].title}
+                                <div>
+                                    <div className="flex items-center gap-3 mb-4">
+                                        <span className="text-cyan-400 font-black text-sm tracking-widest uppercase">{currentProject.client}</span>
+                                        <div className="h-4 w-[1px] bg-white/10" />
+                                        <div className="flex gap-1">
+                                            {[1, 2, 3, 4, 5].map(star => (
+                                                <div key={star} className="w-2.5 h-2.5 rounded-full bg-cyan-400" />
+                                            ))}
+                                        </div>
+                                        <span className="text-[10px] text-white/40 font-bold uppercase">(212 Technical Audits)</span>
+                                    </div>
+
+                                    <h1 className="text-5xl font-black tracking-tighter uppercase leading-none mb-4">
+                                        {currentProject.title}
                                     </h1>
-                                </motion.div>
+                                    <p className="text-cyan-400 text-lg font-black tracking-widest uppercase mb-6">{currentProject.tagline}</p>
 
-                                <motion.div
-                                    variants={{
-                                        initial: { opacity: 0, y: 30 },
-                                        animate: { opacity: 1, y: 0 },
-                                        exit: { opacity: 0, y: -30 }
-                                    }}
-                                    transition={{ duration: 0.6, delay: 0.2 }}
-                                    className="space-y-6 flex flex-col items-center"
-                                >
-                                    <p className="text-sm sm:text-base md:text-lg text-blue-100/60 leading-relaxed max-w-xl font-light px-4">
-                                        {projects[activeIndex].fullDescription}
-                                    </p>
+                                    <div className="h-[1px] w-full bg-white/5 mb-8" />
 
-                                    <div className="flex flex-wrap justify-center gap-2 px-6">
-                                        {projects[activeIndex].tech.map((t, i) => (
-                                            <span key={i} className="px-3 sm:px-4 py-1 sm:py-1.5 bg-white/5 border border-white/5 rounded-lg sm:rounded-xl text-cyan-300 text-[7px] sm:text-[8px] font-black uppercase tracking-[0.2em]">
-                                                {t}
+                                    <div className="space-y-6">
+                                        <div className="flex items-baseline gap-4">
+                                            <span className="text-[10px] font-black uppercase text-white/30 tracking-widest">System Status</span>
+                                            <span className="text-2xl font-black text-white">OPERATIONAL</span>
+                                            <span className="px-2 py-0.5 rounded bg-cyan-400/10 border border-cyan-400/20 text-[9px] font-black text-cyan-400 uppercase tracking-tighter">Verified</span>
+                                        </div>
+
+                                        <p className="text-blue-100/60 leading-relaxed text-base italic">
+                                            "{currentProject.description}"
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div className="space-y-6">
+                                    <h3 className="text-[11px] font-black uppercase tracking-[0.3em] text-white/40 flex items-center gap-3">
+                                        Technology Matrix <div className="h-[1px] flex-1 bg-white/5" />
+                                    </h3>
+                                    <div className="flex flex-wrap gap-2">
+                                        {currentProject.tech.map((tech) => (
+                                            <span key={tech} className="px-5 py-2 rounded-xl bg-white/5 border border-white/10 text-[10px] font-bold uppercase tracking-widest text-white/70 hover:border-cyan-400/40 transition-colors">
+                                                {tech}
                                             </span>
                                         ))}
                                     </div>
+                                </div>
 
-                                    {/* Project Gallery - Multiple Images */}
-                                    <div className="flex justify-center gap-4 py-4 px-6 overflow-hidden">
-                                        {[projects[activeIndex].image, backgroundImage, designImage].map((img, i) => (
-                                            <motion.div
-                                                key={i}
-                                                whileHover={{ scale: 1.1, rotate: 2 }}
-                                                className="w-24 h-16 sm:w-32 sm:h-20 rounded-xl overflow-hidden border border-white/10 glass-card"
-                                            >
-                                                <img src={img} alt={`Gallery ${i}`} className="w-full h-full object-cover opacity-60 hover:opacity-100 transition-opacity" />
-                                            </motion.div>
-                                        ))}
-                                    </div>
-
-                                    <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 pt-2 w-full sm:w-auto px-10 sm:px-0">
-                                        <motion.button
-                                            whileHover={{ scale: 1.05, y: -2 }}
-                                            whileTap={{ scale: 0.95 }}
-                                            className="w-full sm:w-auto px-8 py-3.5 bg-white text-black font-black uppercase text-[8px] sm:text-[9px] tracking-[0.3em] rounded-full shadow-2xl flex items-center justify-center gap-2"
-                                        >
-                                            <Sparkles size={12} />
-                                            Live Demo
-                                        </motion.button>
-                                        <motion.button
-                                            whileHover={{ scale: 1.05, y: -2 }}
-                                            whileTap={{ scale: 0.95 }}
-                                            className="w-full sm:w-auto px-8 py-3.5 bg-white/5 text-white font-black uppercase text-[8px] sm:text-[9px] tracking-[0.3em] rounded-full border border-white/10 backdrop-blur-xl"
-                                        >
-                                            Technical Docs
-                                        </motion.button>
-                                    </div>
-                                </motion.div>
+                                <div className="p-8 rounded-[2rem] bg-white/[0.02] border border-white/5 space-y-4">
+                                    <h3 className="text-[10px] font-black uppercase tracking-widest text-cyan-400">Technical Narrative</h3>
+                                    <p className="text-sm text-white/50 leading-relaxed font-light">
+                                        {currentProject.fullDescription}
+                                    </p>
+                                </div>
                             </motion.div>
                         </AnimatePresence>
                     </div>
-                </div>
 
-                {/* Timeline Selector */}
-                <div className="mt-12 sm:mt-24 flex justify-center items-center gap-3 sm:gap-6 relative overflow-x-auto sm:overflow-visible no-scrollbar px-4">
-                    <div className="hidden sm:block absolute h-[1px] w-[600px] bg-white/10 left-1/2 -translate-x-1/2 pointer-events-none" />
-                    {projects.map((p, i) => (
-                        <button
-                            key={p.id}
-                            onClick={() => setActiveIndex(i)}
-                            className="relative group py-6 sm:py-8 px-2 sm:px-4 shrink-0"
-                        >
-                            <div className={`h-1.5 transition-all duration-700 rounded-full ${i === activeIndex ? 'w-16 sm:w-24 bg-cyan-400 shadow-[0_0_30px_#00ffff]' : 'w-3 sm:w-4 bg-white/20 hover:bg-white/40'}`} />
-                        </button>
-                    ))}
+                    {/* RIGHT COLUMN: Project Selection & Action Panel */}
+                    <div className="lg:col-span-3">
+                        <div className="sticky top-32 space-y-6">
+                            {/* Primary Action Panel */}
+
+
+                            {/* PROJECT SELECTOR LIST */}
+                            {/* <div className="p-6 rounded-[2.5rem] bg-white/[0.02] border border-white/5">
+                                <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30 mb-6 px-2">Project Archive</h3>
+                                <div className="space-y-2">
+                                    {projects.map((project, idx) => (
+                                        <motion.button
+                                            key={project.id}
+                                            onClick={() => {
+                                                if (!isAnimating && activeIndex !== idx) {
+                                                    setIsAnimating(true)
+                                                    setActiveIndex(idx)
+                                                    setInternalImgIndex(0)
+                                                    setTimeout(() => setIsAnimating(false), 500)
+                                                }
+                                            }}
+                                            whileHover={{ x: 5 }}
+                                            className={`w-full group relative p-4 rounded-2xl border transition-all duration-300 flex items-center gap-4 ${activeIndex === idx ? 'bg-cyan-400/10 border-cyan-400/30' : 'bg-transparent border-transparent hover:bg-white/5'}`}
+                                        >
+                                            <div className={`w-10 h-10 rounded-xl flex items-center justify-center border transition-colors ${activeIndex === idx ? 'bg-cyan-400 border-cyan-400' : 'bg-white/5 border-white/10 group-hover:border-white/20'}`}>
+                                                <project.icon size={18} className={activeIndex === idx ? 'text-black' : 'text-cyan-400'} />
+                                            </div>
+                                            <div className="text-left">
+                                                <div className={`text-[11px] font-black uppercase leading-tight ${activeIndex === idx ? 'text-cyan-400' : 'text-white/60 group-hover:text-white'}`}>
+                                                    {project.title}
+                                                </div>
+                                                <div className="text-[8px] font-bold uppercase tracking-widest text-white/20 mt-1">{project.year}</div>
+                                            </div>
+
+                                            {activeIndex === idx && (
+                                                <motion.div
+                                                    layoutId="activeGlow"
+                                                    className="absolute inset-0 rounded-2xl border border-cyan-400/50 pointer-events-none"
+                                                    initial={{ opacity: 0 }}
+                                                    animate={{ opacity: 1 }}
+                                                />
+                                            )}
+                                        </motion.button>
+                                    ))}
+                                </div>
+                            </div> */}
+                        </div>
+                    </div>
                 </div>
-            </section >
-        </div >
+            </section>
+
+            {/* Global Rim Glow */}
+            <div className="fixed inset-0 pointer-events-none border-[1px] border-white/5 rounded-[3rem] m-4" />
+        </div>
     )
 }
 
