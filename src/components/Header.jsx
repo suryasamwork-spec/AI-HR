@@ -33,7 +33,7 @@ const Header = () => {
         { name: 'Projects', href: '/projects', hasDropdown: true },
         // { name: 'Feature Ideas', href: '/', sectionId: 'features' },
         { name: 'About Us', href: '/about' },
-        { name: 'Contact', href: '/', sectionId: 'contact' },
+        { name: 'Contact', href: '/contact' },
     ]
 
     const projectsList = [
@@ -54,7 +54,7 @@ const Header = () => {
         setIsMobileMenuOpen(false)
         setIsProjectsDropdownOpen(false)
 
-        if (link.href === '/about') {
+        if (link.href !== '/' && !link.hasDropdown) {
             navigate(link.href)
             return
         }
@@ -99,7 +99,7 @@ const Header = () => {
                 : 'bg-transparent'
                 }`}
         >
-            <nav className="max-w-7xl mx-auto px-6 py-4">
+            <nav className="max-w-[1440px] xl:max-w-[1600px] 2xl:max-w-[1800px] mx-auto px-6 py-4">
                 <div className="flex items-center justify-between">
                     {/* Logo */}
                     <Link

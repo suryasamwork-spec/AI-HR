@@ -18,7 +18,7 @@ const Footer = () => {
                 { name: 'About Us', href: '/about' },
                 { name: 'Projects', href: '/projects' },
                 // { name: 'Careers', href: '#' },
-                { name: 'Contact', href: '/#contact' },
+                { name: 'Contact', href: '/contact' },
             ]
         },
         {
@@ -36,7 +36,7 @@ const Footer = () => {
                 { name: 'Documentation' },
                 { name: 'Privacy Policy' },
                 { name: 'Terms of Service' },
-                { name: 'Support' },  
+                { name: 'Support' },
             ]
         }
     ]

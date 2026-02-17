@@ -23,10 +23,10 @@ const MechanicalCore = () => {
 
     // Abstract Data Layers (PROMPT: Translucent glass layers floating and intersecting)
     const layers = [
-        { id: 1, x: -180, y: -120, z: 100, icon: Cpu, color: 'text-cyan-400', label: 'NEURAL_CORE' },
-        { id: 2, x: 200, y: -80, z: 50, icon: BarChart3, color: 'text-blue-400', label: 'ANALYTICS_V3' },
-        { id: 3, x: -220, y: 150, z: 150, icon: Shield, color: 'text-indigo-400', label: 'SECURE_TRANS' },
-        { id: 4, x: 180, y: 180, z: 80, icon: Layers, color: 'text-cyan-300', label: 'MATRIX_INFRA' },
+        { id: 1, x: -320, y: -160, z: 120, icon: Cpu, color: 'text-cyan-400', label: 'NEURAL_CORE' },
+        { id: 2, x: 380, y: -100, z: 60, icon: BarChart3, color: 'text-blue-400', label: 'ANALYTICS_V3' },
+        { id: 3, x: -380, y: 180, z: 180, icon: Shield, color: 'text-indigo-400', label: 'SECURE_TRANS' },
+        { id: 4, x: 340, y: 240, z: 100, icon: Layers, color: 'text-cyan-300', label: 'MATRIX_INFRA' },
     ]
 
     return (
@@ -37,8 +37,8 @@ const MechanicalCore = () => {
         >
             {/* 1. Deep Space Ambient Glow (PROMPT: High-tech minimalism / Apple style) */}
             <div className="absolute inset-0">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[1200px] bg-cyan-600/5 blur-[180px] rounded-full" />
-                <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-blue-900/10 blur-[150px] rounded-full" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1600px] h-[1600px] bg-cyan-600/5 blur-[250px] rounded-full" />
+                <div className="absolute top-1/4 left-1/4 w-[800px] h-[800px] bg-blue-900/10 blur-[200px] rounded-full" />
             </div>
 
             {/* 2. Glowing Data Intersections (PROMPT: Glowing blue and cyan data lines) */}
@@ -93,14 +93,14 @@ const MechanicalCore = () => {
                                 delay: layer.id * 0.2,
                                 y: { duration: 6, repeat: Infinity, ease: 'easeInOut' }
                             }}
-                            className="absolute w-64 h-80 backdrop-blur-3xl rounded-[3rem] border border-white/10 group shadow-[0_50px_100px_rgba(0,0,0,0.4)]"
+                            className="absolute w-48 h-64 sm:w-64 sm:h-80 backdrop-blur-3xl rounded-[2rem] sm:rounded-[3rem] border border-white/10 group shadow-[0_50px_100px_rgba(0,0,0,0.4)] hidden sm:block"
                             style={{
                                 background: 'linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02))',
                                 transformStyle: 'preserve-3d'
                             }}
                         >
                             {/* Inner Glass Content */}
-                            <div className="w-full h-full p-8 flex flex-col justify-between relative overflow-hidden">
+                            <div className="w-full h-full p-8 rounded-[3rem] flex flex-col justify-between relative overflow-hidden">
                                 <div className="space-y-4">
                                     <div className={`w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform duration-500`}>
                                         <layer.icon className={`w-7 h-7 ${layer.color}`} strokeWidth={1.5} />
@@ -155,19 +155,19 @@ const MechanicalCore = () => {
                         <div className="w-12 h-[1px] bg-cyan-400" />
                     </div>
 
-                    <h1 className="text-7xl md:text-9xl font-black tracking-tighter text-white leading-[0.85] mb-8">
-                        H23<br />
-                        <span className="text-transparent" style={{ WebkitTextStroke: '1.5px rgba(255, 255, 255, 1)' }}>SOLUTIONS</span>
+                    <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-[10rem] font-black tracking-tighter text-white leading-[0.8] mb-12">
+                        CALDIM<br />
+                        <span className="text-transparent" style={{ WebkitTextStroke: '1.5px rgba(255, 255, 255, 1)' }}>APPLICATIONS</span>
                     </h1>
 
-                    <p className="max-w-md mx-auto text-blue-100/30 text-xs font-bold uppercase tracking-[0.4em] mb-12 border-t border-white/10 pt-8">
+                    <p className="max-w-xs sm:max-w-md mx-auto text-blue-100/30 text-[10px] sm:text-xs font-bold uppercase tracking-[0.4em] mb-16 border-t border-white/10 pt-10 px-4">
                         Sophisticated Engineering for the Next Matrix
                     </p>
 
                     <motion.button
                         whileHover={{ scale: 1.05, y: -5, boxShadow: '0 30px 60px rgba(0,0,0,0.5)' }}
                         whileTap={{ scale: 0.95 }}
-                        className="px-12 py-5 bg-white text-black font-black uppercase text-[10px] tracking-[0.5em] rounded-full shadow-2xl transition-all inline-flex items-center gap-4"
+                        className="px-8 sm:px-12 py-4 sm:py-5 bg-white text-black font-black uppercase text-[8px] sm:text-[10px] tracking-[0.5em] rounded-full shadow-2xl transition-all inline-flex items-center gap-4"
                     >
                         Initialize System <ChevronRight size={14} />
                     </motion.button>

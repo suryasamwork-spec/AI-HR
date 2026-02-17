@@ -35,7 +35,7 @@
     }
 
     .section-container {
-        @apply max-w-7xl mx-auto px-6 py-20;
+        @apply w-full max-w-[1400px] xl:max-w-[1600px] 2xl:max-w-[1720px] mx-auto px-8 py-24;
     }
 
     .glass-card {
