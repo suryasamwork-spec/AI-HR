@@ -129,7 +129,7 @@ const Footer = () => {
                         © {new Date().getFullYear()} H23. All rights reserved.
                     </p>
                     <p className="text-gray-500 text-xs tracking-wider uppercase font-medium flex items-center gap-2">
-                        Crafted with <span className="text-blue-600 animate-pulse text-lg">✦</span> by H23
+                        Crafted with <span className="text-blue-600 animate-pulse text-lg">✦</span> by Dinesh
                     </p>
                 </div>
             </div>

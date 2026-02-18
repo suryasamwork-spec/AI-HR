@@ -1,13 +1,18 @@
 import React, { useState, useRef } from 'react'
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
-import { Mail, Phone, Map, Send, ChevronRight, MessageSquare, Terminal, User, AtSign, Cpu } from 'lucide-react'
+import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion'
+import { Mail, Phone, Send, Terminal, User, AtSign, Cpu, MessageSquare, CheckCircle, AlertCircle, Loader } from 'lucide-react'
+import { API_URL } from '../emailConfig'
 
 const Contact = () => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
-        message: '',
+        contactNumber: '',
+        projectInfo: '',
     })
+
+    const [submitStatus, setSubmitStatus] = useState('idle') // 'idle' | 'loading' | 'success' | 'error'
+    const [errorMessage, setErrorMessage] = useState('')
 
     const cardRef = useRef(null)
     const mouseX = useMotionValue(0)
@@ -30,11 +35,36 @@ const Contact = () => {
         mouseY.set(0)
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log('Form submitted:', formData)
-        alert('Transmission Received. CALDIM Engineering team will respond shortly.')
-        setFormData({ name: '', email: '', message: '' })
+        setSubmitStatus('loading')
+        setErrorMessage('')
+
+        try {
+            const res = await fetch(`${API_URL}/api/contact`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: formData.name,
+                    email: formData.email,
+                    contactNumber: formData.contactNumber,
+                    projectInfo: formData.projectInfo,
+                }),
+            })
+            const data = await res.json()
+            if (res.ok && data.success) {
+                setSubmitStatus('success')
+                setFormData({ name: '', email: '', contactNumber: '', projectInfo: '' })
+                setTimeout(() => setSubmitStatus('idle'), 5000)
+            } else {
+                throw new Error(data.message || 'Server error')
+            }
+        } catch (error) {
+            console.error('Contact form error:', error)
+            setSubmitStatus('error')
+            setErrorMessage(error.message || 'Failed to send. Please email us directly at support@caldimengg.in')
+            setTimeout(() => setSubmitStatus('idle'), 6000)
+        }
     }
 
     const handleChange = (e) => {
@@ -55,7 +85,7 @@ const Contact = () => {
             icon: Phone,
             title: 'PROTOCOL.VOIP',
             value: '+91 9876543210',
-            link: 'tel:+91 9876543210',
+            link: 'tel:+919876543210',
         },
         {
             icon: Terminal,
@@ -64,6 +94,8 @@ const Contact = () => {
             link: 'https://www.google.com/maps/search/?api=1&query=12.754579,77.834673',
         },
     ]
+
+    const inputClass = "w-full px-8 py-5 rounded-2xl bg-gray-50 border border-blue-600/10 text-black focus:border-blue-600 focus:bg-white focus:outline-none transition-all placeholder:text-gray-400 text-sm font-medium transform-gpu"
 
     return (
         <section id="contact" className="py-32 bg-transparent relative overflow-hidden">
@@ -103,23 +135,16 @@ const Contact = () => {
                             WebkitBackfaceVisibility: 'hidden'
                         }}
                         transition={{ duration: 0.8 }}
-                        className="bg-white p-8 md:p-12 rounded-[3.5rem] border border-blue-600/20 relative group shadow-2xl isolation-auto"
+                        className="bg-white p-8 md:p-12 rounded-[3.5rem] border border-blue-600/20 relative group shadow-2xl isolation-auto overflow-hidden"
                     >
-                        {/* ... (rest of form content) ... */}
-                        <motion.div
-                            className="absolute -inset-px rounded-[3.5rem] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                            style={{
-                                background: `radial-gradient(400px circle at ${mouseX.get() + (cardRef.current?.offsetWidth / 2 || 0)}px ${mouseY.get() + (cardRef.current?.offsetHeight / 2 || 0)}px, rgba(34, 211, 238, 0.15), transparent 80%)`,
-                            }}
-                        />
-
                         <form onSubmit={handleSubmit} className="space-y-8 relative z-10 p-4 md:p-0">
+                            {/* Name & Contact Number Row */}
                             <div className="grid md:grid-cols-2 gap-8">
-                                {/* Name Input Wrapper */}
+                                {/* Name Input */}
                                 <div className="space-y-3">
                                     <div className="flex items-center gap-2 ml-4">
                                         <User size={12} className="text-blue-600" />
-                                        <label className="text-[9px] font-black uppercase tracking-[0.3em] text-gray-500">Identifier</label>
+                                        <label className="text-[9px] font-black uppercase tracking-[0.3em] text-gray-500">Your Name</label>
                                     </div>
                                     <div className="relative group/input">
                                         <input
@@ -128,67 +153,147 @@ const Contact = () => {
                                             value={formData.name}
                                             onChange={handleChange}
                                             required
-                                            className="w-full px-8 py-5 rounded-2xl bg-gray-50 border border-blue-600/10 text-black focus:border-blue-600 focus:bg-white focus:outline-none transition-all placeholder:text-gray-400 text-sm font-medium transform-gpu"
+                                            disabled={submitStatus === 'loading'}
+                                            className={inputClass}
                                             placeholder="Ex: John Cooper"
                                         />
                                         <div className="absolute inset-0 rounded-2xl border border-blue-600/0 group-hover/input:border-blue-600/20 pointer-events-none transition-colors" />
                                     </div>
                                 </div>
 
-                                {/* Email Input Wrapper */}
+                                {/* Contact Number Input */}
                                 <div className="space-y-3">
                                     <div className="flex items-center gap-2 ml-4">
-                                        <AtSign size={12} className="text-blue-600" />
-                                        <label className="text-[9px] font-black uppercase tracking-[0.3em] text-white/60">Network Address</label>
+                                        <Phone size={12} className="text-blue-600" />
+                                        <label className="text-[9px] font-black uppercase tracking-[0.3em] text-gray-500">Contact Number</label>
                                     </div>
                                     <div className="relative group/input">
                                         <input
-                                            type="email"
-                                            name="email"
-                                            value={formData.email}
+                                            type="tel"
+                                            name="contactNumber"
+                                            value={formData.contactNumber}
                                             onChange={handleChange}
                                             required
-                                            className="w-full px-8 py-5 rounded-2xl bg-gray-50 border border-blue-600/10 text-black focus:border-blue-600 focus:bg-white focus:outline-none transition-all placeholder:text-gray-400 text-sm font-medium transform-gpu"
-                                            placeholder="name@matrix.com"
+                                            disabled={submitStatus === 'loading'}
+                                            className={inputClass}
+                                            placeholder="+91 98765 43210"
                                         />
                                         <div className="absolute inset-0 rounded-2xl border border-blue-600/0 group-hover/input:border-blue-600/20 pointer-events-none transition-colors" />
                                     </div>
                                 </div>
                             </div>
 
-                            {/* Message Area Wrapper */}
+                            {/* Email Input */}
+                            <div className="space-y-3">
+                                <div className="flex items-center gap-2 ml-4">
+                                    <AtSign size={12} className="text-blue-600" />
+                                    <label className="text-[9px] font-black uppercase tracking-[0.3em] text-gray-500">Email Address</label>
+                                </div>
+                                <div className="relative group/input">
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        value={formData.email}
+                                        onChange={handleChange}
+                                        required
+                                        disabled={submitStatus === 'loading'}
+                                        className={inputClass}
+                                        placeholder="name@company.com"
+                                    />
+                                    <div className="absolute inset-0 rounded-2xl border border-blue-600/0 group-hover/input:border-blue-600/20 pointer-events-none transition-colors" />
+                                </div>
+                            </div>
+
+                            {/* Project Information */}
                             <div className="space-y-3">
                                 <div className="flex items-center gap-2 ml-4">
                                     <Cpu size={13} className="text-blue-600" />
-                                    <label className="text-[10px] font-black uppercase tracking-[0.3em] text-white/60">Data Packet Payload</label>
+                                    <label className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500">Project Information</label>
                                 </div>
                                 <div className="relative group/input">
                                     <textarea
-                                        name="message"
-                                        value={formData.message}
+                                        name="projectInfo"
+                                        value={formData.projectInfo}
                                         onChange={handleChange}
                                         required
                                         rows={5}
+                                        disabled={submitStatus === 'loading'}
                                         className="w-full px-8 py-6 rounded-[2.5rem] bg-gray-50 border border-blue-600/10 text-black focus:border-blue-600 focus:bg-white focus:outline-none transition-all placeholder:text-gray-400 text-sm font-medium resize-none transform-gpu"
-                                        placeholder="Brief your project requirements or technical specifications here..."
+                                        placeholder="Describe your project requirements, technical specifications, and timeline..."
                                     />
                                     <div className="absolute inset-0 rounded-[2.5rem] border border-blue-600/0 group-hover/input:border-blue-600/20 pointer-events-none transition-colors" />
                                 </div>
                             </div>
 
-                            {/* Submit Button Refinement */}
+                            {/* Error Message */}
+                            <AnimatePresence mode="wait">
+                                {submitStatus === 'error' && (
+                                    <motion.div
+                                        key="error"
+                                        initial={{ opacity: 0, y: -10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0 }}
+                                        className="flex items-start gap-3 p-4 rounded-2xl bg-red-50 border border-red-200 text-red-700"
+                                    >
+                                        <AlertCircle size={16} className="shrink-0 mt-0.5" />
+                                        <p className="text-xs font-medium">{errorMessage}</p>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+
+                            {/* Submit Button */}
                             <motion.button
                                 type="submit"
-                                whileHover={{ scale: 1.02, y: -5, boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}
-                                whileTap={{ scale: 0.98 }}
-                                className="w-full py-7 bg-blue-600 text-white font-black uppercase text-[10px] tracking-[0.5em] rounded-[2rem] flex items-center justify-center gap-4 transition-all relative overflow-hidden group/btn"
+                                disabled={submitStatus === 'loading' || submitStatus === 'success'}
+                                whileHover={submitStatus === 'idle' ? { scale: 1.02, y: -5, boxShadow: '0 20px 40px rgba(0,0,0,0.1)' } : {}}
+                                whileTap={submitStatus === 'idle' ? { scale: 0.98 } : {}}
+                                className={`w-full py-7 font-black uppercase text-[10px] tracking-[0.5em] rounded-[2rem] flex items-center justify-center gap-4 transition-all relative overflow-hidden group/btn ${submitStatus === 'success'
+                                    ? 'bg-green-500 text-white cursor-default'
+                                    : submitStatus === 'loading'
+                                        ? 'bg-blue-400 text-white cursor-not-allowed'
+                                        : 'bg-blue-600 text-white'
+                                    }`}
                             >
-                                <motion.div
-                                    className="absolute inset-0 bg-blue-700 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500"
-                                />
-                                <span className="relative z-10">TRANSMIT PACKET</span>
-                                <Send size={14} className="relative z-10" />
+                                {submitStatus === 'idle' && (
+                                    <>
+                                        <motion.div className="absolute inset-0 bg-blue-700 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500" />
+                                        <span className="relative z-10">TRANSMIT PACKET</span>
+                                        <Send size={14} className="relative z-10" />
+                                    </>
+                                )}
+                                {submitStatus === 'loading' && (
+                                    <>
+                                        <Loader size={16} className="animate-spin" />
+                                        <span>TRANSMITTING...</span>
+                                    </>
+                                )}
+                                {submitStatus === 'success' && (
+                                    <>
+                                        <CheckCircle size={16} />
+                                        <span>MESSAGE SENT!</span>
+                                    </>
+                                )}
+                                {submitStatus === 'error' && (
+                                    <>
+                                        <span>RETRY TRANSMISSION</span>
+                                        <Send size={14} />
+                                    </>
+                                )}
                             </motion.button>
+
+                            {/* Success note */}
+                            <AnimatePresence>
+                                {submitStatus === 'success' && (
+                                    <motion.p
+                                        initial={{ opacity: 0, y: 5 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0 }}
+                                        className="text-center text-sm text-green-600 font-medium"
+                                    >
+                                        ✓ Sent to support@caldimengg.in — we'll respond shortly!
+                                    </motion.p>
+                                )}
+                            </AnimatePresence>
                         </form>
 
                         {/* Background Floating Icon */}
@@ -197,7 +302,7 @@ const Contact = () => {
                         </div>
                     </motion.div>
 
-                    {/* Technical Contact Info Refinement */}
+                    {/* Technical Contact Info */}
                     <div className="flex flex-col space-y-12">
                         <div className="space-y-8">
                             <div className="flex items-center gap-4">
@@ -229,14 +334,13 @@ const Contact = () => {
                                         transition={{ delay: index * 0.1, duration: 0.8 }}
                                         className="group flex items-center gap-8 p-10 rounded-[3rem] bg-gray-50 border border-blue-600/10 hover:border-blue-600 hover:bg-white transition-all relative overflow-hidden"
                                     >
-                                        <div className="w-16 h-16 bg-white rounded-2.5xl flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-all relative z-10 shadow-sm border border-blue-600/10">
+                                        <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-all relative z-10 shadow-sm border border-blue-600/10">
                                             <Icon size={24} strokeWidth={1} />
                                         </div>
                                         <div className="relative z-10">
                                             <div className="text-[9px] font-black text-gray-400 uppercase tracking-[0.3em] mb-1">{info.title}</div>
                                             <div className="text-xl font-black text-black group-hover:text-blue-600 transition-colors uppercase tracking-tight">{info.value}</div>
                                         </div>
-                                        {/* Subtle background glow on hover */}
                                         <div className="absolute top-1/2 left-0 -translate-y-1/2 w-40 h-40 bg-blue-600/5 blur-[50px] opacity-0 group-hover:opacity-100 transition-opacity" />
                                     </motion.a>
                                 )
