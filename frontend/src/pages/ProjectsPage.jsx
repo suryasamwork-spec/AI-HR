@@ -14,25 +14,38 @@ const ProjectsPage = () => {
     const projects = [
         {
             id: 1,
-            title: 'Data Insights Pro',
-            tagline: 'High-Fidelity Analytics',
-            description: 'Advanced dashboard with glassmorphism and real-time insights.',
-            fullDescription: 'Experience the pinnacle of data visualization with our Insights Pro dashboard. Built with a focus on UX design, it features vibrant blue and cyan charts, interactive tooltips, and a sleek glassmorphism interface that makes complex data digestible.',
-            tech: ['React', 'D3.js', 'Framer Motion', 'Tailwind'],
+            title: 'Employee Timesheet',
+            tagline: 'Workforce Monitoring & Transparency',
+            // description: 'Centralized digital platform for streamlined time tracking and operational control.',
+            fullDescription: 'The Employee Timesheet system is a comprehensive software solution designed to streamline time tracking and workforce monitoring through a centralized digital platform. It brings intelligent automation to organizational workflows.',
+            features: [
+                { title: 'Transparency', desc: 'Complete visibility into hours worked, projects assigned, and productivity metrics' },
+                { title: 'Traceability', desc: 'Full audit trail of time entries, approvals, and modifications for compliance' },
+                { title: 'Faster Settlement', desc: 'Automated payroll processing with reduced cycle times and error elimination' },
+                { title: 'Productivity', desc: 'Data-driven insights to optimize workforce allocation and performance' }
+            ],
+            tech: ['React', 'Node.js', 'SQL', 'Automation'],
             gradient: 'from-[#00d2ff] via-[#3a7bd5] to-[#00d2ff]',
             images: [loginPageImg, backgroundImage, designImage, loginPageImg, backgroundImage],
             icon: BarChart3,
             year: '2024',
-            client: 'Insight Global',
-            theme: 'cyan'
+            client: 'Enterprise Systems',
+            theme: 'blue'
         },
         {
             id: 2,
-            title: 'Cloud Neural Matrix',
-            tagline: 'Abstract 3D Motion',
-            description: 'Isometric glass layers and flowing data lines.',
-            fullDescription: 'A futuristic data-processing architecture rendered in 3D. Translucent glass layers float and intersect as glowing data lines flow through the system. This project showcases our capability in building sophisticated, high-tech minimalism.',
-            tech: ['Three.js', 'Go', 'Redis', 'TensorFlow'],
+            title: 'Project Management',
+            tagline: 'Planning, Execution & Monitoring',
+            // description: 'Isometric glass layers and flowing data lines.',
+            fullDescription: 'The Project Management system is a comprehensive software solution designed to streamline planning, execution, and monitoring of organizational projects through a centralized digital platform. It enables efficient task management and intelligent resource utilization.',
+            features: [
+                { title: 'Task Management', desc: 'Create, assign, and track tasks for structured project execution.' },
+                { title: 'Resource Allocation', desc: 'Assign and manage resources efficiently across projects.' },
+                { title: 'Timeline Tracking', desc: 'Track milestones, progress, and project deadlines in real time.' },
+                { title: 'Document Management', desc: 'Securely organize and control access to project documents.' },
+                { title: 'Collaboration', desc: 'Facilitate effective communication and teamwork across teams.' }
+            ],
+            tech: ['React', 'PostgreSQL', 'Socket.io', 'Framer Motion'],
             gradient: 'from-[#6366f1] via-[#a855f7] to-[#d946ef]',
             images: [designImage, loginPageImg, backgroundImage, designImage, loginPageImg],
             icon: TrendingUp,
@@ -42,31 +55,63 @@ const ProjectsPage = () => {
         },
         {
             id: 3,
-            title: 'SecureFlow Suite',
-            tagline: 'Geometric Micro-Interaction',
-            description: 'Minimalist geometric logo animation and snappy easing.',
-            fullDescription: 'Focusing on the fine details of security. This suite uses minimalist geometric logo animations and snappy easing to represent technical precision. Hexagons morph into checkmarks with fluid liquid motion, reflecting our secure infrastructure management.',
-            tech: ['Rust', 'WebAssembly', 'Lottie', 'AES-256'],
+            title: 'Inventory Management',
+            tagline: 'Stock Optimization & ERP Integration',
+            // description: 'Minimalist geometric logo animation and snappy easing.',
+            fullDescription: 'A robust Inventory Management System designed to provide real-time control over stock levels, streamline replenishment workflows, and ensure seamless synchronization across organizational warehouses and ERP platforms.',
+            features: [
+                { title: 'Stock Monitoring', desc: 'Real-time tracking of inventory levels across multiple locations.' },
+                { title: 'Automated Replenishment', desc: 'Intelligent alerts and triggers for stock reordering to prevent stockouts.' },
+                { title: 'Stock Transfers', desc: 'Simplified management of movement between warehouses or departments.' },
+                { title: 'ERP Integration', desc: 'Seamless data exchange with enterprise planning systems for unified operations.' },
+                { title: 'Warehouse Management', desc: 'Optimize storage and organization for faster picking and shipping.' }
+            ],
+            tech: ['React', 'Python', 'PostgreSQL', 'SAP Integration'],
             gradient: 'from-[#22c55e] via-[#10b981] to-[#3b82f6]',
             images: [backgroundImage, designImage, loginPageImg, backgroundImage, designImage],
             icon: Shield,
             year: '2023',
-            client: 'SecureFlow Inc',
+            client: 'Logistics Pro',
             theme: 'green'
         },
         {
             id: 4,
-            title: 'Venture Predictor',
-            tagline: '2D Vector Explainer',
-            description: 'Approachable design for complex financial forecasting.',
-            fullDescription: 'Bridging the gap between high-level engineering and user-friendly design. Featuring stylized character animations and bouncy, approachable motion graphics, this platform makes financial forecasting accessible and trustworthy.',
-            tech: ['Node.js', 'PostgreSQL', 'Socket.io', 'GSAP'],
+            title: 'AI Powered Recruitment System',
+            tagline: 'Intelligent Talent Acquisition',
+            // description: 'Approachable design for complex financial forecasting.',
+            fullDescription: 'The AI-Powered Recruitment System is an intelligent talent acquisition platform designed to streamline hiring through automation, advanced analytics, and data-driven decision-making. It enhances recruitment efficiency by leveraging AI to screen and prioritize high-potential applicants.',
+            features: [
+                { title: 'Automated Candidate Screening', desc: 'Automatically filters and ranks applicants based on job requirements and qualifications.' },
+                { title: 'AI Driven Skill Assessment', desc: 'Evaluates candidate competencies using intelligent, data-based analysis.' },
+                { title: 'Natural Language Evaluation', desc: 'Analyzes resumes and responses using advanced language understanding.' },
+                { title: 'Bias Free Short Listing', desc: 'Ensures fair candidate selection through objective, AI-based evaluation.' }
+            ],
+            tech: ['Python', 'TensorFlow', 'NLP', 'React'],
             gradient: 'from-[#f59e0b] via-[#ef4444] to-[#ec4899]',
             images: [caldimLogo, backgroundImage, designImage, caldimLogo, backgroundImage],
             icon: PieChart,
             year: '2024',
-            client: 'FinTech Solutions',
+            client: 'TalentTech AI',
             theme: 'orange'
+        },
+        {
+            id: 5,
+            title: 'AI Procurement Workflow',
+            tagline: 'End-to-End Procurement Automation',
+            fullDescription: 'CALBUY is an AI-powered procurement automation platform designed to streamline the process from CAD drawing upload to vendor selection and RFQ evaluation. The system leverages AI to generate BOMs, assist in vendor selection, and provide intelligent scoring.',
+            features: [
+                { title: 'Automation', desc: 'End-to-end automation from CAD uploads to Purchase Order' },
+                { title: 'Efficiency', desc: 'Reduces manual effort, cycle time, and procurement errors' },
+                { title: 'Intelligence', desc: 'Combines AI intelligence with human approvals' },
+                { title: 'Scalability', desc: 'Designed for growth, compliance, and full auditability' }
+            ],
+            tech: ['AI/ML', 'CAD Analysis', 'Cloud Infrastructure', 'React'],
+            gradient: 'from-[#3b82f6] via-[#2563eb] to-[#1d4ed8]',
+            images: [backgroundImage, loginPageImg, designImage, backgroundImage, caldimLogo],
+            icon: Sparkles,
+            year: '2024',
+            client: 'CALBUY Platform',
+            theme: 'blue'
         }
     ]
 
@@ -130,7 +175,7 @@ const ProjectsPage = () => {
 
     return (
         <div
-            className="pt-32 min-h-screen bg-[#010826] text-white overflow-hidden relative cursor-default"
+            className="pt-32 min-h-screen bg-white text-black overflow-hidden relative cursor-default"
             onMouseMove={handleMouseMove}
         >
             {/* Background Data Stream Particles */}
@@ -138,7 +183,7 @@ const ProjectsPage = () => {
                 {[...Array(12)].map((_, i) => (
                     <motion.div
                         key={i}
-                        className="absolute h-[1px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent"
+                        className="absolute h-[1px] bg-gradient-to-r from-transparent via-blue-600 to-transparent"
                         initial={{
                             width: Math.random() * 300 + 100,
                             x: -500,
@@ -158,11 +203,11 @@ const ProjectsPage = () => {
             <section className="max-w-[1700px] mx-auto px-6 lg:px-12 py-8 relative z-10">
                 {/* Breadcrumbs / Context Header */}
                 {/* <div className="flex items-center gap-2 mb-8 text-[10px] font-black uppercase tracking-[0.3em] text-white/40">
-                    <span className="hover:text-cyan-400 cursor-pointer transition-colors">Digital Archive</span>
+                    <span className="hover:text-blue-600 cursor-pointer transition-colors">Digital Archive</span>
                     <ChevronRight size={10} />
-                    <span className="hover:text-cyan-400 cursor-pointer transition-colors">Systems & Infra</span>
+                    <span className="hover:text-blue-600 cursor-pointer transition-colors">Systems & Infra</span>
                     <ChevronRight size={10} />
-                    <span className="text-cyan-400">{currentProject.title}</span>
+                    <span className="text-blue-600">{currentProject.title}</span>
                 </div> */}
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
@@ -187,19 +232,19 @@ const ProjectsPage = () => {
                                                 setTimeout(() => setIsAnimating(false), 500)
                                             }
                                         }}
-                                        className={`px-6 py-3 rounded-xl border transition-all duration-300 flex items-center gap-3 relative flex-shrink-0 ${activeIndex === idx ? 'bg-cyan-400/10 border-cyan-400/30' : 'bg-transparent border-transparent hover:bg-white/5'}`}
+                                        className={`px-6 py-3 rounded-xl border transition-all duration-300 flex items-center gap-3 relative flex-shrink-0 ${activeIndex === idx ? 'bg-blue-600/10 border-blue-600/30' : 'bg-transparent border-transparent hover:bg-white/5'}`}
                                     >
-                                        <div className={`w-6 h-6 rounded-lg flex items-center justify-center border transition-colors ${activeIndex === idx ? 'bg-cyan-400 border-cyan-400 font-bold' : 'bg-white/5 border-white/10 group-hover:border-white/20'}`}>
-                                            <project.icon size={12} className={activeIndex === idx ? 'text-black' : 'text-cyan-400'} />
+                                        <div className={`w-6 h-6 rounded-lg flex items-center justify-center border transition-colors ${activeIndex === idx ? 'bg-blue-600 border-blue-600 font-bold' : 'bg-white/5 border-white/10 group-hover:border-white/20'}`}>
+                                            <project.icon size={12} className={activeIndex === idx ? 'text-black' : 'text-blue-600'} />
                                         </div>
-                                        <span className={`text-[10px] font-black uppercase tracking-widest ${activeIndex === idx ? 'text-cyan-400' : 'text-white/40 group-hover:text-white'}`}>
+                                        <span className={`text-[10px] font-black uppercase tracking-widest ${activeIndex === idx ? 'text-blue-600' : 'text-white/40 group-hover:text-white'}`}>
                                             {project.title}
                                         </span>
 
                                         {activeIndex === idx && (
                                             <motion.div
                                                 layoutId="activeTabGlow"
-                                                className="absolute inset-0 rounded-xl border border-cyan-400/50 pointer-events-none"
+                                                className="absolute inset-0 rounded-xl border border-blue-600/50 pointer-events-none"
                                                 initial={{ opacity: 0 }}
                                                 animate={{ opacity: 1 }}
                                             />
@@ -207,10 +252,10 @@ const ProjectsPage = () => {
                                     </button>
                                 ))}
                             </div>
-                        </div> */}
+                        </div>
 
                         {/* Image Gallery (Main View) */}
-                        <div className="aspect-video relative rounded-[2.5rem] bg-black/40 border border-white/10 overflow-hidden shadow-2xl group flex items-center justify-center p-8">
+                        <div className="aspect-video relative rounded-[2.5rem] bg-gray-50 border border-blue-600/10 overflow-hidden shadow-2xl group flex items-center justify-center p-8">
                             {/* Ambient Glow behind image */}
                             <div className={`absolute inset-0 bg-gradient-to-br ${currentProject.gradient} opacity-5 blur-3xl`} />
 
@@ -229,7 +274,7 @@ const ProjectsPage = () => {
 
                             {/* Zoom/Expand Icon Overlay */}
                             {/* <div className="absolute top-6 right-6 p-4 rounded-full bg-white/5 border border-white/10 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer hover:bg-white/10 z-20">
-                                <Sparkles size={24} className="text-cyan-400" />
+                                <Sparkles size={24} className="text-blue-600" />
                             </div> */}
                         </div>
 
@@ -239,11 +284,23 @@ const ProjectsPage = () => {
                                 <button
                                     key={idx}
                                     onClick={() => setInternalImgIndex(idx)}
-                                    className={`relative flex-shrink-0 w-28 aspect-square rounded-2xl overflow-hidden border-2 transition-all duration-300 ${internalImgIndex === idx ? 'border-cyan-400 scale-105 shadow-[0_0_20px_rgba(34,211,238,0.3)]' : 'border-white/5 opacity-50 hover:opacity-100'}`}
+                                    className={`relative flex-shrink-0 w-28 aspect-square rounded-2xl overflow-hidden border-2 transition-all duration-300 ${internalImgIndex === idx ? 'border-blue-600 scale-105 shadow-[0_0_20px_rgba(37,99,235,0.3)]' : 'border-gray-200 opacity-50 hover:opacity-100'}`}
                                 >
                                     <img src={img} className="w-full h-full object-cover" alt="view" />
                                 </button>
                             ))}
+                        </div>
+                        <div className="space-y-6">
+                            <h3 className="text-[11px] font-black uppercase tracking-[0.3em] text-gray-400 flex items-center gap-3">
+                                Technology Matrix <div className="h-[1px] flex-1 bg-blue-600/10" />
+                            </h3>
+                            <div className="flex flex-wrap gap-2">
+                                {currentProject.tech.map((tech) => (
+                                    <span key={tech} className="px-5 py-2 rounded-xl bg-gray-50 border border-blue-600/10 text-[10px] font-bold uppercase tracking-widest text-gray-600 hover:border-blue-600/40 transition-colors">
+                                        {tech}
+                                    </span>
+                                ))}
+                            </div>
                         </div>
                     </div>
 
@@ -259,55 +316,56 @@ const ProjectsPage = () => {
                                 className="space-y-8"
                             >
                                 <div>
-                                    <div className="flex items-center gap-3 mb-4">
-                                        <span className="text-cyan-400 font-black text-sm tracking-widest uppercase">{currentProject.client}</span>
-                                        <div className="h-4 w-[1px] bg-white/10" />
+                                    {/* <div className="flex items-center gap-3 mb-4">
+                                        <span className="text-blue-600 font-black text-sm tracking-widest uppercase">{currentProject.client}</span>
+                                        <div className="h-4 w-[1px] bg-gray-200" />
                                         <div className="flex gap-1">
                                             {[1, 2, 3, 4, 5].map(star => (
-                                                <div key={star} className="w-2.5 h-2.5 rounded-full bg-cyan-400" />
+                                                <div key={star} className="w-2.5 h-2.5 rounded-full bg-blue-600" />
                                             ))}
                                         </div>
-                                        <span className="text-[10px] text-white/40 font-bold uppercase">(212 Technical Audits)</span>
-                                    </div>
+                                        <span className="text-[10px] text-gray-400 font-bold uppercase">(212 Technical Audits)</span>
+                                    </div> */}
 
-                                    <h1 className="text-5xl font-black tracking-tighter uppercase leading-none mb-4">
+                                    <h1 className="text-5xl font-black tracking-tighter uppercase leading-none mb-4 text-black">
                                         {currentProject.title}
                                     </h1>
-                                    <p className="text-cyan-400 text-lg font-black tracking-widest uppercase mb-6">{currentProject.tagline}</p>
+                                    <p className="text-blue-600 text-lg font-black tracking-widest uppercase mb-6">{currentProject.tagline}</p>
 
-                                    <div className="h-[1px] w-full bg-white/5 mb-8" />
+                                    <div className="h-[1px] w-full bg-blue-600/10 mb-8" />
 
-                                    <div className="space-y-6">
+                                    {/* <div className="space-y-6">
                                         <div className="flex items-baseline gap-4">
-                                            <span className="text-[10px] font-black uppercase text-white/30 tracking-widest">System Status</span>
-                                            <span className="text-2xl font-black text-white">OPERATIONAL</span>
-                                            <span className="px-2 py-0.5 rounded bg-cyan-400/10 border border-cyan-400/20 text-[9px] font-black text-cyan-400 uppercase tracking-tighter">Verified</span>
+                                            <span className="text-[10px] font-black uppercase text-gray-400 tracking-widest">System Status</span>
+                                            <span className="text-2xl font-black text-black">OPERATIONAL</span>
+                                            <span className="px-2 py-0.5 rounded bg-blue-600/10 border border-blue-600/20 text-[9px] font-black text-blue-600 uppercase tracking-tighter">Verified</span>
                                         </div>
 
                                         <p className="text-blue-100/60 leading-relaxed text-base italic">
                                             "{currentProject.description}"
                                         </p>
-                                    </div>
+                                    </div> */}
                                 </div>
-
-                                <div className="space-y-6">
-                                    <h3 className="text-[11px] font-black uppercase tracking-[0.3em] text-white/40 flex items-center gap-3">
-                                        Technology Matrix <div className="h-[1px] flex-1 bg-white/5" />
-                                    </h3>
-                                    <div className="flex flex-wrap gap-2">
-                                        {currentProject.tech.map((tech) => (
-                                            <span key={tech} className="px-5 py-2 rounded-xl bg-white/5 border border-white/10 text-[10px] font-bold uppercase tracking-widest text-white/70 hover:border-cyan-400/40 transition-colors">
-                                                {tech}
-                                            </span>
-                                        ))}
+                                <div className="p-8 rounded-[2rem] bg-gray-50 border border-blue-600/10 space-y-4">
+                                    <h3 className="text-[10px] font-black uppercase tracking-widest text-blue-600">Technical Narrative</h3>
+                                    <div className="space-y-4">
+                                        <p className="text-sm text-gray-600 leading-relaxed font-light">
+                                            {currentProject.fullDescription}
+                                        </p>
+                                        {currentProject.features && (
+                                            <div className="pt-4 grid grid-cols-1 gap-4">
+                                                {currentProject.features.map((feature, idx) => (
+                                                    <div key={idx} className="flex gap-4 items-start p-4 rounded-2xl bg-white border border-blue-600/5 hover:border-blue-600/20 transition-all">
+                                                        <div className="w-1.5 h-1.5 rounded-full bg-blue-600 mt-1.5 shrink-0" />
+                                                        <div>
+                                                            <div className="text-[10px] font-black uppercase text-blue-600 mb-1">{feature.title}</div>
+                                                            <div className="text-xs text-gray-500 leading-relaxed">{feature.desc}</div>
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
                                     </div>
-                                </div>
-
-                                <div className="p-8 rounded-[2rem] bg-white/[0.02] border border-white/5 space-y-4">
-                                    <h3 className="text-[10px] font-black uppercase tracking-widest text-cyan-400">Technical Narrative</h3>
-                                    <p className="text-sm text-white/50 leading-relaxed font-light">
-                                        {currentProject.fullDescription}
-                                    </p>
                                 </div>
                             </motion.div>
                         </AnimatePresence>
@@ -335,13 +393,13 @@ const ProjectsPage = () => {
                                                 }
                                             }}
                                             whileHover={{ x: 5 }}
-                                            className={`w-full group relative p-4 rounded-2xl border transition-all duration-300 flex items-center gap-4 ${activeIndex === idx ? 'bg-cyan-400/10 border-cyan-400/30' : 'bg-transparent border-transparent hover:bg-white/5'}`}
+                                            className={`w-full group relative p-4 rounded-2xl border transition-all duration-300 flex items-center gap-4 ${activeIndex === idx ? 'bg-blue-600/10 border-blue-600/30' : 'bg-transparent border-transparent hover:bg-white/5'}`}
                                         >
-                                            <div className={`w-10 h-10 rounded-xl flex items-center justify-center border transition-colors ${activeIndex === idx ? 'bg-cyan-400 border-cyan-400' : 'bg-white/5 border-white/10 group-hover:border-white/20'}`}>
-                                                <project.icon size={18} className={activeIndex === idx ? 'text-black' : 'text-cyan-400'} />
+                                            <div className={`w-10 h-10 rounded-xl flex items-center justify-center border transition-colors ${activeIndex === idx ? 'bg-blue-600 border-blue-600' : 'bg-white/5 border-white/10 group-hover:border-white/20'}`}>
+                                                <project.icon size={18} className={activeIndex === idx ? 'text-black' : 'text-blue-600'} />
                                             </div>
                                             <div className="text-left">
-                                                <div className={`text-[11px] font-black uppercase leading-tight ${activeIndex === idx ? 'text-cyan-400' : 'text-white/60 group-hover:text-white'}`}>
+                                                <div className={`text-[11px] font-black uppercase leading-tight ${activeIndex === idx ? 'text-blue-600' : 'text-white/60 group-hover:text-white'}`}>
                                                     {project.title}
                                                 </div>
                                                 <div className="text-[8px] font-bold uppercase tracking-widest text-white/20 mt-1">{project.year}</div>
@@ -350,7 +408,7 @@ const ProjectsPage = () => {
                                             {activeIndex === idx && (
                                                 <motion.div
                                                     layoutId="activeGlow"
-                                                    className="absolute inset-0 rounded-2xl border border-cyan-400/50 pointer-events-none"
+                                                    className="absolute inset-0 rounded-2xl border border-blue-600/50 pointer-events-none"
                                                     initial={{ opacity: 0 }}
                                                     animate={{ opacity: 1 }}
                                                 />
@@ -365,7 +423,7 @@ const ProjectsPage = () => {
             </section>
 
             {/* Global Rim Glow */}
-            <div className="fixed inset-0 pointer-events-none border-[1px] border-white/5 rounded-[3rem] m-4" />
+            <div className="fixed inset-0 pointer-events-none border-[1px] border-blue-600/5 rounded-[3rem] m-4" />
         </div>
     )
 }

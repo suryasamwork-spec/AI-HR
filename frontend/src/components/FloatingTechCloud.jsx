@@ -49,7 +49,7 @@ const TechIcon = ({ Icon, name, color, position, delay }) => {
                 <motion.div
                     animate={{
                         boxShadow: isHovered
-                            ? '0 0 30px rgba(59, 130, 246, 0.6), 0 0 60px rgba(59, 130, 246, 0.4)'
+                            ? '0 0 30px rgba(37, 99, 235, 0.6), 0 0 60px rgba(37, 99, 235, 0.4)'
                             : '0 10px 30px rgba(0, 0, 0, 0.1)',
                     }}
                     className={`relative p-6 ${color} rounded-2xl backdrop-blur-sm border border-white/20`}
@@ -67,15 +67,15 @@ const TechIcon = ({ Icon, name, color, position, delay }) => {
                     transition={{ duration: 0.2 }}
                     className="absolute left-1/2 transform -translate-x-1/2 whitespace-nowrap pointer-events-none"
                 >
-                    <div className="bg-deep-sea text-white px-4 py-2 rounded-lg shadow-xl">
+                    <div className="bg-gray-900 text-white px-4 py-2 rounded-lg shadow-xl">
                         <div className="font-bold text-sm">{name}</div>
-                        <div className="text-xs text-electric-blue font-semibold mt-1">
+                        <div className="text-xs text-blue-400 font-semibold mt-1">
                             Let's create solution
                         </div>
                     </div>
                     {/* Arrow */}
                     <div className="absolute left-1/2 transform -translate-x-1/2 top-full">
-                        <div className="w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-deep-sea"></div>
+                        <div className="w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
                     </div>
                 </motion.div>
             </motion.div>
@@ -102,7 +102,7 @@ const FloatingTechCloud = () => {
         {
             Icon: Boxes,
             name: 'React',
-            color: 'bg-gradient-to-br from-cyan-500 to-cyan-600',
+            color: 'bg-gradient-to-br from-blue-400 to-blue-600',
             position: 'bottom-20 left-20',
             delay: 0.3,
         },
@@ -128,7 +128,7 @@ const FloatingTechCloud = () => {
                     repeat: Infinity,
                     ease: 'easeInOut',
                 }}
-                className="absolute w-64 h-64 bg-electric-blue/20 rounded-full blur-3xl"
+                className="absolute w-64 h-64 bg-blue-600/20 rounded-full blur-3xl"
             />
 
             {/* Orbiting Circle */}
@@ -139,7 +139,7 @@ const FloatingTechCloud = () => {
                     repeat: Infinity,
                     ease: 'linear',
                 }}
-                className="absolute w-80 h-80 border-2 border-dashed border-electric-blue/30 rounded-full"
+                className="absolute w-80 h-80 border-2 border-dashed border-blue-600/30 rounded-full"
             />
 
             {/* Tech Icons */}
@@ -154,8 +154,8 @@ const FloatingTechCloud = () => {
                 transition={{ delay: 0.5, duration: 0.5 }}
                 className="text-center z-10"
             >
-                <div className="text-4xl font-bold text-gradient mb-2">Tech Stack</div>
-                <div className="text-gray-600">Hover or drag the icons!</div>
+                <div className="text-4xl font-bold text-blue-600 mb-2">Tech Stack</div>
+                <div className="text-gray-400">Hover or drag the icons!</div>
             </motion.div>
         </div>
     )

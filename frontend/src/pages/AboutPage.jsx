@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { Users, Code, Globe, Shield } from 'lucide-react'
-import caldimLogo from '../assets/caldim-logo.png'
+import caldimLogo from '../assets/laptop.png'
 import backgroundImage from '../assets/2650401.jpg'
 import designImage from '../assets/26760925_2112.i301.031.S.m004.c13.UI_and_UX_designers_concepts_isometric_composition-removebg-preview.png'
 
@@ -70,10 +70,10 @@ const AboutPage = () => {
     }
 
     return (
-        <div className="pt-24 min-h-screen bg-[#010826] text-white">
+        <div className="pt-24 min-h-screen bg-white text-black">
             {/* 1. Hero Section (Nexcent Style) */}
             <section className="section-container relative flex flex-col lg:flex-row items-center gap-16 py-32 overflow-hidden">
-                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-cyan-600/10 blur-[150px] rounded-full" />
+                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/10 blur-[150px] rounded-full" />
 
                 <motion.div
                     initial={{ opacity: 0, x: -50 }}
@@ -82,19 +82,23 @@ const AboutPage = () => {
                     className="flex-1 text-left z-10"
                 >
                     <h1 className="text-6xl md:text-8xl font-black mb-8 leading-[1.1]">
-                        Lessons and insights <br />
-                        <span className="text-cyan-400 italic">from 8 years</span>
+                        About Us  <br />
+                        {/* <span className="text-blue-600 italic">from 8 years</span> */}
                     </h1>
-                    <p className="text-xl text-gray-400 max-w-xl mb-12 leading-relaxed">
-                        Where to grow your business as a photographer: site or social media? At CALDIM, we bridge the gap between creative vision and technical excellence.
+                    <p className="text-xl text-gray-600 max-w-xl mb-12 leading-relaxed">
+                        We deliver customized software solutions that help organizations achieve greater efficiency,
+                        visibility, and operational control. By combining strong engineering expertise with modern
+                        technologies such as AI and automation, we transform complex business processes into
+                        intelligent digital systems. Our solutions support organizations in evolving from traditional
+                        operations to scalable, future-ready environments that drive measurable business value.
                     </p>
-                    <motion.button
+                    {/* <motion.button
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        className="px-10 py-5 bg-cyan-500 text-black font-black uppercase tracking-widest rounded-lg shadow-[0_0_30px_rgba(34,211,238,0.3)] hover:shadow-[0_0_50px_rgba(34,211,238,0.5)] transition-all"
+                        className="px-10 py-5 bg-blue-600 text-white font-black uppercase tracking-widest rounded-lg shadow-[0_0_30px_rgba(37,99,235,0.3)] hover:shadow-[0_0_50px_rgba(37,99,235,0.5)] transition-all"
                     >
                         Register Now
-                    </motion.button>
+                    </motion.button> */}
                 </motion.div>
 
                 <motion.div
@@ -110,11 +114,19 @@ const AboutPage = () => {
             </section>
 
             {/* 2. Our Clients Section */}
-            <section className="py-20 border-y border-white/5 bg-white/[0.02]">
+            {/* <section className="py-20 border-y border-blue-600/20 bg-gray-50">
                 <div className="section-container">
                     <div className="text-center mb-12">
-                        <h2 className="text-2xl font-bold uppercase tracking-widest text-gray-500">Our Clients</h2>
-                        <p className="text-gray-600 mt-2">We have been working with some Fortune 500+ clients</p>
+                        <h2 className="text-2xl font-bold uppercase tracking-widest text-gray-500">Who We Are 
+                        </h2>
+                        <p className="text-gray-600 mt-2">A technology-driven startup specializing in customized software and AI-powered 
+                            solutions 
+                        </p>
+                        <p className="text-gray-600 mt-2">Focused on delivering scalable, secure, and business-oriented digital platforms 
+                        </p>
+                        <p className="text-gray-600 mt-2">Committed to innovation, quality, and long-term client partnerships 
+
+                        </p>
                     </div>
                     <div className="flex flex-wrap justify-center gap-16 md:gap-24 opacity-30 grayscale hover:grayscale-0 transition-all duration-500">
                         <Code size={48} />
@@ -125,7 +137,7 @@ const AboutPage = () => {
                         <Globe size={48} strokeWidth={1} />
                     </div>
                 </div>
-            </section>
+            </section> */}
 
             {/* 3. Manage your entire community (Engineering Excellence) */}
             <section
@@ -146,24 +158,24 @@ const AboutPage = () => {
                             background: `radial-gradient(circle at calc(50% + 0px) calc(50% + 0px), rgba(34, 211, 238, 0.12) 0%, transparent 40%)`
                         }}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-b from-[#010826] via-transparent to-[#010826]" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white" />
                 </div>
 
-                <div className="section-container relative z-10 text-center">
-                    <h2 className="text-4xl md:text-6xl font-black mb-6 uppercase">Manage your entire community <br /> in a single system</h2>
-                    <p className="text-gray-400 mb-20">Who is Nextcent suitable for?</p>
+                <div className="section-container relative z-100 text-center">
+                    <h2 className="text-4xl md:text-6xl font-black mb-6 uppercase text-black">Our Value Proposition</h2>
+                    {/* <p className="text-gray-400 mb-20">Who is Nextcent suitable for?</p> */}
 
-                    <div className="relative h-[850px] flex items-center justify-start lg:pl-32">
+                    <div className="relative h-[500px] flex items-center justify-start lg:pl-32">
                         {/* 1. THE CURVED ARCHIVE (Flowing on the right) */}
                         <div className="hidden lg:block absolute inset-0">
                             {valuePoints.map((point, index) => {
                                 // Narrower angular range to keep everything vertically centered
-                                const startAngle = -65;
-                                const endAngle = 65;
+                                const startAngle = -20;
+                                const endAngle = 80;
                                 const angle = startAngle + (index * (endAngle - startAngle) / (valuePoints.length - 1));
-                                const radius = 420; // Tightened radius for single-view 
+                                const radius = 500; // Increased radius to cover the right side better
 
-                                // Origin center is at 30% left
+                                // Origin center is at 12% left
                                 const x = Math.cos((angle * Math.PI) / 180) * radius;
                                 const y = Math.sin((angle * Math.PI) / 180) * radius;
 
@@ -175,27 +187,27 @@ const AboutPage = () => {
                                         viewport={{ once: true }}
                                         transition={{ delay: index * 0.1, duration: 1 }}
                                         style={{
-                                            left: `calc(30% + ${x}px)`,
-                                            top: `calc(50% + ${y}px)`,
+                                            left: `calc(50% + ${x}px)`,
+                                            top: `calc(30% + ${y}px)`,
                                             transform: 'translate(-50%, -50%)',
                                         }}
                                         className="absolute w-72 group"
                                     >
                                         {/* Visual Node Point */}
-                                        <div className="absolute top-1/2 left-0 -translate-x-full -translate-y-1/2 w-3 h-3 z-20">
-                                            <div className="absolute inset-0 bg-cyan-400 rounded-full animate-ping opacity-20" />
-                                            <div className="absolute inset-0.5 bg-cyan-400 rounded-full shadow-[0_0_10px_#22d3ee]" />
+                                        <div className="absolute top-1/2 left-0 -translate-x-full -translate-y-1/2 w-4 h-4 z-20">
+                                            <div className="absolute inset-0 bg-blue-600 rounded-full animate-ping opacity-20" />
+                                            <div className="absolute inset-0.5 bg-blue-600 rounded-full shadow-[0_0_20px_#2563eb]" />
                                         </div>
 
                                         {/* Connector Line pointing towards center logo */}
-                                        <div className="absolute top-1/2 left-0 w-32 h-[1px] bg-gradient-to-r from-cyan-400/40 via-cyan-400/10 to-transparent -z-10 group-hover:w-48 transition-all duration-700 origin-left"
-                                            style={{ transform: `translate(-100%, -50%) rotate(${180 - angle}deg)` }} />
+                                        {/* <div className="absolute top-1/2 left-0 w-32 h-[2px] bg-gradient-to-r from-blue-600/60 via-blue-600/10 to-transparent -z-10 group-hover:w-48 transition-all duration-700 origin-left"
+                                            style={{ transform: `translate(-100%, -50%) rotate(${180 - angle}deg)` }} /> */}
 
                                         {/* Card Content (Ultra-Compact for single view) */}
-                                        <div className="p-6 rounded-[2rem] bg-black/60 backdrop-blur-3xl border border-white/10 transition-all duration-500 hover:bg-cyan-500/10 hover:border-cyan-400/40 text-left group-hover:translate-x-3">
-                                            <div className="text-cyan-400 text-[9px] font-black tracking-[0.4em] uppercase mb-2 opacity-60">NODE.0{index + 1}</div>
-                                            <h3 className="text-white text-base font-black uppercase mb-2 tracking-tighter leading-tight">{point.title}</h3>
-                                            <p className="text-gray-500 text-[9px] leading-relaxed uppercase tracking-widest">{point.desc}</p>
+                                        <div className="">
+                                            <div className="text-blue-600 text-[9px] font-black uppercase mb-2 opacity-60"></div>
+                                            <h3 className="text-black text-base font-black uppercase mb-2 tracking-tighter leading-tight">{point.title}</h3>
+                                            <p className="text-black-500 text-[10px] leading-relaxed uppercase tracking-widest">{point.desc}</p>
                                         </div>
                                     </motion.div>
                                 );
@@ -209,21 +221,21 @@ const AboutPage = () => {
                                 rotateX,
                                 rotateY,
                                 transformStyle: 'preserve-3d',
-                                left: '30%'
+                                left: '12%'
                             }}
-                            className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 z-20 hidden lg:block"
+                            className="absolute top-[40%] -translate-y-1/2 -translate-x-1/2 z-20 hidden lg:block"
                         >
-                            <div className="absolute inset-0 bg-cyan-400/20 blur-[120px] rounded-full scale-150 animate-pulse" />
-                            <div className="relative w-72 h-72 bg-black/60 backdrop-blur-3xl rounded-full border border-white/20 flex items-center justify-center overflow-hidden">
-                                <img src={caldimLogo} alt="CALDIM" className="w-1/2 h-1/2 object-contain" />
+                            <div className="absolute inset-0 bg-blue-600/20 blur-[180px] rounded-full scale-150 animate-pulse" />
+                            <div className="relative w-[500px] h-[500px] bg-white rounded-full border-2 border-blue-600/30 shadow-[0_0_80px_rgba(37,99,235,0.15)] flex items-center justify-center overflow-hidden">
+                                <img src={caldimLogo} alt="CALDIM" className="w-full h-full object-contain scale-100 transform-gpu transition-transform duration-700" />
                             </div>
                         </motion.div>
 
                         {/* Mobile List View stays the same for clarity */}
                         <div className="lg:hidden mt-20 grid grid-cols-1 md:grid-cols-2 gap-6 px-4">
                             {valuePoints.map((point, index) => (
-                                <div key={index} className="p-8 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-md">
-                                    <h3 className="text-white text-lg font-bold mb-2 uppercase">{point.title}</h3>
+                                <div key={index} className="p-8 rounded-3xl bg-white border border-blue-600/30">
+                                    <h3 className="text-black text-lg font-bold mb-2 uppercase">{point.title}</h3>
                                     <p className="text-gray-500 text-sm">{point.desc}</p>
                                 </div>
                             ))}
@@ -235,35 +247,35 @@ const AboutPage = () => {
             {/* 4. Feature Detail (Content Section 1) */}
             <section className="section-container flex flex-col lg:flex-row items-center gap-16 py-32">
                 <div className="flex-1">
-                    <div className="relative w-full max-w-lg aspect-square bg-gradient-to-br from-cyan-400/5 to-transparent rounded-[3rem] p-8 border border-white/5">
-                        <img src={designImage} alt="Vector" className="w-full h-full object-contain brightness-50 contrast-125" />
+                    <div className="relative w-full max-w-lg aspect-square bg-blue-50 rounded-[3rem] p-8 border border-blue-600/20">
+                        <img src={designImage} alt="Vector" className="w-full h-full object-contain" />
                     </div>
                 </div>
                 <div className="flex-1 space-y-8">
                     <h2 className="text-5xl font-black leading-tight">The unseen of spending three <br /> years at Pixelgrade</h2>
-                    <p className="text-lg text-gray-400 leading-relaxed">
+                    <p className="text-lg text-gray-600 leading-relaxed">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet justo ipsum. Sed accumsan quam vitae est varius fringilla. Pellentesque placerat vestibulum lorem sed porta. Nullam mattis tristique iaculis.
                     </p>
-                    <button className="px-8 py-4 bg-cyan-500 text-black font-bold rounded-lg transition-transform hover:scale-105 active:scale-95">Learn More</button>
+                    <button className="px-8 py-4 bg-blue-600 text-white font-bold rounded-lg transition-transform hover:scale-105 active:scale-95">Learn More</button>
                 </div>
             </section>
 
             {/* 5. Stats Section (Nexcent Layout) */}
-            <section className="bg-white/[0.02] py-32 border-y border-white/5">
+            <section className="bg-gray-50 py-32 border-y border-blue-600/20">
                 <div className="section-container flex flex-col lg:flex-row items-center justify-between gap-16">
                     <div className="flex-1">
-                        <h2 className="text-5xl font-black leading-tight mb-4">Helping a local <br /> <span className="text-cyan-400 italic">business reinvent itself</span></h2>
-                        <p className="text-gray-500">We reached here with our hard work and dedication</p>
+                        <h2 className="text-5xl font-black leading-tight mb-4">Helping a local <br /> <span className="text-blue-600 italic">business reinvent itself</span></h2>
+                        <p className="text-gray-600">We reached here with our hard work and dedication</p>
                     </div>
                     <div className="flex-1 grid grid-cols-2 gap-x-12 gap-y-16">
                         {stats.map((stat, index) => (
                             <div key={index} className="flex items-center gap-4">
-                                <div className="w-12 h-12 bg-cyan-500/10 rounded-xl flex items-center justify-center">
-                                    <Users className="text-cyan-400" size={24} />
+                                <div className="w-12 h-12 bg-blue-600/10 rounded-xl flex items-center justify-center">
+                                    <Users className="text-blue-600" size={24} />
                                 </div>
                                 <div>
-                                    <h3 className="text-3xl font-black">{stat.value}</h3>
-                                    <p className="text-gray-500 text-sm uppercase tracking-wider">{stat.label}</p>
+                                    <h3 className="text-3xl font-black text-black">{stat.value}</h3>
+                                    <p className="text-gray-600 text-sm uppercase tracking-wider">{stat.label}</p>
                                 </div>
                             </div>
                         ))}
@@ -272,7 +284,7 @@ const AboutPage = () => {
             </section>
 
             {/* 6. Content Section 2 */}
-            <section className="section-container flex flex-col lg:flex-row-reverse items-center gap-16 py-32">
+            <section className="section-container flex flex-col lg:flex-row-reverse items-center gap-16 py-32 text-black">
                 <div className="flex-1">
                     <div className="relative w-full max-w-lg aspect-square grayscale opacity-50">
                         <img src={designImage} alt="Vector" className="w-full h-full object-contain" />
@@ -280,27 +292,27 @@ const AboutPage = () => {
                 </div>
                 <div className="flex-1 space-y-8 text-left">
                     <h2 className="text-5xl font-black leading-tight">How to design your site <br /> footer like we did</h2>
-                    <p className="text-lg text-gray-400 leading-relaxed">
+                    <p className="text-lg text-gray-600 leading-relaxed">
                         Donec a diam lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis dolor.
                     </p>
-                    <button className="px-8 py-4 bg-cyan-500 text-black font-bold rounded-lg transition-transform hover:scale-105">Learn More</button>
+                    <button className="px-8 py-4 bg-blue-600 text-white font-bold rounded-lg transition-transform hover:scale-105">Learn More</button>
                 </div>
             </section>
 
             {/* 7. Client Quote Section */}
-            <section className="py-24 bg-white/[0.03]">
+            <section className="py-24 bg-gray-50 border-y border-blue-600/10">
                 <div className="section-container flex flex-col lg:flex-row items-center gap-12">
                     <div className="w-full lg:w-1/3 flex justify-center">
-                        <div className="w-48 h-48 bg-white/5 rounded-3xl flex items-center justify-center p-4">
-                            <Shield size={80} className="text-white/20" />
+                        <div className="w-48 h-48 bg-white border border-blue-600/20 rounded-3xl flex items-center justify-center p-4 shadow-sm">
+                            <Shield size={80} className="text-blue-600/20" />
                         </div>
                     </div>
                     <div className="flex-1 space-y-6">
-                        <p className="text-xl text-gray-400 italic leading-relaxed">
+                        <p className="text-xl text-gray-600 italic leading-relaxed">
                             "Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis dolor. Praesent et diam eget libero egestas mattis sit amet vitae augue. Nam tincidunt congue enim, ut porta lorem lacinia consectetur."
                         </p>
                         <div>
-                            <h4 className="text-cyan-400 font-black text-xl">Tim Smith</h4>
+                            <h4 className="text-blue-600 font-black text-xl">Tim Smith</h4>
                             <p className="text-gray-500 uppercase tracking-widest text-xs">British Dragon Boat Association</p>
                         </div>
                         <div className="flex flex-wrap gap-8 items-center pt-4 opacity-30 grayscale">
@@ -308,32 +320,13 @@ const AboutPage = () => {
                             <Globe size={30} />
                             <Shield size={30} />
                             <Users size={30} />
-                            <span className="text-cyan-400 font-bold ml-4">Meet all customers &rarr;</span>
+                            <span className="text-blue-600 font-bold ml-4">Meet all customers &rarr;</span>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* 8. Blog/Milestones Section */}
-            <section className="section-container py-32 text-center">
-                <h2 className="text-5xl font-black mb-6 uppercase">Caring is the new marketing</h2>
-                <p className="text-gray-400 max-w-2xl mx-auto mb-20 leading-relaxed">
-                    The Nextcent blog is the best place to read about the latest membership insights, trends and more.
-                </p>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {milestones.slice(0, 3).map((item, index) => (
-                        <div key={index} className="relative group">
-                            <div className="w-full h-64 bg-white/5 rounded-[2rem] overflow-hidden">
-                                <img src={backgroundImage} className="w-full h-full object-cover opacity-20 group-hover:opacity-40 transition-opacity" />
-                            </div>
-                            <div className="absolute -bottom-10 left-8 right-8 bg-black/80 backdrop-blur-xl p-8 rounded-2xl shadow-xl border border-white/5 group-hover:border-cyan-400/30 transition-all">
-                                <h4 className="text-lg font-black mb-4 uppercase tracking-tighter">{item.title}</h4>
-                                <p className="text-cyan-400 font-bold flex items-center justify-center gap-2">Read More <Code size={16} /></p>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </section>
+
         </div>
     )
 }

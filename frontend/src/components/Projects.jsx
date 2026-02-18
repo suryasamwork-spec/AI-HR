@@ -1,13 +1,13 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import { ArrowUpRight, BarChart2, Globe, Box } from 'lucide-react'
+import { ArrowUpRight, BarChart2, Globe, Box, Heart } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 const Projects = () => {
     const projects = [
         {
             title: 'Data Insights Pro',
-            description: 'Close-up animation-style dashboard interface with vibrant blue and cyan charts.',
+            description: 'Close-up animation-style dashboard interface with vibrant blue charts.',
             tech: ['React', 'D3.js', 'Framer Motion'],
             gradient: 'from-[#00d2ff] via-[#3a7bd5] to-[#00d2ff]',
             icon: BarChart2,
@@ -34,7 +34,7 @@ const Projects = () => {
     return (
         <section id="projects" className="py-20 sm:py-32 bg-transparent relative overflow-hidden">
             {/* Background Decorative Blur */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[800px] aspect-square bg-cyan-500/5 blur-[100px] sm:blur-[150px] rounded-full pointer-events-none" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[800px] aspect-square bg-blue-600/5 blur-[100px] sm:blur-[150px] rounded-full pointer-events-none" />
 
             <div className="max-w-[1440px] xl:max-w-[1600px] 2xl:max-w-[1800px] mx-auto px-6">
                 <motion.div
@@ -44,13 +44,13 @@ const Projects = () => {
                     transition={{ duration: 0.8 }}
                     className="mb-16 sm:mb-24"
                 >
-                    <div className="flex items-center gap-4 mb-6">
-                        <div className="w-12 h-[1px] bg-cyan-400" />
-                        <span className="text-[10px] font-black uppercase tracking-[0.5em] text-cyan-400">Selected Works // 2024</span>
-                    </div>
-                    <h2 className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tighter text-white leading-tight">
+                    {/* <div className="flex items-center gap-4 mb-6">
+                        <div className="w-12 h-[1px] bg-blue-600" />
+                        <span className="text-[10px] font-black uppercase tracking-[0.5em] text-blue-600">Selected Works // 2024</span>
+                    </div> */}
+                    <h2 className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tighter text-black leading-tight">
                         DIGITAL<br />
-                        <span className="text-transparent" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.4)' }}>ARCHIVE</span>
+                        <span className="text-transparent" style={{ WebkitTextStroke: '1px rgba(0,0,0,0.4)' }}>ARCHIVE</span>
                     </h2>
                 </motion.div>
 
@@ -64,7 +64,7 @@ const Projects = () => {
                             transition={{ delay: index * 0.1, duration: 0.8 }}
                             className="group relative"
                         >
-                            <div className="h-full bg-white/[0.03] backdrop-blur-3xl rounded-[2.5rem] border border-white/5 overflow-hidden transition-all duration-500 hover:border-white/20 hover:bg-white/[0.05] hover:shadow-2xl">
+                            <div className="h-full bg-white rounded-[2.5rem] border border-blue-600/20 overflow-hidden transition-all duration-500 hover:border-blue-600 hover:shadow-2xl">
                                 {/* Visual Header (UI Mockup Style) */}
                                 <div className={`h-48 sm:h-56 bg-gradient-to-br ${project.gradient} relative p-6 sm:p-8 flex flex-col justify-end overflow-hidden`}>
                                     <div className="absolute top-6 sm:top-8 right-6 sm:right-8 flex gap-2">
@@ -79,25 +79,33 @@ const Projects = () => {
                                         className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none"
                                     />
 
-                                    <div className="relative z-10">
-                                        <div className="p-2 sm:p-3 bg-black/20 backdrop-blur-xl rounded-xl sm:rounded-2xl inline-flex mb-3 sm:mb-4 group-hover:scale-110 transition-transform">
-                                            <project.icon className="text-white w-5 h-5 sm:w-6 sm:h-6" strokeWidth={1.5} />
+                                    <div className="relative z-10 flex justify-between items-start w-full">
+                                        <div>
+                                            <div className="p-2 sm:p-3 bg-black/20 backdrop-blur-xl rounded-xl sm:rounded-2xl inline-flex mb-3 sm:mb-4 group-hover:scale-110 transition-transform">
+                                                <project.icon className="text-white w-5 h-5 sm:w-6 sm:h-6" strokeWidth={1.5} />
+                                            </div>
+                                            <div className="text-[7px] sm:text-[8px] font-black tracking-[0.3em] text-white/60 mb-1 uppercase">{project.tag}</div>
+                                            <h3 className="text-xl sm:text-2xl font-black text-white">{project.title}</h3>
                                         </div>
-                                        <div className="text-[7px] sm:text-[8px] font-black tracking-[0.3em] text-white/60 mb-1 uppercase">{project.tag}</div>
-                                        <h3 className="text-xl sm:text-2xl font-black text-white">{project.title}</h3>
+                                        <motion.button
+                                            whileTap={{ scale: 0.8 }}
+                                            className="p-3 bg-white/20 backdrop-blur-md rounded-full text-blue-400 hover:text-blue-600 hover:bg-white transition-all shadow-lg"
+                                        >
+                                            <Heart size={20} fill="currentColor" />
+                                        </motion.button>
                                     </div>
 
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
                                 </div>
 
                                 <div className="p-8 sm:p-10 space-y-6 sm:space-y-8">
-                                    <p className="text-sm sm:text-base text-blue-100/40 leading-relaxed font-light line-clamp-3">
+                                    <p className="text-sm sm:text-base text-gray-600 leading-relaxed font-light line-clamp-3">
                                         {project.description}
                                     </p>
 
                                     <div className="flex flex-wrap gap-2">
                                         {project.tech.map((t, i) => (
-                                            <span key={i} className="px-3 sm:px-4 py-1 sm:py-1.5 bg-white/5 border border-white/5 rounded-lg sm:rounded-xl text-cyan-300 text-[8px] font-black uppercase tracking-widest backdrop-blur-md">
+                                            <span key={i} className="px-3 sm:px-4 py-1 sm:py-1.5 bg-blue-50 border border-blue-600/10 rounded-lg sm:rounded-xl text-blue-600 text-[8px] font-black uppercase tracking-widest">
                                                 {t}
                                             </span>
                                         ))}
@@ -107,7 +115,7 @@ const Projects = () => {
                                         <Link to="/projects" className="w-full">
                                             <motion.button
                                                 whileHover={{ y: -2 }}
-                                                className="w-full flex items-center justify-center gap-3 py-3 sm:py-4 bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl text-[9px] sm:text-[10px] font-black uppercase tracking-[0.3em] text-white group-hover:bg-white group-hover:text-black transition-all"
+                                                className="w-full flex items-center justify-center gap-3 py-3 sm:py-4 bg-gray-50 border border-blue-600/10 rounded-xl sm:rounded-2xl text-[9px] sm:text-[10px] font-black uppercase tracking-[0.3em] text-gray-700 group-hover:bg-blue-600 group-hover:text-white transition-all"
                                             >
                                                 INITIALIZE <ArrowUpRight size={14} />
                                             </motion.button>

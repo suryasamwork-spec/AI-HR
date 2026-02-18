@@ -76,13 +76,13 @@ const Contact = () => {
                     className="mb-24 text-center"
                 >
                     <div className="inline-flex items-center gap-4 mb-6">
-                        <div className="w-8 h-[1px] bg-cyan-400" />
-                        <span className="text-[10px] font-black uppercase tracking-[0.8em] text-cyan-400">Initialize Link</span>
-                        <div className="w-8 h-[1px] bg-cyan-400" />
+                        <div className="w-8 h-[1px] bg-blue-600" />
+                        <span className="text-[10px] font-black uppercase tracking-[0.8em] text-blue-600">Initialize Link</span>
+                        <div className="w-8 h-[1px] bg-blue-600" />
                     </div>
-                    <h2 className="text-5xl md:text-9xl font-black tracking-tighter text-white uppercase italic">
+                    <h2 className="text-5xl md:text-9xl font-black tracking-tighter text-black uppercase italic">
                         CONNECT<br />
-                        <span className="text-transparent" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.4)' }}>CORE</span>
+                        <span className="text-transparent" style={{ WebkitTextStroke: '1px rgba(0,0,0,0.4)' }}>CORE</span>
                     </h2>
                 </motion.div>
 
@@ -103,7 +103,7 @@ const Contact = () => {
                             WebkitBackfaceVisibility: 'hidden'
                         }}
                         transition={{ duration: 0.8 }}
-                        className="bg-white/[0.08] backdrop-blur-2xl p-8 md:p-12 rounded-[3.5rem] border border-white/20 relative group shadow-[0_0_50px_rgba(0,0,0,0.3)] isolation-auto"
+                        className="bg-white p-8 md:p-12 rounded-[3.5rem] border border-blue-600/20 relative group shadow-2xl isolation-auto"
                     >
                         {/* ... (rest of form content) ... */}
                         <motion.div
@@ -118,8 +118,8 @@ const Contact = () => {
                                 {/* Name Input Wrapper */}
                                 <div className="space-y-3">
                                     <div className="flex items-center gap-2 ml-4">
-                                        <User size={12} className="text-cyan-400" />
-                                        <label className="text-[9px] font-black uppercase tracking-[0.3em] text-white/60">Identifier</label>
+                                        <User size={12} className="text-blue-600" />
+                                        <label className="text-[9px] font-black uppercase tracking-[0.3em] text-gray-500">Identifier</label>
                                     </div>
                                     <div className="relative group/input">
                                         <input
@@ -128,17 +128,17 @@ const Contact = () => {
                                             value={formData.name}
                                             onChange={handleChange}
                                             required
-                                            className="w-full px-8 py-5 rounded-2xl bg-white/5 border border-white/10 text-white focus:border-cyan-400/50 focus:bg-white/10 focus:outline-none transition-all placeholder:text-gray-500 text-sm font-medium backdrop-blur-md transform-gpu"
+                                            className="w-full px-8 py-5 rounded-2xl bg-gray-50 border border-blue-600/10 text-black focus:border-blue-600 focus:bg-white focus:outline-none transition-all placeholder:text-gray-400 text-sm font-medium transform-gpu"
                                             placeholder="Ex: John Cooper"
                                         />
-                                        <div className="absolute inset-0 rounded-2xl border border-cyan-400/0 group-hover/input:border-white/20 pointer-events-none transition-colors" />
+                                        <div className="absolute inset-0 rounded-2xl border border-blue-600/0 group-hover/input:border-blue-600/20 pointer-events-none transition-colors" />
                                     </div>
                                 </div>
 
                                 {/* Email Input Wrapper */}
                                 <div className="space-y-3">
                                     <div className="flex items-center gap-2 ml-4">
-                                        <AtSign size={12} className="text-cyan-400" />
+                                        <AtSign size={12} className="text-blue-600" />
                                         <label className="text-[9px] font-black uppercase tracking-[0.3em] text-white/60">Network Address</label>
                                     </div>
                                     <div className="relative group/input">
@@ -148,10 +148,10 @@ const Contact = () => {
                                             value={formData.email}
                                             onChange={handleChange}
                                             required
-                                            className="w-full px-8 py-5 rounded-2xl bg-white/5 border border-white/10 text-white focus:border-cyan-400/50 focus:bg-white/10 focus:outline-none transition-all placeholder:text-gray-500 text-sm font-medium backdrop-blur-md transform-gpu"
+                                            className="w-full px-8 py-5 rounded-2xl bg-gray-50 border border-blue-600/10 text-black focus:border-blue-600 focus:bg-white focus:outline-none transition-all placeholder:text-gray-400 text-sm font-medium transform-gpu"
                                             placeholder="name@matrix.com"
                                         />
-                                        <div className="absolute inset-0 rounded-2xl border border-cyan-400/0 group-hover/input:border-white/20 pointer-events-none transition-colors" />
+                                        <div className="absolute inset-0 rounded-2xl border border-blue-600/0 group-hover/input:border-blue-600/20 pointer-events-none transition-colors" />
                                     </div>
                                 </div>
                             </div>
@@ -159,7 +159,7 @@ const Contact = () => {
                             {/* Message Area Wrapper */}
                             <div className="space-y-3">
                                 <div className="flex items-center gap-2 ml-4">
-                                    <Cpu size={13} className="text-cyan-400" />
+                                    <Cpu size={13} className="text-blue-600" />
                                     <label className="text-[10px] font-black uppercase tracking-[0.3em] text-white/60">Data Packet Payload</label>
                                 </div>
                                 <div className="relative group/input">
@@ -169,31 +169,31 @@ const Contact = () => {
                                         onChange={handleChange}
                                         required
                                         rows={5}
-                                        className="w-full px-8 py-6 rounded-[2.5rem] bg-white/5 border border-white/10 text-white focus:border-cyan-400/50 focus:bg-white/10 focus:outline-none transition-all placeholder:text-gray-500 text-sm font-medium resize-none backdrop-blur-md transform-gpu"
+                                        className="w-full px-8 py-6 rounded-[2.5rem] bg-gray-50 border border-blue-600/10 text-black focus:border-blue-600 focus:bg-white focus:outline-none transition-all placeholder:text-gray-400 text-sm font-medium resize-none transform-gpu"
                                         placeholder="Brief your project requirements or technical specifications here..."
                                     />
-                                    <div className="absolute inset-0 rounded-[2.5rem] border border-cyan-400/0 group-hover/input:border-white/20 pointer-events-none transition-colors" />
+                                    <div className="absolute inset-0 rounded-[2.5rem] border border-blue-600/0 group-hover/input:border-blue-600/20 pointer-events-none transition-colors" />
                                 </div>
                             </div>
 
                             {/* Submit Button Refinement */}
                             <motion.button
                                 type="submit"
-                                whileHover={{ scale: 1.02, y: -5, boxShadow: '0 20px 40px rgba(0,0,0,0.5)' }}
+                                whileHover={{ scale: 1.02, y: -5, boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}
                                 whileTap={{ scale: 0.98 }}
-                                className="w-full py-7 bg-white text-black font-black uppercase text-[10px] tracking-[0.5em] rounded-[2rem] flex items-center justify-center gap-4 transition-all relative overflow-hidden group/btn"
+                                className="w-full py-7 bg-blue-600 text-white font-black uppercase text-[10px] tracking-[0.5em] rounded-[2rem] flex items-center justify-center gap-4 transition-all relative overflow-hidden group/btn"
                             >
                                 <motion.div
-                                    className="absolute inset-0 bg-cyan-400 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500"
+                                    className="absolute inset-0 bg-blue-700 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500"
                                 />
-                                <span className="relative z-10 group-hover/btn:text-white transition-colors duration-500">TRANSMIT PACKET</span>
-                                <Send size={14} className="relative z-10 group-hover/btn:text-white transition-colors duration-500" />
+                                <span className="relative z-10">TRANSMIT PACKET</span>
+                                <Send size={14} className="relative z-10" />
                             </motion.button>
                         </form>
 
                         {/* Background Floating Icon */}
                         <div className="absolute -bottom-10 -right-10 p-12 opacity-5 pointer-events-none group-hover:scale-110 group-hover:rotate-12 transition-all duration-700">
-                            <MessageSquare size={300} strokeWidth={1} className="text-cyan-400" />
+                            <MessageSquare size={300} strokeWidth={1} className="text-blue-600" />
                         </div>
                     </motion.div>
 
@@ -201,15 +201,15 @@ const Contact = () => {
                     <div className="flex flex-col space-y-12">
                         <div className="space-y-8">
                             <div className="flex items-center gap-4">
-                                <div className="w-10 h-10 rounded-full bg-cyan-400/10 border border-cyan-400/20 flex items-center justify-center">
-                                    <Terminal size={16} className="text-cyan-400" />
+                                <div className="w-10 h-10 rounded-full bg-blue-600/10 border border-blue-600/20 flex items-center justify-center">
+                                    <Terminal size={16} className="text-blue-600" />
                                 </div>
-                                <span className="text-[10px] font-black text-cyan-400 uppercase tracking-[0.5em]">Transmission Hub</span>
+                                <span className="text-[10px] font-black text-blue-600 uppercase tracking-[0.5em]">Transmission Hub</span>
                             </div>
-                            <p className="text-3xl md:text-5xl text-white font-black leading-tight tracking-tighter uppercase italic">
-                                Ready to <span className="text-transparent" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.4)' }}>deploy?</span>
+                            <p className="text-3xl md:text-5xl text-black font-black leading-tight tracking-tighter uppercase italic">
+                                Ready to <span className="text-transparent" style={{ WebkitTextStroke: '1px rgba(0,0,0,0.4)' }}>deploy?</span>
                             </p>
-                            <p className="text-lg text-blue-100/30 font-light leading-relaxed max-w-md border-l border-cyan-400/20 pl-8">
+                            <p className="text-lg text-gray-600 font-light leading-relaxed max-w-md border-l border-blue-600/20 pl-8">
                                 Connect with our technical core to initialize your next project architecture. Standing by for secure transmissions.
                             </p>
                         </div>
@@ -227,17 +227,17 @@ const Contact = () => {
                                         whileInView={{ opacity: 1, x: 0 }}
                                         viewport={{ once: true }}
                                         transition={{ delay: index * 0.1, duration: 0.8 }}
-                                        className="group flex items-center gap-8 p-10 rounded-[3rem] bg-white/[0.01] border border-white/[0.03] hover:border-cyan-400/20 hover:bg-white/[0.03] transition-all relative overflow-hidden"
+                                        className="group flex items-center gap-8 p-10 rounded-[3rem] bg-gray-50 border border-blue-600/10 hover:border-blue-600 hover:bg-white transition-all relative overflow-hidden"
                                     >
-                                        <div className="w-16 h-16 bg-white/[0.03] rounded-2.5xl flex items-center justify-center group-hover:bg-cyan-400 group-hover:text-black transition-all relative z-10 shadow-inner">
+                                        <div className="w-16 h-16 bg-white rounded-2.5xl flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-all relative z-10 shadow-sm border border-blue-600/10">
                                             <Icon size={24} strokeWidth={1} />
                                         </div>
                                         <div className="relative z-10">
-                                            <div className="text-[9px] font-black text-white/20 uppercase tracking-[0.3em] mb-1">{info.title}</div>
-                                            <div className="text-xl font-black text-white group-hover:text-cyan-400 transition-colors uppercase tracking-tight">{info.value}</div>
+                                            <div className="text-[9px] font-black text-gray-400 uppercase tracking-[0.3em] mb-1">{info.title}</div>
+                                            <div className="text-xl font-black text-black group-hover:text-blue-600 transition-colors uppercase tracking-tight">{info.value}</div>
                                         </div>
                                         {/* Subtle background glow on hover */}
-                                        <div className="absolute top-1/2 left-0 -translate-y-1/2 w-40 h-40 bg-cyan-400/5 blur-[50px] opacity-0 group-hover:opacity-100 transition-opacity" />
+                                        <div className="absolute top-1/2 left-0 -translate-y-1/2 w-40 h-40 bg-blue-600/5 blur-[50px] opacity-0 group-hover:opacity-100 transition-opacity" />
                                     </motion.a>
                                 )
                             })}
@@ -247,7 +247,7 @@ const Contact = () => {
             </div>
 
             {/* Background Decorative Blur */}
-            <div className="absolute -bottom-[20%] -left-[10%] w-[600px] h-[600px] bg-cyan-500/5 blur-[150px] rounded-full pointer-events-none" />
+            <div className="absolute -bottom-[20%] -left-[10%] w-[600px] h-[600px] bg-blue-600/5 blur-[150px] rounded-full pointer-events-none" />
         </section>
     )
 }

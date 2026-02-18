@@ -7,7 +7,7 @@ const PortalHome = () => {
     }, [])
 
     return (
-        <main className="bg-[#010826]">
+        <main className="bg-white">
             <FuturisticHero />
         </main>
     )

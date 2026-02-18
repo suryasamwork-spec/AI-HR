@@ -38,7 +38,7 @@ const Features = () => {
             icon: Binary,
             title: 'System Analysis',
             description: 'Close-up UX showcases and real-time dashboard data insights.',
-            gradient: 'from-[#00d2ff] via-cyan-400 to-[#00d2ff]',
+            gradient: 'from-[#00d2ff] via-blue-600 to-[#00d2ff]',
             id: '005'
         },
         {
@@ -64,11 +64,11 @@ const Features = () => {
                         transition={{ duration: 0.8 }}
                         className="max-w-xl"
                     >
-                        <div className="flex items-center gap-4 mb-6">
-                            <div className="w-12 h-[1px] bg-cyan-400" />
-                            <span className="text-[10px] font-black uppercase tracking-[0.5em] text-cyan-400">Core Capabilities</span>
-                        </div>
-                        <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-white leading-tight">
+                        {/* <div className="flex items-center gap-4 mb-6">
+                            <div className="w-12 h-[1px] bg-blue-600" />
+                            <span className="text-[10px] font-black uppercase tracking-[0.5em] text-blue-600">Core Capabilities</span>
+                        </div> */}
+                        <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-black leading-tight">
                             TECHNICAL<br />
                             PRECISION
                         </h2>
@@ -79,7 +79,7 @@ const Features = () => {
                         whileInView={{ opacity: 0.4 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.4, duration: 1 }}
-                        className="text-xl text-blue-100 font-light max-w-sm mb-4 border-l border-white/10 pl-8"
+                        className="text-xl text-gray-400 font-light max-w-sm mb-4 border-l border-blue-600/20 pl-8"
                     >
                         Engineering sophisticated technology without showing specific screens. Just pure performance.
                     </motion.p>
@@ -99,7 +99,7 @@ const Features = () => {
                             className="inline-block w-[450px] shrink-0"
                             style={{ perspective: '1000px' }}
                         >
-                            <div className="h-full bg-white/[0.02] backdrop-blur-2xl rounded-[3rem] p-12 border border-white/5 transition-all duration-500 hover:bg-white/[0.05] hover:border-white/20 hover:-translate-y-2 group">
+                            <div className="h-full bg-white rounded-[3rem] p-12 border border-blue-600/10 transition-all duration-500 hover:bg-gray-50 hover:border-blue-600 hover:-translate-y-2 group shadow-sm">
                                 <div className="mb-10 relative">
                                     <div className={`w-20 h-20 bg-gradient-to-br ${feature.gradient} rounded-2xl flex items-center justify-center shadow-2xl relative overflow-hidden transition-transform duration-500 group-hover:rotate-y-12 group-hover:rotate-x-[-12deg]`}>
                                         <feature.icon className="w-10 h-10 text-white" strokeWidth={1} />
@@ -108,25 +108,25 @@ const Features = () => {
                                     <div className={`absolute -bottom-4 -left-2 w-24 h-4 bg-gradient-to-br ${feature.gradient} blur-2xl opacity-20`} />
                                 </div>
 
-                                <h3 className="text-2xl font-black text-white mb-6 uppercase tracking-tight group-hover:text-cyan-400 transition-colors">
+                                <h3 className="text-2xl font-black text-black mb-6 uppercase tracking-tight group-hover:text-blue-600 transition-colors">
                                     {feature.title}
                                 </h3>
 
-                                <p className="text-blue-100/30 leading-relaxed font-light group-hover:text-blue-100/50 transition-colors whitespace-normal">
+                                <p className="text-gray-500 leading-relaxed font-light group-hover:text-gray-700 transition-colors whitespace-normal">
                                     {feature.description}
                                 </p>
 
-                                <div className="absolute bottom-10 right-12 text-[8px] font-black tracking-[0.4em] text-white/10 group-hover:text-cyan-400/40 transition-colors">
+                                {/* <div className="absolute bottom-10 right-12 text-[8px] font-black tracking-[0.4em] text-gray-300 group-hover:text-blue-600 transition-colors">
                                     {feature.id}
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     ))}
                 </div>
 
                 {/* Left & Right Edge Fades */}
-                <div className="absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-[#010826] to-transparent z-10 pointer-events-none" />
-                <div className="absolute inset-y-0 right-0 w-40 bg-gradient-to-l from-[#010826] to-transparent z-10 pointer-events-none" />
+                <div className="absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+                <div className="absolute inset-y-0 right-0 w-40 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
             </div>
 
             <style>{`

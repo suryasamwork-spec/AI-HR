@@ -11,7 +11,7 @@ import PortalHome from './pages/PortalHome'
 function App() {
     return (
         <Router>
-            <div className="min-h-screen bg-[#010826]">
+            <div className="min-h-screen bg-white">
                 <Header />
                 <Routes>
                     <Route path="/" element={<Home />} />
