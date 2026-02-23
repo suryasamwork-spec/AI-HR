@@ -24,10 +24,10 @@ const Footer = () => {
         {
             title: 'Services',
             links: [
-                { name: 'Web Development' },
-                { name: 'AI Solutions' },
-                { name: 'UI/UX Design' },
-                { name: 'Cloud Services' },
+                { name: 'Web Development', href: '/services#web-development' },
+                { name: 'AI Solutions', href: '/services#ai-solutions' },
+                { name: 'UI/UX Design', href: '/services#ui-ux-design' },
+                { name: 'Cloud Services', href: '/services#cloud-services' },
             ]
         },
         {
