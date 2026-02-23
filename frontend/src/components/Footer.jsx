@@ -1,14 +1,14 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import { Github, Linkedin, Instagram } from 'lucide-react'
+import { Github, Linkedin, Instagram, Youtube } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 const Footer = () => {
     const socialLinks = [
         { icon: Github, href: '#', label: 'GitHub' },
-        // { icon: Twitter, href: '#', label: 'Twitter' },
+        { icon: Youtube, href: 'https://www.youtube.com/@CaldimEngineering', label: 'YouTube' },
         { icon: Linkedin, href: 'https://in.linkedin.com/company/caldim-engineering?trk=public_post_feed-actor-name', label: 'LinkedIn' },
-        { icon: Instagram, href: '', label: 'Instagram' },
+        { icon: Instagram, href: 'https://www.instagram.com/caldimengineering/', label: 'Instagram' },
     ]
 
     const footerLinks = [
@@ -86,6 +86,8 @@ const Footer = () => {
                                         key={index}
                                         href={social.href}
                                         aria-label={social.label}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
                                         whileHover={{ scale: 1.1, y: -2 }}
                                         whileTap={{ scale: 0.95 }}
                                         className="w-10 h-10 bg-gray-50 hover:bg-blue-600/10 border border-blue-600/10 rounded-lg flex items-center justify-center transition-all group"

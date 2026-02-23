@@ -298,7 +298,6 @@ const AboutPage = () => {
         { num: '02', icon: <StepAISVG />, title: 'AI-Powered Enterprise Solutions', desc: 'Intelligent systems that automate repetitive tasks, surface insights, and accelerate decisions.' },
         { num: '03', icon: <StepAutomationSVG />, title: 'Business Process Automation', desc: 'End-to-end automation of complex business workflows for speed and accuracy.' },
         { num: '04', icon: <StepPlatformSVG />, title: 'Web-Based Platforms', desc: 'Modern web platforms and product solutions built for scalability and user engagement.' },
-        { num: '05', icon: <StepSupportSVG />, title: 'End-to-End Support', desc: 'Complete solution design, development, deployment, and ongoing technical support.' },
     ]
 
     const approach = [
