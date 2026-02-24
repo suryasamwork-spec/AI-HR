@@ -2,7 +2,7 @@ import React from 'react'
 import Hero from '../components/Hero'
 import Projects from '../components/Projects'
 import Features from '../components/Features'
-import About from '../components/About'
+import ValueProposition from '../components/ValueProposition'
 import Archive from '../components/Archive'
 
 const Home = () => {
@@ -11,7 +11,7 @@ const Home = () => {
             <Hero />
             <Projects />
             <Features />
-            <About />
+            <ValueProposition />
             <Archive />
         </main>
     )

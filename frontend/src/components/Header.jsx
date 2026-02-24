@@ -34,6 +34,7 @@ const Header = () => {
         // { name: 'Feature Ideas', href: '/', sectionId: 'features' },
         { name: 'About Us', href: '/about' },
         { name: 'Contact', href: '/contact' },
+        { name: 'Archive', href: '/archive' },
     ]
 
     const projectsList = [
