@@ -128,43 +128,6 @@ const features = [
     },
 ]
 
-/* ─── Content types ─────────────────────────────────────────── */
-const contentTypes = [
-    {
-        icon: FileText,
-        label: 'Institutional Records',
-        detail: 'Reports, board minutes, and founding documents.',
-        color: '#2563eb',
-        bg: '#eff6ff',
-        svgFill: '#dbeafe',
-    },
-    {
-        icon: Image,
-        label: 'Multimedia Gallery',
-        detail: 'High-resolution photos, videos, and audio recordings.',
-        color: '#7c3aed',
-        bg: '#f5f3ff',
-        svgFill: '#ede9fe',
-    },
-    {
-        icon: Globe,
-        label: 'Web Snapshots',
-        detail: 'Historical versions of our digital presence and projects.',
-        color: '#0891b2',
-        bg: '#ecfeff',
-        svgFill: '#cffafe',
-    },
-    {
-        icon: BookOpen,
-        label: 'Digital Publications',
-        detail: 'E-books, research papers, and newsletters.',
-        color: '#059669',
-        bg: '#ecfdf5',
-        svgFill: '#d1fae5',
-    },
-]
-
-/* ─── Impact table rows ─────────────────────────────────────── */
 const impacts = [
     { benefit: 'Efficiency', impact: 'Reduces time spent searching for legacy information by up to 80%.', icon: Zap, color: '#f59e0b' },
     { benefit: 'Compliance', impact: 'Meets legal requirements for document retention and data privacy.', icon: Scale, color: '#2563eb' },
@@ -172,25 +135,8 @@ const impacts = [
     { benefit: 'Storytelling', impact: 'Provides a rich source of material for anniversaries and marketing.', icon: BookMarked, color: '#059669' },
 ]
 
-/* ─── Mini PDF SVG for content cards ───────────────────────── */
-const MiniDocSVG = ({ fill, bg }) => (
-    <svg viewBox="0 0 64 80" className="w-full h-full" fill="none">
-        <rect width="64" height="80" rx="10" fill={bg} />
-        <rect x="8" y="10" width="48" height="6" rx="3" fill={fill} opacity="0.6" />
-        <rect x="8" y="22" width="36" height="5" rx="2.5" fill={fill} opacity="0.4" />
-        <rect x="8" y="33" width="48" height="5" rx="2.5" fill={fill} opacity="0.4" />
-        <rect x="8" y="44" width="28" height="5" rx="2.5" fill={fill} opacity="0.3" />
-        <rect x="8" y="55" width="40" height="5" rx="2.5" fill={fill} opacity="0.4" />
-        <rect x="8" y="66" width="20" height="5" rx="2.5" fill={fill} opacity="0.3" />
-        {/* dog-ear */}
-        <path d="M64 0 L64 16 L48 0 Z" fill={fill} opacity="0.15" />
-        <path d="M48 0 L48 16 L64 16" stroke={fill} strokeWidth="1" opacity="0.25" fill="none" />
-    </svg>
-)
-
 /* ═══════════════════════════════════════════════════════════ */
 const Archive = () => {
-    const [activeTab, setActiveTab] = useState(0)
 
     return (
         <section id="archive" className="py-32 bg-white relative overflow-hidden">
@@ -225,12 +171,8 @@ const Archive = () => {
                         </p>
 
                         <div className="flex flex-wrap gap-4 mt-10">
-                            <a href="#archive-collections"
-                                className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-blue-600 text-white text-sm font-black uppercase tracking-widest hover:bg-blue-700 transition-all shadow-lg hover:-translate-y-1">
-                                Explore Collections <ArrowRight size={14} />
-                            </a>
                             <Link to="/contact"
-                                className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl border border-blue-600/20 text-blue-600 text-sm font-black uppercase tracking-widest hover:bg-blue-50 transition-all">
+                                className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-blue-600 text-white text-sm font-black uppercase tracking-widest hover:bg-blue-700 transition-all shadow-lg hover:-translate-y-1">
                                 Request Access <ArrowRight size={14} />
                             </Link>
                         </div>
@@ -306,89 +248,6 @@ const Archive = () => {
                     </div>
                 </motion.div>
 
-                {/* ══════════════════════════════════════════ */}
-                {/* 3. WHAT'S INSIDE — Content scope            */}
-                {/* ══════════════════════════════════════════ */}
-                <motion.div
-                    id="archive-collections"
-                    variants={fadeUp(0)} initial="hidden" whileInView="show" viewport={{ once: true }}
-                    className="mb-32"
-                >
-                    <div className="text-center mb-16">
-                        <div className="inline-flex items-center gap-4 mb-4">
-                            <div className="w-6 h-[1px] bg-blue-600" />
-                            <span className="text-[10px] font-black uppercase tracking-[0.8em] text-blue-600">The Content</span>
-                            <div className="w-6 h-[1px] bg-blue-600" />
-                        </div>
-                        <h3 className="text-4xl md:text-5xl font-black tracking-tighter text-black uppercase">What's Inside?</h3>
-                    </div>
-
-                    {/* Tab selector */}
-                    <div className="flex flex-wrap justify-center gap-3 mb-10">
-                        {contentTypes.map((c, i) => (
-                            <button
-                                key={i}
-                                onClick={() => setActiveTab(i)}
-                                className={`flex items-center gap-2 px-5 py-2.5 rounded-2xl text-sm font-black uppercase tracking-wider transition-all ${activeTab === i
-                                    ? 'text-white shadow-lg scale-105'
-                                    : 'bg-gray-50 border border-gray-200 text-gray-500 hover:border-blue-600/30 hover:text-blue-600'
-                                    }`}
-                                style={activeTab === i ? { background: `linear-gradient(135deg, ${c.color}, ${c.color}cc)` } : {}}
-                            >
-                                <c.icon size={13} />
-                                {c.label}
-                            </button>
-                        ))}
-                    </div>
-
-                    {/* Active panel */}
-                    <motion.div
-                        key={activeTab}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4 }}
-                        className="grid md:grid-cols-2 gap-10 items-center p-10 rounded-[3rem] border"
-                        style={{ borderColor: contentTypes[activeTab].color + '30', background: contentTypes[activeTab].bg }}
-                    >
-                        {/* Illustration */}
-                        <div className="grid grid-cols-3 gap-4">
-                            {[0, 1, 2, 3, 4, 5].map((j) => (
-                                <div
-                                    key={j}
-                                    className={`aspect-[4/5] rounded-xl overflow-hidden shadow-sm ${j === 0 ? 'col-span-2 row-span-2' : ''}`}
-                                    style={{ transform: j % 2 === 1 ? 'rotate(2deg)' : j % 3 === 2 ? 'rotate(-2deg)' : 'none' }}
-                                >
-                                    <MiniDocSVG fill={contentTypes[activeTab].svgFill} bg="white" />
-                                </div>
-                            ))}
-                        </div>
-
-                        {/* Text */}
-                        <div className="space-y-6">
-                            <div
-                                className="w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg"
-                                style={{ background: contentTypes[activeTab].color }}
-                            >
-                                {React.createElement(contentTypes[activeTab].icon, { size: 28, className: 'text-white', strokeWidth: 1.5 })}
-                            </div>
-                            <h4 className="text-3xl font-black uppercase tracking-tighter text-black">
-                                {contentTypes[activeTab].label}
-                            </h4>
-                            <p className="text-gray-600 text-base leading-relaxed font-light border-l-2 pl-5"
-                                style={{ borderColor: contentTypes[activeTab].color + '40' }}>
-                                {contentTypes[activeTab].detail}
-                            </p>
-                            <ul className="space-y-3">
-                                {['Fully indexed and searchable', 'Version-controlled history', 'Secure, permission-gated access'].map((b, k) => (
-                                    <li key={k} className="flex items-center gap-3">
-                                        <CheckCircle2 size={16} style={{ color: contentTypes[activeTab].color }} className="shrink-0" />
-                                        <span className="text-sm text-gray-600 font-medium">{b}</span>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    </motion.div>
-                </motion.div>
 
                 {/* ══════════════════════════════════════════ */}
                 {/* 4. WHY IT MATTERS — Impact table           */}

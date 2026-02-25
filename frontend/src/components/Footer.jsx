@@ -42,24 +42,42 @@ const Footer = () => {
     ]
 
     return (
-        <footer className="bg-white border-t border-blue-600/10 text-black">
-            <div className="section-container">
+        <footer className="relative bg-gradient-to-b from-[#002B54] to-[#00376b] text-white">
+            {/* Wave Top Decoration */}
+            <div className="absolute top-0 left-0 w-full overflow-hidden leading-[0] transform -translate-y-full">
+                <svg
+                    viewBox="0 0 1200 120"
+                    preserveAspectRatio="none"
+                    className="relative block w-full h-[60px] md:h-[120px]"
+                >
+                    <path
+                        d="M0,40 L40,43.3 C80,46.7,160,53.3,240,58.3 C320,63.3,400,66.7,480,60 C560,53.3,640,36.7,720,38.3 C800,40,880,60,960,70 C1040,80,1120,80,1200,70 C1280,60,1360,40,1400,30 L1440,20 L1440,120 L1400,120 C1360,120,1280,120,1200,120 C1120,120,1040,120,960,120 C880,120,800,120,720,120 C640,120,560,120,480,120 C400,120,320,120,240,120 C160,120,80,120,40,120 L0,120 Z"
+                        fill="#00376b" opacity="0.4"
+                    ></path>
+                    <path
+                        d="M0,67 L24,64.3 C48,61.7,96,56,144,53.3 C192,50.7,240,50.7,288,58.7 C336,66.7,384,82.7,432,82.7 C480,82.7,528,66.7,576,61.3 C624,56,672,61.3,720,66.7 C768,72,816,77.3,864,74.7 C912,72,960,61.3,1008,53.3 C1056,45.3,1104,40,1152,42.7 C1200,45.3,1248,56,1272,61.3 L1296,66.7 L1296,120 L1272,120 C1248,120,1200,120,1152,120 C1104,120,1056,120,1008,120 C960,120,912,120,864,120 C816,120,768,120,720,120 C672,120,624,120,576,120 C528,120,480,120,432,120 C384,120,336,120,288,120 C240,120,192,120,144,120 C96,120,48,120,24,120 L0,120 Z"
+                        fill="#002B54"
+                    ></path>
+                </svg>
+            </div>
+
+            <div className="section-container pt-16 md:pt-24 pb-12">
                 <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
                     {/* Brand */}
                     <div className="lg:col-span-2">
                         <Link to="/" className="flex items-center space-x-3 mb-4 group">
                             <div className="relative w-12 h-12 flex items-center justify-center">
-                                <svg viewBox="0 0 100 60" className="w-full h-full filter drop-shadow-[0_0_10px_rgba(59,130,246,0.3)]">
+                                <svg viewBox="0 0 100 60" className="w-full h-full filter drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">
                                     <defs>
                                         <linearGradient id="logo-gradient-footer" x1="0%" y1="0%" x2="0%" y2="100%">
-                                            <stop offset="0%" stopColor="#2563eb" />
-                                            <stop offset="100%" stopColor="#1d4ed8" />
+                                            <stop offset="0%" stopColor="#60a5fa" />
+                                            <stop offset="100%" stopColor="#2563eb" />
                                         </linearGradient>
                                     </defs>
                                     <path
                                         d="M48 5 L10 26 L10 54 Q10 58 14 58 L48 58 L48 48 L18 48 Q16 48 16 46 L16 34 L48 16 Z"
                                         fill="url(#logo-gradient-footer)"
-                                        stroke="#2563eb"
+                                        stroke="#60a5fa"
                                         strokeWidth="1.5"
                                         strokeLinejoin="round"
                                     />
@@ -67,15 +85,15 @@ const Footer = () => {
                                         d="M52 5 L52 58 L86 58 Q90 58 90 54 L90 26 L52 5 Z M62 18 V46 L80 46 V28 Z"
                                         fill="url(#logo-gradient-footer)"
                                         fillRule="evenodd"
-                                        stroke="#2563eb"
+                                        stroke="#60a5fa"
                                         strokeWidth="1.5"
                                         strokeLinejoin="round"
                                     />
                                 </svg>
                             </div>
-                            <span className="text-2xl font-bold tracking-[0.2em] text-black">CALDIM</span>
+                            <span className="text-2xl font-bold tracking-[0.2em] text-white">CALDIM</span>
                         </Link>
-                        <p className="text-gray-600 mb-6 leading-relaxed max-w-sm">
+                        <p className="text-blue-100/60 mb-6 leading-relaxed max-w-sm">
                             Building the future, one line of code at a time. Your trusted partner in digital transformation and innovative software solutions.
                         </p>
                         <div className="flex gap-4">
@@ -90,9 +108,9 @@ const Footer = () => {
                                         rel="noopener noreferrer"
                                         whileHover={{ scale: 1.1, y: -2 }}
                                         whileTap={{ scale: 0.95 }}
-                                        className="w-10 h-10 bg-gray-50 hover:bg-blue-600/10 border border-blue-600/10 rounded-lg flex items-center justify-center transition-all group"
+                                        className="w-10 h-10 bg-white/5 hover:bg-blue-400 border border-white/10 rounded-lg flex items-center justify-center transition-all group"
                                     >
-                                        <Icon className="w-5 h-5 text-gray-500 group-hover:text-blue-600 transition-colors" />
+                                        <Icon className="w-5 h-5 text-blue-100 group-hover:text-white transition-colors" />
                                     </motion.a>
                                 )
                             })}
@@ -102,19 +120,19 @@ const Footer = () => {
                     {/* Links */}
                     {footerLinks.map((group, groupIndex) => (
                         <div key={groupIndex}>
-                            <h3 className="font-bold text-sm uppercase tracking-widest mb-6 text-black">{group.title}</h3>
+                            <h3 className="font-bold text-sm uppercase tracking-widest mb-6 text-white">{group.title}</h3>
                             <ul className="space-y-4">
                                 {group.links.map((link, index) => (
                                     <li key={index}>
                                         {link.href ? (
                                             <Link
                                                 to={link.href}
-                                                className="text-gray-500 hover:text-blue-600 transition-all inline-block hover:translate-x-1 duration-200 text-sm"
+                                                className="text-blue-100/60 hover:text-blue-400 transition-all inline-block hover:translate-x-1 duration-200 text-sm"
                                             >
                                                 {link.name}
                                             </Link>
                                         ) : (
-                                            <span className="text-gray-500 text-sm cursor-default">
+                                            <span className="text-blue-100/40 text-sm cursor-default">
                                                 {link.name}
                                             </span>
                                         )}
@@ -126,12 +144,12 @@ const Footer = () => {
                 </div>
 
                 {/* Bottom Bar */}
-                <div className="pt-8 border-t border-blue-600/10 flex flex-col md:flex-row justify-between items-center gap-4">
-                    <p className="text-gray-500 text-xs tracking-wider uppercase font-medium">
-                        © {new Date().getFullYear()} H23. All rights reserved.
+                <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
+                    <p className="text-blue-100/40 text-xs tracking-wider uppercase font-medium">
+                        © {new Date().getFullYear()} CALDIM. All rights reserved.
                     </p>
-                    <p className="text-gray-500 text-xs tracking-wider uppercase font-medium flex items-center gap-2">
-                        Crafted with <span className="text-blue-600 animate-pulse text-lg">✦</span> by Dinesh
+                    <p className="text-blue-100/40 text-xs tracking-wider uppercase font-medium flex items-center gap-2">
+                        Crafted with <span className="text-blue-400 animate-pulse text-lg">#</span> by CALDIM
                     </p>
                 </div>
             </div>

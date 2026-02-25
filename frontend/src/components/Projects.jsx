@@ -1,130 +1,149 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import { ArrowUpRight, BarChart2, Globe, Box, Heart } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Shield, Database, Layout, Link as LinkIcon, CheckCircle2, ChevronRight } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
+import archiveImg from '../assets/img.png'
 
 const Projects = () => {
-    const projects = [
+    const navigate = useNavigate()
+    const categories = [
         {
-            title: 'Data Insights Pro',
-            description: 'Close-up animation-style dashboard interface with vibrant blue charts.',
-            tech: ['React', 'D3.js', 'Framer Motion'],
-            gradient: 'from-[#00d2ff] via-[#3a7bd5] to-[#00d2ff]',
-            icon: BarChart2,
-            tag: 'DATA ANALYTICS'
+            title: "1. Core Functional Requirements",
+            icon: Database,
+            color: "text-blue-600",
+            bgColor: "bg-blue-50",
+            points: [
+                { head: "Centralized Secure Repository", desc: "Create a unified storage layer to collect, organize, and safeguard all digital assets (PDFs, industrial records, multimedia)." },
+                { head: "Intelligent Ingestion", desc: "Build an upload interface that handles bulk files and automatically extracts text (using Python/OCR) during the upload process." },
+                { head: "Advanced Metadata Search", desc: "A high-speed search bar that queries not just file names, but the metadata and content inside the documents." },
+                { head: "Automated Lifecycle Management", desc: "Logic that automatically flags old files for 'Cold Storage' or 'Archive' status to optimize database performance." }
+            ]
         },
         {
-            title: 'Cloud Core Matrix',
-            description: 'Isometric 3D motion graphic of floating glass layers and glowing data lines.',
-            tech: ['Python', 'TensorFlow', 'Three.js'],
-            gradient: 'from-[#6366f1] via-[#a855f7] to-[#d946ef]',
-            icon: Globe,
-            tag: 'INFRASTRUCTURE'
+            title: "2. Security & Integrity (The 'Vault' Logic)",
+            icon: Shield,
+            color: "text-indigo-600",
+            bgColor: "bg-indigo-50",
+            points: [
+                { head: "WORM Implementation", desc: "'Write Once, Read Many' logic—ensure that once a file is archived, it cannot be edited or deleted without high-level admin override." },
+                { head: "Chain of Custody (Audit Logs)", desc: "A backend table to track every action: Who viewed it? When? From what IP?" },
+                { head: "Data Integrity Checks", desc: "Automatic background 'checksum' scans to ensure files haven't been corrupted or altered over time." }
+            ]
         },
         {
-            title: 'SecureFlow Suite',
-            description: 'Geometric micro-interactions with fluid liquid motion and snappy easing.',
-            tech: ['Go', 'WebAssembly', 'Lottie'],
-            gradient: 'from-[#22c55e] via-[#10b981] to-[#3b82f6]',
-            icon: Box,
-            tag: 'SECURITY'
+            title: "3. User Interface (UI) Features",
+            icon: Layout,
+            color: "text-cyan-600",
+            bgColor: "bg-cyan-50",
+            points: [
+                { head: "Dynamic Document Viewer", desc: "An integrated previewer so users can view PDFs, images, or CAD files directly in the browser without downloading them." },
+                { head: "Versioning Support", desc: "If a document is updated, the system must keep the 'Archived' version as a historical record while showing the 'Current' version." },
+                { head: "Category Tagging", desc: "A sidebar with filters for 'Project Name,' 'Date Range,' 'Department,' and 'Document Type.'" }
+            ]
         },
+        {
+            title: "4. Technical Integration Points",
+            icon: LinkIcon,
+            color: "text-blue-500",
+            bgColor: "bg-blue-50",
+            points: [
+                { head: "API-First Approach", desc: "Ensure the archive has a clean REST API so your other industrial automation portals can 'push' data into the archive programmatically." },
+                { head: "Scalable Storage Backend", desc: "Configure the backend to point to scalable 'Cold' buckets (like AWS S3 Glacier or similar) to keep hosting costs low as data grows." }
+            ]
+        }
     ]
 
     return (
-        <section id="projects" className="py-20 sm:py-32 bg-transparent relative overflow-hidden">
-            {/* Background Decorative Blur */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[800px] aspect-square bg-blue-600/5 blur-[100px] sm:blur-[150px] rounded-full pointer-events-none" />
+        <section id="projects" className="py-24 sm:py-48 bg-white">
+            <div className="max-w-[1440px] mx-auto px-6">
+                <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-start relative">
 
-            <div className="max-w-[1440px] xl:max-w-[1600px] 2xl:max-w-[1800px] mx-auto px-6">
-                <motion.div
-                    initial={{ opacity: 0, x: -50 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
-                    className="mb-16 sm:mb-24"
-                >
-                    {/* <div className="flex items-center gap-4 mb-6">
-                        <div className="w-12 h-[1px] bg-blue-600" />
-                        <span className="text-[10px] font-black uppercase tracking-[0.5em] text-blue-600">Selected Works // 2024</span>
-                    </div> */}
-                    <h2 className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tighter text-black leading-tight">
-                        DIGITAL<br />
-                        <span className="text-transparent" style={{ WebkitTextStroke: '1px rgba(0,0,0,0.4)' }}>ARCHIVE</span>
-                    </h2>
-                </motion.div>
+                    {/* Left Side: Image Visual - Persistent Sticky */}
+                    <motion.div
+                        initial={{ opacity: 0, x: -50 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8 }}
+                        className="lg:w-2/5 lg:sticky lg:top-40 w-full mb-16 lg:mb-0"
+                    >
+                        <div className="relative">
+                            <img
+                                src={archiveImg}
+                                alt="Archive Solution Visual"
+                                className="w-full h-auto object-contain select-none pointer-events-none"
+                            />
+                        </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                    {projects.map((project, index) => (
+                        <div className="mt-12 space-y-4">
+                            <h2 className="text-4xl sm:text-5xl font-black tracking-tighter text-slate-900 leading-tight">
+                                INDUSTRIAL<br />
+                                <span className="text-blue-600">ARCHIVE</span> SYSTEM
+                            </h2>
+                            <p className="text-slate-500 font-medium text-lg leading-relaxed">
+                                A high-fidelity centralized vault designed for the future of industrial data sovereignty.
+                            </p>
+                        </div>
+                    </motion.div>
+
+                    {/* Right Side: Technical Roadmap Points */}
+                    <div className="lg:w-3/5 space-y-16">
+                        {categories.map((cat, idx) => (
+                            <motion.div
+                                key={idx}
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: idx * 0.1, duration: 0.8 }}
+                                className="space-y-8"
+                            >
+                                <div className="flex items-center gap-6">
+                                    <div className={`p-4 rounded-2xl ${cat.bgColor} ${cat.color} shadow-sm`}>
+                                        <cat.icon size={32} strokeWidth={1.5} />
+                                    </div>
+                                    <h3 className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900">
+                                        {cat.title}
+                                    </h3>
+                                </div>
+
+                                <div className="grid gap-6">
+                                    {cat.points.map((point, pIdx) => (
+                                        <div key={pIdx} className="group relative pl-12">
+                                            <div className="absolute left-0 top-1.5 p-1 rounded-full bg-blue-600/10 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all">
+                                                <CheckCircle2 size={16} strokeWidth={3} />
+                                            </div>
+                                            <h4 className="text-lg font-bold text-slate-800 mb-1 group-hover:text-blue-600 transition-colors">
+                                                {point.head}
+                                            </h4>
+                                            <p className="text-slate-500 font-light leading-relaxed">
+                                                {point.desc}
+                                            </p>
+                                        </div>
+                                    ))}
+                                </div>
+                                {idx < categories.length - 1 && (
+                                    <div className="pt-8 border-b border-slate-100" />
+                                )}
+                            </motion.div>
+                        ))}
+
+                        {/* View All Projects Button */}
                         <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 30 }}
+                            initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ delay: index * 0.1, duration: 0.8 }}
-                            className="group relative"
+                            transition={{ delay: 0.5, duration: 0.8 }}
+                            className="pt-12"
                         >
-                            <div className="h-full bg-white rounded-[2.5rem] border border-blue-600/20 overflow-hidden transition-all duration-500 hover:border-blue-600 hover:shadow-2xl">
-                                {/* Visual Header (UI Mockup Style) */}
-                                <div className={`h-48 sm:h-56 bg-gradient-to-br ${project.gradient} relative p-6 sm:p-8 flex flex-col justify-end overflow-hidden`}>
-                                    <div className="absolute top-6 sm:top-8 right-6 sm:right-8 flex gap-2">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-white/40" />
-                                        <div className="w-1.5 h-1.5 rounded-full bg-white/40" />
-                                        <div className="w-1.5 h-1.5 rounded-full bg-white/40" />
-                                    </div>
-
-                                    <motion.div
-                                        animate={{ scale: [1, 1.05, 1], opacity: [0.5, 0.8, 0.5] }}
-                                        transition={{ duration: 5, repeat: Infinity }}
-                                        className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none"
-                                    />
-
-                                    <div className="relative z-10 flex justify-between items-start w-full">
-                                        <div>
-                                            <div className="p-2 sm:p-3 bg-black/20 backdrop-blur-xl rounded-xl sm:rounded-2xl inline-flex mb-3 sm:mb-4 group-hover:scale-110 transition-transform">
-                                                <project.icon className="text-white w-5 h-5 sm:w-6 sm:h-6" strokeWidth={1.5} />
-                                            </div>
-                                            <div className="text-[7px] sm:text-[8px] font-black tracking-[0.3em] text-white/60 mb-1 uppercase">{project.tag}</div>
-                                            <h3 className="text-xl sm:text-2xl font-black text-white">{project.title}</h3>
-                                        </div>
-                                        <motion.button
-                                            whileTap={{ scale: 0.8 }}
-                                            className="p-3 bg-white/20 backdrop-blur-md rounded-full text-blue-400 hover:text-blue-600 hover:bg-white transition-all shadow-lg"
-                                        >
-                                            <Heart size={20} fill="currentColor" />
-                                        </motion.button>
-                                    </div>
-
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
-                                </div>
-
-                                <div className="p-8 sm:p-10 space-y-6 sm:space-y-8">
-                                    <p className="text-sm sm:text-base text-gray-600 leading-relaxed font-light line-clamp-3">
-                                        {project.description}
-                                    </p>
-
-                                    <div className="flex flex-wrap gap-2">
-                                        {project.tech.map((t, i) => (
-                                            <span key={i} className="px-3 sm:px-4 py-1 sm:py-1.5 bg-blue-50 border border-blue-600/10 rounded-lg sm:rounded-xl text-blue-600 text-[8px] font-black uppercase tracking-widest">
-                                                {t}
-                                            </span>
-                                        ))}
-                                    </div>
-
-                                    <div className="flex pt-2 sm:pt-4">
-                                        <Link to="/projects" className="w-full">
-                                            <motion.button
-                                                whileHover={{ y: -2 }}
-                                                className="w-full flex items-center justify-center gap-3 py-3 sm:py-4 bg-gray-50 border border-blue-600/10 rounded-xl sm:rounded-2xl text-[9px] sm:text-[10px] font-black uppercase tracking-[0.3em] text-gray-700 group-hover:bg-blue-600 group-hover:text-white transition-all"
-                                            >
-                                                INITIALIZE <ArrowUpRight size={14} />
-                                            </motion.button>
-                                        </Link>
-                                    </div>
-                                </div>
-                            </div>
+                            <button
+                                onClick={() => navigate('/all-projects')}
+                                className="px-10 py-4 rounded-2xl bg-[#002B54] text-white flex items-center gap-3 hover:bg-blue-600 transition-all shadow-xl hover:-translate-y-1 group"
+                            >
+                                <span className="text-xs font-black uppercase tracking-[0.3em] text-white">View All Projects</span>
+                                <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                            </button>
                         </motion.div>
-                    ))}
+                    </div>
+
                 </div>
             </div>
         </section>

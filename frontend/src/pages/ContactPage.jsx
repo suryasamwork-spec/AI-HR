@@ -138,7 +138,7 @@ const ContactPage = () => {
                             backfaceVisibility: 'hidden',
                         }}
                         transition={{ duration: 0.8 }}
-                        className="bg-white p-6 sm:p-12 rounded-[2rem] sm:rounded-[3.5rem] border border-blue-600/10 relative group shadow-2xl overflow-hidden"
+                        className="bg-white p-6 sm:p-12 rounded-[2rem] sm:rounded-[1rem] border border-blue-600/10 relative group shadow-2xl overflow-hidden"
                     >
                         <form ref={formRef} onSubmit={handleSubmit} className="space-y-6 sm:space-y-8 relative z-10">
                             {/* Name Row */}
@@ -310,12 +310,12 @@ const ContactPage = () => {
                     {/* Contact details */}
                     <div className="space-y-12 sm:space-y-16">
                         <div className="space-y-6 sm:space-y-8">
-                            <div className="flex items-center gap-4">
+                            {/* <div className="flex items-center gap-4">
                                 <div className="w-10 h-10 rounded-full bg-blue-600/10 border border-blue-600/20 flex items-center justify-center">
                                     <Terminal size={16} className="text-blue-600" />
                                 </div>
                                 <span className="text-[10px] font-black text-blue-600 uppercase tracking-[0.5em]">Global Nodes</span>
-                            </div>
+                            </div> */}
                             <h2 className="text-3xl sm:text-5xl text-black font-black leading-tight tracking-tighter uppercase italic">
                                 ESTABLISH<br />
                                 <span className="text-transparent" style={{ WebkitTextStroke: '1px rgba(0,0,0,0.4)' }}>CONNECTION</span>
