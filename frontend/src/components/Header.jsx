@@ -13,7 +13,7 @@ const Header = () => {
 
     useEffect(() => {
         const handleScroll = () => {
-            setIsScrolled(window.scrollY > 20)
+            setIsScrolled(window.scrollY > 10)
         }
         const handleClickOutside = (event) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -96,8 +96,8 @@ const Header = () => {
             initial={{ y: -100 }}
             animate={{ y: 0 }}
             transition={{ duration: 0.5 }}
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
-                ? 'bg-white/90 backdrop-blur-lg border-b border-blue-600/10 shadow-sm'
+            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
+                ? 'bg-[#002B54] shadow-lg'
                 : 'bg-transparent'
                 }`}
         >
@@ -138,7 +138,7 @@ const Header = () => {
                                 />
                             </svg>
                         </div>
-                        <span className={`text-2xl font-bold tracking-[0.2em] transition-colors ${isScrolled ? 'text-black' : 'text-black'} group-hover:text-blue-600`}>
+                        <span className={`text-2xl font-bold tracking-[0.2em] transition-colors ${isScrolled ? 'text-white' : 'text-black'} group-hover:text-blue-400`}>
                             CALDIM
                         </span>
                     </Link>
@@ -146,10 +146,24 @@ const Header = () => {
                     {/* Desktop Navigation */}
                     <div className="hidden md:flex items-center space-x-8">
                         {navLinks.map((link, index) => (
-                            <div key={link.name} className="relative" ref={link.hasDropdown ? dropdownRef : null}>
+                            <div
+                                key={link.name}
+                                className="relative"
+                                ref={link.hasDropdown ? dropdownRef : null}
+                                onMouseEnter={() => link.hasDropdown && setIsProjectsDropdownOpen(true)}
+                                onMouseLeave={() => link.hasDropdown && setIsProjectsDropdownOpen(false)}
+                            >
                                 <motion.button
-                                    onClick={(e) => handleNavClick(e, link)}
-                                    className={`nav-link text-sm uppercase tracking-widest font-semibold bg-transparent border-none cursor-pointer flex items-center gap-1 ${isScrolled ? 'text-gray-700' : 'text-gray-700'} ${isProjectsDropdownOpen && link.hasDropdown ? 'text-blue-600' : ''}`}
+                                    onClick={(e) => {
+                                        if (link.hasDropdown) {
+                                            // Close dropdown and navigate on click
+                                            setIsProjectsDropdownOpen(false)
+                                            navigate(link.href)
+                                        } else {
+                                            handleNavClick(e, link)
+                                        }
+                                    }}
+                                    className={`nav-link text-sm uppercase tracking-widest font-semibold bg-transparent border-none cursor-pointer flex items-center gap-1 ${isScrolled ? 'text-white' : 'text-gray-700'} ${isProjectsDropdownOpen && link.hasDropdown ? 'text-blue-400' : ''}`}
                                     initial={{ opacity: 0, y: -20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: index * 0.1 }}
@@ -169,26 +183,26 @@ const Header = () => {
                                                 animate={{ opacity: 1, y: 0, scale: 1 }}
                                                 exit={{ opacity: 0, y: 15, scale: 0.95 }}
                                                 transition={{ duration: 0.2 }}
-                                                className="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-64 bg-white border border-blue-600/10 rounded-2xl overflow-hidden shadow-2xl backdrop-blur-xl"
+                                                className="absolute top-full left-1/2 -translate-x-1/2 pt-4 w-64 z-[60]"
                                             >
-                                                <div className="py-3">
+                                                <div className="bg-[#002B54] border border-white/10 rounded-2xl overflow-hidden shadow-2xl backdrop-blur-xl py-3">
                                                     {projectsList.map((project) => (
                                                         <button
                                                             key={project.id}
                                                             onClick={() => handleProjectItemClick(project.id)}
-                                                            className="w-full px-6 py-4 text-left text-[10px] font-black uppercase tracking-[0.2em] text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-all flex items-center justify-between group"
+                                                            className="w-full px-6 py-4 text-left text-[10px] font-black uppercase tracking-[0.2em] text-white/80 hover:text-white hover:bg-white/10 transition-all flex items-center justify-between group"
                                                         >
                                                             {project.title}
-                                                            <X size={12} className="opacity-0 group-hover:opacity-100 transition-opacity rotate-45" />
+                                                            <X size={12} className="opacity-0 group-hover:opacity-100 transition-opacity rotate-45 text-blue-400" />
                                                         </button>
                                                     ))}
-                                                    <div className="border-t border-gray-100 mt-2">
+                                                    <div className="border-t border-white/5 mt-2">
                                                         <button
                                                             onClick={() => {
                                                                 setIsProjectsDropdownOpen(false)
-                                                                navigate('/projects')
+                                                                navigate('/all-projects')
                                                             }}
-                                                            className="w-full px-6 py-4 text-left text-[10px] font-black uppercase tracking-[0.4em] text-blue-600 hover:bg-blue-50 transition-all"
+                                                            className="w-full px-6 py-4 text-left text-[10px] font-black uppercase tracking-[0.4em] text-blue-400 hover:text-blue-300 hover:bg-white/5 transition-all"
                                                         >
                                                             View All Projects
                                                         </button>
@@ -204,7 +218,7 @@ const Header = () => {
 
                     {/* Mobile Menu Button */}
                     <button
-                        className={`md:hidden p-2 transition-colors ${isScrolled ? 'text-black' : 'text-black'} hover:text-blue-600`}
+                        className={`md:hidden p-2 transition-colors ${isScrolled ? 'text-white' : 'text-black'} hover:text-blue-400`}
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                     >
                         {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -246,7 +260,7 @@ const Header = () => {
                                                 <button
                                                     onClick={() => {
                                                         setIsMobileMenuOpen(false)
-                                                        navigate('/projects')
+                                                        navigate('/all-projects')
                                                     }}
                                                     className="block w-full text-left text-sm font-bold text-blue-600 py-2"
                                                 >

@@ -120,12 +120,12 @@ const MechanicalCore = () => {
 
                             {/* Inner Glass Content */}
                             <div className="w-full h-full p-8 rounded-[3.5rem] flex flex-col justify-between relative z-10">
-                                <div className="space-y-4">
+                                {/* <div className="space-y-4">
                                     <div className={`w-14 h-14 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center shadow-inner group-hover:scale-110 group-hover:border-white/50 transition-all duration-500`}>
                                         <layer.icon className={`w-7 h-7 text-white`} strokeWidth={1.5} />
                                     </div>
                                     <div className="text-[9px] font-black tracking-[0.4em] text-white">{layer.label}</div>
-                                </div>
+                                </div> */}
 
                                 {/* Simulated UI Elements */}
                                 <div className="space-y-4">

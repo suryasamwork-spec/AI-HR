@@ -5,6 +5,7 @@ import Footer from './components/Footer'
 import Home from './pages/Home'
 import AboutPage from './pages/AboutPage'
 import ProjectsPage from './pages/ProjectsPage'
+import AllProjectsPage from './pages/AllProjectsPage'
 import ContactPage from './pages/ContactPage'
 import PortalHome from './pages/PortalHome'
 import ServicesPage from './pages/ServicesPage'
@@ -18,6 +19,7 @@ function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/about" element={<AboutPage />} />
                     <Route path="/projects" element={<ProjectsPage />} />
+                    <Route path="/all-projects" element={<AllProjectsPage />} />
                     <Route path="/contact" element={<ContactPage />} />
                     <Route path="/services" element={<ServicesPage />} />
                     <Route path="/portal" element={<PortalHome />} />

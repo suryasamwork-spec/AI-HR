@@ -1,10 +1,10 @@
 import React from 'react'
-import MechanicalCore from './MechanicalCore'
+import StartupInnovationHero from './StartupInnovationHero'
 
 const Hero = () => {
     return (
-        <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-            <MechanicalCore />
+        <section id="home">
+            <StartupInnovationHero />
         </section>
     )
 }
