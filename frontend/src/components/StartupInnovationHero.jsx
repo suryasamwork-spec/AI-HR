@@ -218,9 +218,9 @@ const StartupInnovationHero = () => {
                         onMouseEnter={() => setIsHoveringLaptop(true)}
                         onMouseLeave={() => setIsHoveringLaptop(false)}
                     >
-                        {/* ── LAPTOP SVG ── */}
+                        ── LAPTOP SVG ──
                         <svg viewBox="0 0 700 520" className="w-full h-auto" style={{ filter: 'drop-shadow(0 40px 80px rgba(0,43,84,0.18))' }}>
-                            <defs>
+                            {/* <defs>
                                 <linearGradient id="lidGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                                     <stop offset="0%" stopColor="#e8ecf1" />
                                     <stop offset="100%" stopColor="#d4dce6" />
@@ -241,7 +241,7 @@ const StartupInnovationHero = () => {
                                     <feGaussianBlur stdDeviation="6" result="blur" />
                                     <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
                                 </filter>
-                            </defs>
+                            </defs> */}
 
                             {/* Screen lid outer */}
                             <rect x="95" y="20" width="510" height="320" rx="16" fill="url(#lidGrad)" stroke="#b8c0cc" strokeWidth="1.5" />

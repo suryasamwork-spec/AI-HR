@@ -323,14 +323,14 @@ const Contact = () => {
                                     {submitStatus === 'idle' && (
                                         <>
                                             <motion.div className="absolute inset-0 bg-blue-700 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500" />
-                                            <span className="relative z-10">TRANSMIT PACKET</span>
+                                            <span className="relative z-10">Send</span>
                                             <Send size={14} className="relative z-10" />
                                         </>
                                     )}
                                     {submitStatus === 'loading' && (
                                         <>
                                             <Loader size={16} className="animate-spin" />
-                                            <span>TRANSMITTING...</span>
+                                            <span>Sending...</span>
                                         </>
                                     )}
                                     {submitStatus === 'success' && (
