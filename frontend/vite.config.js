@@ -5,8 +5,10 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   server: {
-    allowedHosts: [
-      'caldim.in'
-    ]
+    host: true,
+    allowedHosts: 'all',
+    hmr: {
+      overlay: false
+    }
   }
 })

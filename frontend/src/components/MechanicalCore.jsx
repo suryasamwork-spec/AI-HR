@@ -1,11 +1,35 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { motion, AnimatePresence, useSpring, useMotionValue, useTransform } from 'framer-motion'
 import { Cpu, Activity, Shield, Zap, Binary, ChevronRight, BarChart3, Layers, Database } from 'lucide-react'
+import { Compass, Code2, Wrench, ShieldCheck, Rocket } from 'lucide-react'
+
+/* ═══════════════════════════════════════════
+   PIPELINE CONSTANTS
+═══════════════════════════════════════════ */
+const PIPELINE_STAGES = [
+    { label: 'PLAN', Icon: Compass, color: '#002B54' },
+    { label: 'CODE', Icon: Code2, color: '#002B54' },
+    { label: 'BUILD', Icon: Wrench, color: '#002B54' },
+    { label: 'TEST', Icon: ShieldCheck, color: '#002B54' },
+    { label: 'DEPLOY', Icon: Rocket, color: '#002B54' },
+]
+
+const CODE_LINES = [
+    { text: 'import { Engine } from "@caldim/core"', color: '#2563eb' },
+    { text: 'const pipeline = new Engine({', color: '#002B54' },
+    { text: '  modules: ["auth", "data", "api"],', color: '#0ea5e9' },
+    { text: '  runtime: "edge-v3",', color: '#0ea5e9' },
+    { text: '  cache: LRUCache(1024)', color: '#059669' },
+    { text: '})', color: '#002B54' },
+    { text: '', color: 'transparent' },
+    { text: 'await pipeline.build()', color: '#7c3aed' },
+    { text: '// ✓ Deployed to 12 regions', color: '#059669' },
+]
 
 const MechanicalCore = () => {
     const containerRef = useRef(null)
 
-    // Smooth Mouse Physics
+    // Smooth Mouse Physics (Existing)
     const mouseX = useMotionValue(0)
     const mouseY = useMotionValue(0)
     const smoothX = useSpring(mouseX, { stiffness: 50, damping: 20 })
@@ -14,19 +38,63 @@ const MechanicalCore = () => {
     const rotateX = useTransform(smoothY, [-300, 300], [10, -10])
     const rotateY = useTransform(smoothX, [-300, 300], [-10, 10])
 
-    const handleMouseMove = (e) => {
+    // Laptop Specific State & Motion
+    const [pipelineVisible, setPipelineVisible] = useState(false)
+    const [activePipelineStage, setActivePipelineStage] = useState(-1)
+    const [codeStep, setCodeStep] = useState(0)
+    const [isHoveringLaptop, setIsHoveringLaptop] = useState(false)
+
+    const laptopMouseX = useMotionValue(0)
+    const laptopMouseY = useMotionValue(0)
+    const laptopSmoothX = useSpring(laptopMouseX, { stiffness: 50, damping: 30 })
+    const laptopSmoothY = useSpring(laptopMouseY, { stiffness: 50, damping: 30 })
+
+    const laptopRotateY = useTransform(laptopSmoothX, [-1, 1], [-12, 12])
+    const laptopRotateX = useTransform(laptopSmoothY, [-1, 1], [8, -8])
+    const laptopX = useTransform(laptopSmoothX, [-1, 1], [-20, 20])
+    const laptopY = useTransform(laptopSmoothY, [-1, 1], [-15, 15])
+
+    const handleMouseMove = useCallback((e) => {
         if (!containerRef.current) return
         const rect = containerRef.current.getBoundingClientRect()
+
+        // Update existing isometric values
         mouseX.set(e.clientX - rect.left - rect.width / 2)
         mouseY.set(e.clientY - rect.top - rect.height / 2)
-    }
 
-    // Abstract Data Layers (PROMPT: Translucent glass layers floating and intersecting)
+        // Update laptop normalized values
+        const lx = (e.clientX - rect.left - rect.width / 2) / (rect.width / 2)
+        const ly = (e.clientY - rect.top - rect.height / 2) / (rect.height / 2)
+        laptopMouseX.set(lx)
+        laptopMouseY.set(ly)
+    }, [mouseX, mouseY, laptopMouseX, laptopMouseY])
+
+    // Pipeline auto-trigger
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setPipelineVisible(true)
+            let stageIdx = 0
+            const stageInterval = setInterval(() => {
+                setActivePipelineStage(stageIdx)
+                stageIdx++
+                if (stageIdx >= PIPELINE_STAGES.length) clearInterval(stageInterval)
+            }, 400)
+        }, 1800)
+        return () => clearTimeout(timer)
+    }, [])
+
+    // Code line animation
+    useEffect(() => {
+        const t = setInterval(() => setCodeStep(s => (s + 1) % CODE_LINES.length), 700)
+        return () => clearInterval(t)
+    }, [])
+
+    // Abstract Data Layers (Spread globally across the stage)
     const layers = [
-        { id: 1, x: -320, y: -160, z: 120, icon: Cpu, color: 'text-blue-600', label: 'NEURAL_CORE' },
-        { id: 2, x: 380, y: -100, z: 60, icon: BarChart3, color: 'text-blue-400', label: 'ANALYTICS_V3' },
-        { id: 3, x: -380, y: 180, z: 180, icon: Shield, color: 'text-indigo-400', label: 'SECURE_TRANS' },
-        { id: 4, x: 340, y: 240, z: 100, icon: Layers, color: 'text-blue-500', label: 'MATRIX_INFRA' },
+        { id: 1, x: -500, y: -250, z: -150, icon: Cpu, color: 'text-blue-500', label: 'develp' },
+        { id: 2, x: 500, y: -250, z: -150, icon: BarChart3, color: 'text-blue-500', label: 'ANALYTICS' },
+        { id: 3, x: -500, y: 250, z: -150, icon: Shield, color: 'text-blue-500', label: 'SECURE' },
+        { id: 4, x: 500, y: 250, z: -150, icon: Layers, color: 'text-blue-500', label: 'APPLICATION' },
     ]
 
     return (
@@ -35,28 +103,54 @@ const MechanicalCore = () => {
             onMouseMove={handleMouseMove}
             className="relative w-full h-screen bg-white overflow-hidden flex items-center justify-center cursor-default"
         >
-            {/* 1. Deep Space Ambient Glow (PROMPT: High-tech minimalism / Apple style) */}
-            <div className="absolute inset-0">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1600px] h-[1600px] bg-blue-600/5 blur-[250px] rounded-full" />
-                <div className="absolute top-1/4 left-1/4 w-[800px] h-[800px] bg-blue-900/10 blur-[200px] rounded-full" />
+            {/* 1. Enhanced Background & Dynamic Orbs */}
+            <div className="absolute inset-0 bg-[#f8fafc]">
+                {/* Primary Glows */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1400px] h-[1400px] bg-[#002B54]/5 blur-[200px] rounded-full" />
+
+                {/* Floating Accent Orbs */}
+                <motion.div
+                    animate={{
+                        x: [0, 100, 0],
+                        y: [0, -50, 0],
+                        opacity: [0.1, 0.2, 0.1]
+                    }}
+                    transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute top-[10%] left-[15%] w-[500px] h-[500px] bg-[#002B54]/10 blur-[120px] rounded-full"
+                />
+                <motion.div
+                    animate={{
+                        x: [0, -80, 0],
+                        y: [0, 60, 0],
+                        opacity: [0.05, 0.15, 0.05]
+                    }}
+                    transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute bottom-[20%] right-[20%] w-[600px] h-[600px] bg-[#002B54]/10 blur-[150px] rounded-full"
+                />
+
+                {/* Subtle Grid Accent */}
+                <div className="absolute inset-0 opacity-[0.03]" style={{
+                    backgroundImage: `linear-gradient(#002B54 1px, transparent 1px), linear-gradient(90deg, #002B54 1px, transparent 1px)`,
+                    backgroundSize: '100px 100px'
+                }} />
             </div>
 
-            {/* 2. Glowing Data Intersections (PROMPT: Glowing blue data lines) */}
-            <div className="absolute inset-0 pointer-events-none opacity-20">
-                {[...Array(12)].map((_, i) => (
+            {/* 2. Enhanced Data Intersections */}
+            <div className="absolute inset-0 pointer-events-none opacity-30">
+                {[...Array(15)].map((_, i) => (
                     <motion.div
                         key={i}
-                        className="absolute h-[1px] bg-gradient-to-r from-transparent via-blue-600 to-transparent"
+                        className="absolute h-[1px] bg-gradient-to-r from-transparent via-blue-400 to-transparent"
                         initial={{
-                            width: Math.random() * 500 + 300,
-                            x: -800,
+                            width: Math.random() * 600 + 400,
+                            x: -1000,
                             y: Math.random() * 100 + "%"
                         }}
                         animate={{
                             x: ['-100%', '200%'],
                         }}
                         transition={{
-                            duration: Math.random() * 10 + 5,
+                            duration: Math.random() * 12 + 8,
                             repeat: Infinity,
                             ease: "linear",
                             delay: Math.random() * 5
@@ -65,7 +159,7 @@ const MechanicalCore = () => {
                 ))}
             </div>
 
-            {/* 3. The Isometric Stage (PROMPT: Isometric view / Octane render) */}
+            {/* 3. The Isometric Stage */}
             <motion.div
                 style={{
                     rotateX,
@@ -75,14 +169,14 @@ const MechanicalCore = () => {
                 }}
                 className="relative w-full h-full flex items-center justify-center"
             >
-                {/* 4. Intersecting Glass Sheets */}
+                {/* 4. Glass Sheets (Global Spread) */}
                 <AnimatePresence>
                     {layers.map((layer) => (
                         <motion.div
                             key={layer.id}
-                            initial={{ opacity: 0, z: 500, rotateY: 45 }}
+                            initial={{ opacity: 0, z: -500, rotateY: 45 }}
                             animate={{
-                                opacity: 1,
+                                opacity: 1, // Full opacity for the container
                                 z: layer.z,
                                 x: layer.x,
                                 y: [layer.y, layer.y - 30, layer.y],
@@ -93,107 +187,102 @@ const MechanicalCore = () => {
                                 delay: layer.id * 0.2,
                                 y: { duration: 6, repeat: Infinity, ease: 'easeInOut' }
                             }}
-                            className="absolute w-48 h-64 sm:w-64 sm:h-80 bg-blue-300 backdrop-blur-[40px] rounded-[2.5rem] sm:rounded-[3.5rem] border border-white/20 group shadow-2xl hidden sm:block overflow-hidden"
+                            className="absolute w-60 h-72 backdrop-blur-3xl rounded-[2.5rem] border-2 border-white/60 group shadow-[0_40px_100px_rgba(37,99,235,0.1)]"
                             style={{
-                                transformStyle: 'preserve-3d',
-                                boxShadow: 'inset 0 0 40px rgba(1, 3, 7, 0.05), shadow-2xl'
+                                background: 'linear-gradient(135deg, rgba(255,255,255,0.95), rgba(248,250,252,0.85))',
+                                transformStyle: 'preserve-3d'
                             }}
                         >
-                            {/* Hyper-Realistic Glass Reflection Sheen */}
-                            <motion.div
-                                className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
-                                style={{
-                                    transform: 'translateX(-100%)',
-                                }}
-                                animate={{
-                                    translateX: ['100%', '-100%']
-                                }}
-                                transition={{
-                                    duration: 3,
-                                    repeat: Infinity,
-                                    ease: "linear"
-                                }}
-                            />
-
-                            {/* Internal Gloss / Rim Lighting */}
-                            <div className="absolute inset-0 p-[1px] rounded-[3.5rem] bg-gradient-to-br from-blue-600/10 via-transparent to-transparent opacity-40 pointer-events-none" />
-
-                            {/* Inner Glass Content */}
-                            <div className="w-full h-full p-8 rounded-[3.5rem] flex flex-col justify-between relative z-10">
-                                {/* <div className="space-y-4">
-                                    <div className={`w-14 h-14 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center shadow-inner group-hover:scale-110 group-hover:border-white/50 transition-all duration-500`}>
-                                        <layer.icon className={`w-7 h-7 text-white`} strokeWidth={1.5} />
-                                    </div>
-                                    <div className="text-[9px] font-black tracking-[0.4em] text-white">{layer.label}</div>
-                                </div> */}
-
-                                {/* Simulated UI Elements */}
+                            <div className="w-full h-full p-6 flex flex-col justify-between relative overflow-hidden">
                                 <div className="space-y-4">
-                                    <div className="h-[2px] w-full bg-white/20 relative overflow-hidden rounded-full">
+                                    <div className={`w-12 h-12 rounded-2xl bg-blue-50/80 flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-500`}>
+                                        <layer.icon className="w-6 h-6" style={{ color: '#002B54' }} strokeWidth={2} />
+                                    </div>
+                                    <div className="text-[10px] font-black tracking-[0.4em] uppercase" style={{ color: '#002B54' }}>{layer.label}</div>
+                                </div>
+                                <div className="space-y-4">
+                                    <div className="h-[3px] w-full bg-blue-100/80 relative overflow-hidden rounded-full">
                                         <motion.div
-                                            className="absolute inset-y-0 left-0 bg-white shadow-[0_0_10px_rgba(255,255,255,0.8)]"
+                                            className="absolute inset-y-0 left-0"
+                                            style={{ background: '#002B54' }}
                                             animate={{ width: ['0%', '100%', '0%'] }}
                                             transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: layer.id * 0.5 }}
                                         />
                                     </div>
                                     <div className="flex justify-between items-end">
-                                        <div className="h-12 flex items-end gap-1">
+                                        <div className="h-10 flex items-end gap-1.5">
                                             {[...Array(5)].map((_, i) => (
                                                 <motion.div
                                                     key={i}
-                                                    className="w-1.5 bg-white/40 rounded-full"
-                                                    animate={{ height: [10, Math.random() * 30 + 10, 10] }}
+                                                    className="w-1.5 rounded-full"
+                                                    style={{ background: 'rgba(0,43,84,0.4)' }}
+                                                    animate={{ height: [8, Math.random() * 25 + 8, 8] }}
                                                     transition={{ duration: 2, repeat: Infinity, delay: i * 0.2 }}
                                                 />
                                             ))}
                                         </div>
-                                        <div className="w-8 h-8 rounded-full border border-white/10 bg-white/10 flex items-center justify-center">
-                                            <div className="w-1.5 h-1.5 bg-white rounded-full animate-pulse shadow-[0_0_8px_rgba(255,255,255,0.8)]" />
+                                        <div className="w-8 h-8 rounded-full border border-blue-50 flex items-center justify-center bg-white shadow-sm">
+                                            <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: '#002B54' }} />
                                         </div>
                                     </div>
                                 </div>
+                                <div className="absolute inset-0 bg-gradient-to-tr from-white/20 to-transparent pointer-events-none" />
                             </div>
                         </motion.div>
                     ))}
                 </AnimatePresence>
 
-                {/* 5. Central Hero Typography (PROMPT: Apple product reveal / Corporate / Futuristic) */}
+
+                {/* 5. Central Hero Content (Centered & Updated) */}
                 <motion.div
-                    initial={{ opacity: 0, scale: 0.8, z: 200 }}
+                    initial={{ opacity: 0, scale: 0.9, z: 200 }}
                     animate={{ opacity: 1, scale: 1, z: 250 }}
-                    transition={{ duration: 1.5, delay: 1, ease: "easeOut" }}
-                    className="relative text-center select-none"
+                    transition={{ duration: 1.5, delay: 0.5, ease: "easeOut" }}
+                    className="relative text-center select-none z-10 max-w-5xl px-8"
                     style={{ transformStyle: 'preserve-3d' }}
                 >
-                    <div className="flex items-center justify-center gap-4 mb-8">
-                        <div className="w-12 h-[1px] bg-blue-600" />
-                        <span className="text-[10px] font-black uppercase tracking-[0.8em] text-blue-600">Archiving the Future</span>
-                        <div className="w-12 h-[1px] bg-blue-600" />
+                    <div className="flex flex-col items-center gap-6">
+                        {/* Smaller CALDIM SOLUTIONS branding */}
+                        <div className="flex items-center gap-4">
+                            <div className="w-8 h-[1px] bg-[#002B54]/30" />
+                            <h2 className="text-sm font-black uppercase tracking-[0.8em] opacity-60" style={{ color: '#00aaffff' }}>CALDIM SOLUTIONS</h2>
+                            <div className="w-8 h-[1px] bg-[#002B54]/30" />
+                        </div>
+
+                        {/* Main Headline */}
+                        <h1 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] mb-6 uppercase" style={{ color: '#002B54' }}>
+                            Smart<br />
+                            <span className="text-transparent" style={{ WebkitTextStroke: '1.5px rgba(0, 43, 84, 0.4)' }}>Software</span> Solutions
+                        </h1>
+
+                        {/* Description */}
+                        <div className="max-w-3xl space-y-4">
+                            <p className="text-base md:text-lg font-medium leading-relaxed opacity-60" style={{ color: '#002B54' }}>
+                                Custom-built digital systems that streamline workflows, enhance visibility, and improve decision-making across modern organizations.
+                            </p>
+                            <p className="text-base md:text-lg font-medium leading-relaxed opacity-60" style={{ color: '#002B54' }}>
+                                Custom web applications and cloud solutions designed to maximize your ROI and streamline your operations.
+                            </p>
+                        </div>
+
+                        {/* Button */}
+                        <motion.button
+                            whileHover={{ scale: 1.05, y: -5, boxShadow: '0 30px 60px rgba(0, 43, 84, 0.2)' }}
+                            whileTap={{ scale: 0.95 }}
+                            className="mt-8 px-12 py-5 text-white font-black uppercase text-[10px] tracking-[0.5em] rounded-full shadow-2xl transition-all inline-flex items-center gap-4"
+                            style={{ background: '#002B54' }}
+                        >
+                            Initialize System
+                        </motion.button>
                     </div>
-
-                    <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-[10rem] font-black tracking-tighter text-black leading-[0.8] mb-12">
-                        CALDIM<br />
-                        <span className="text-transparent" style={{ WebkitTextStroke: '1.5px rgba(0, 0, 0, 1)' }}>APPLICATIONS</span>
-                    </h1>
-
-                    <p className="max-w-xs sm:max-w-md mx-auto text-gray-500 text-[10px] sm:text-xs font-bold uppercase tracking-[0.4em] mb-16 border-t border-blue-600/10 pt-10 px-4">
-                        Sophisticated Engineering for the Next Matrix
-                    </p>
-
-                    <motion.button
-                        whileHover={{ scale: 1.05, y: -5, boxShadow: '0 30px 60px rgba(0,0,0,0.1)' }}
-                        whileTap={{ scale: 0.95 }}
-                        className="px-8 sm:px-12 py-4 sm:py-5 bg-blue-600 text-white font-black uppercase text-[8px] sm:text-[10px] tracking-[0.5em] rounded-full shadow-2xl transition-all inline-flex items-center gap-4"
-                    >
-                        Initialize System <ChevronRight size={14} />
-                    </motion.button>
                 </motion.div>
             </motion.div>
 
-            {/* 6. Static Noise Overlay (PROMPT: Octane render / 4k fidelity) */}
-            <div className="absolute inset-0 pointer-events-none opacity-[0.0] contrast-150 brightness-150 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+            {/* 6. Static Noise Overlay */}
+            <div className="absolute inset-0 pointer-events-none opacity-[0.02] contrast-150 brightness-150 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
         </div>
     )
 }
 
 export default MechanicalCore
+

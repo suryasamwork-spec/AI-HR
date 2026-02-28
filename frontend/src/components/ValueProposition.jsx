@@ -98,32 +98,24 @@ const ValueProposition = () => {
                                 initial="hidden"
                                 whileInView="show"
                                 viewport={{ once: true }}
-                                className="group relative p-8 rounded-[2rem] bg-white/75 backdrop-blur-sm border border-blue-600/10 hover:border-blue-600/30 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 overflow-hidden"
+                                className="relative p-8 rounded-[2rem] bg-white/75 backdrop-blur-sm border border-blue-600/10 shadow-sm transition-all duration-500 overflow-hidden"
                             >
-                                {/* Hover gradient fill */}
-                                <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.04] transition-opacity duration-500 rounded-[2rem]"
-                                    style={{ background: `linear-gradient(135deg, ${v.gradient[0]}, ${v.gradient[1]})` }} />
-
                                 {/* Number watermark */}
                                 <div className="absolute top-6 right-7 text-[11px] font-black tracking-widest text-gray-100 select-none">{v.num}</div>
 
                                 {/* Icon */}
                                 <div
-                                    className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-400"
+                                    className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-md transition-transform duration-400"
                                     style={{ background: `linear-gradient(135deg, ${v.gradient[0]}, ${v.gradient[1]})` }}
                                 >
                                     <Icon size={22} className="text-white" strokeWidth={1.5} />
                                 </div>
 
                                 {/* Text */}
-                                <h3 className="text-base font-black text-black uppercase tracking-tight mb-3 group-hover:text-blue-600 transition-colors leading-snug">
+                                <h3 className="text-base font-black text-black uppercase tracking-tight mb-3 leading-snug">
                                     {v.title}
                                 </h3>
                                 <p className="text-sm text-gray-500 font-light leading-relaxed">{v.desc}</p>
-
-                                {/* Bottom accent */}
-                                <div className="absolute bottom-0 left-0 right-0 h-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-b-[2rem]"
-                                    style={{ background: `linear-gradient(90deg, ${v.gradient[0]}, ${v.gradient[1]})` }} />
                             </motion.div>
                         )
                     })}
@@ -140,27 +132,21 @@ const ValueProposition = () => {
                                 initial="hidden"
                                 whileInView="show"
                                 viewport={{ once: true }}
-                                className="group relative p-8 rounded-[2rem] bg-white/75 backdrop-blur-sm border border-blue-600/10 hover:border-blue-600/30 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 overflow-hidden"
+                                className="relative p-8 rounded-[2rem] bg-white/75 backdrop-blur-sm border border-blue-600/10 shadow-sm transition-all duration-500 overflow-hidden"
                             >
-                                <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.04] transition-opacity duration-500 rounded-[2rem]"
-                                    style={{ background: `linear-gradient(135deg, ${v.gradient[0]}, ${v.gradient[1]})` }} />
-
                                 <div className="absolute top-6 right-7 text-[11px] font-black tracking-widest text-gray-100 select-none">{v.num}</div>
 
                                 <div
-                                    className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-400"
+                                    className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-md transition-transform duration-400"
                                     style={{ background: `linear-gradient(135deg, ${v.gradient[0]}, ${v.gradient[1]})` }}
                                 >
                                     <Icon size={22} className="text-white" strokeWidth={1.5} />
                                 </div>
 
-                                <h3 className="text-base font-black text-black uppercase tracking-tight mb-3 group-hover:text-blue-600 transition-colors leading-snug">
+                                <h3 className="text-base font-black text-black uppercase tracking-tight mb-3 leading-snug">
                                     {v.title}
                                 </h3>
                                 <p className="text-sm text-gray-500 font-light leading-relaxed">{v.desc}</p>
-
-                                <div className="absolute bottom-0 left-0 right-0 h-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-b-[2rem]"
-                                    style={{ background: `linear-gradient(90deg, ${v.gradient[0]}, ${v.gradient[1]})` }} />
                             </motion.div>
                         )
                     })}

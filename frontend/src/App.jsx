@@ -9,10 +9,12 @@ import AllProjectsPage from './pages/AllProjectsPage'
 import ContactPage from './pages/ContactPage'
 import PortalHome from './pages/PortalHome'
 import ServicesPage from './pages/ServicesPage'
+import ScrollToTop from './components/ScrollToTop'
 
 function App() {
     return (
         <Router>
+            <ScrollToTop />
             <div className="min-h-screen bg-white">
                 <Header />
                 <Routes>
