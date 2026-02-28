@@ -8,7 +8,7 @@ const Projects = () => {
     const navigate = useNavigate()
     const categories = [
         {
-            title: "1. Core Functional Requirements",
+            title: "Operational Efficiency",
             icon: Database,
             color: "text-blue-600",
             bgColor: "bg-blue-50",
@@ -20,7 +20,7 @@ const Projects = () => {
             ]
         },
         {
-            title: "2. Security & Integrity (The 'Vault' Logic)",
+            title: "Real-Time Visibility",
             icon: Shield,
             color: "text-indigo-600",
             bgColor: "bg-indigo-50",
@@ -31,7 +31,7 @@ const Projects = () => {
             ]
         },
         {
-            title: "3. User Interface (UI) Features",
+            title: "Process Control & Compliance",
             icon: Layout,
             color: "text-cyan-600",
             bgColor: "bg-cyan-50",
@@ -42,7 +42,7 @@ const Projects = () => {
             ]
         },
         {
-            title: "4. Technical Integration Points",
+            title: "Data-Driven Decisions",
             icon: LinkIcon,
             color: "text-blue-500",
             bgColor: "bg-blue-50",
@@ -76,8 +76,8 @@ const Projects = () => {
 
                         <div className="mt-12 space-y-4">
                             <h2 className="text-4xl sm:text-5xl font-black tracking-tighter text-slate-900 leading-tight">
-                                INDUSTRIAL<br />
-                                <span className="text-blue-600">ARCHIVE</span> SYSTEM
+                                BUSINESS<br />
+                                <span className="text-blue-600">VALUE</span> SECTION
                             </h2>
                             <p className="text-slate-500 font-medium text-lg leading-relaxed">
                                 A high-fidelity centralized vault designed for the future of industrial data sovereignty.
@@ -107,11 +107,11 @@ const Projects = () => {
 
                                 <div className="grid gap-6">
                                     {cat.points.map((point, pIdx) => (
-                                        <div key={pIdx} className="group relative pl-12">
-                                            <div className="absolute left-0 top-1.5 p-1 rounded-full bg-blue-600/10 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all">
+                                        <div key={pIdx} className="relative pl-12">
+                                            <div className="absolute left-0 top-1.5 p-1 rounded-full bg-blue-600/10 text-blue-600">
                                                 <CheckCircle2 size={16} strokeWidth={3} />
                                             </div>
-                                            <h4 className="text-lg font-bold text-slate-800 mb-1 group-hover:text-blue-600 transition-colors">
+                                            <h4 className="text-lg font-bold text-slate-800 mb-1">
                                                 {point.head}
                                             </h4>
                                             <p className="text-slate-500 font-light leading-relaxed">
@@ -136,10 +136,10 @@ const Projects = () => {
                         >
                             <button
                                 onClick={() => navigate('/all-projects')}
-                                className="px-10 py-4 rounded-2xl bg-[#002B54] text-white flex items-center gap-3 hover:bg-blue-600 transition-all shadow-xl hover:-translate-y-1 group"
+                                className="px-10 py-4 rounded-2xl bg-[#002B54] text-white flex items-center gap-3 shadow-xl"
                             >
                                 <span className="text-xs font-black uppercase tracking-[0.3em] text-white">View All Projects</span>
-                                <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                                <ChevronRight size={18} />
                             </button>
                         </motion.div>
                     </div>

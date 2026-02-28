@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { useRef, useEffect } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import {
     Users, Code, Globe, Shield, Cpu, Layers, Eye, Rocket,
     CheckCircle2, Target, Zap, BarChart2, RefreshCw, Clock,
-    MessageSquare, Headphones, TrendingUp, Layout, Server, GitBranch, Telescope
+    MessageSquare, Headphones, TrendingUp, Layout, Server, GitBranch, Telescope, Heart
 } from 'lucide-react'
+import caldimLogo from '../assets/caldim-logo.png'
 
 /* ─── Reusable fade-in wrapper ───────────────────────────────────────── */
 const FadeIn = ({ children, delay = 0, direction = 'up', className = '' }) => {
@@ -32,16 +33,12 @@ const FadeIn = ({ children, delay = 0, direction = 'up', className = '' }) => {
 const SectionHeader = ({ icon, title, subtitle, iconStyle = {} }) => (
     <FadeIn className="mb-14">
         <div className="flex items-center gap-4 mb-4">
-            <div className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0"
-                style={{ background: 'linear-gradient(135deg,#2563EB,#1D4ED8)', boxShadow: '0 0 24px rgba(37,99,235,0.4)', ...iconStyle }}>
-                {icon}
-            </div>
             <h2 className="text-4xl md:text-5xl font-black text-black tracking-tight">{title}</h2>
         </div>
-        {subtitle && <p className="text-gray-500 text-lg pl-16">{subtitle}</p>}
-        <div className="pl-16 mt-5">
+        {subtitle && <p className="text-gray-500 text-lg leading-relaxed">{subtitle}</p>}
+        {/* <div className="mt-5">
             <div className="h-[3px] w-20 bg-gradient-to-r from-blue-600 to-blue-300 rounded-full" />
-        </div>
+        </div> */}
     </FadeIn>
 )
 
@@ -84,33 +81,99 @@ const HeroSVG = () => (
     </svg>
 )
 
-const WhoWeAreSVG = () => (
-    <svg viewBox="0 0 520 380" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-        {/* Central hub */}
-        <circle cx="260" cy="190" r="60" fill="#2563EB" opacity="0.08" />
-        <circle cx="260" cy="190" r="40" fill="#DBEAFE" />
-        <circle cx="260" cy="190" r="24" fill="#2563EB" opacity="0.7" />
-        {/* People icons */}
-        {[
-            { cx: 100, cy: 100 }, { cx: 420, cy: 100 },
-            { cx: 100, cy: 280 }, { cx: 420, cy: 280 },
-        ].map((pos, i) => (
-            <g key={i}>
-                <line x1={pos.cx} y1={pos.cy} x2="260" y2="190" stroke="#BFDBFE" strokeWidth="1.5" strokeDasharray="5 4" />
-                <circle cx={pos.cx} cy={pos.cy} r="32" fill="#EFF6FF" stroke="#BFDBFE" strokeWidth="1.5" />
-                <circle cx={pos.cx} cy={pos.cy - 10} r="10" fill="#93C5FD" />
-                <path d={`M${pos.cx - 14} ${pos.cy + 20} Q${pos.cx} ${pos.cy + 8} ${pos.cx + 14} ${pos.cy + 20}`} stroke="#2563EB" strokeWidth="2" fill="none" />
-            </g>
-        ))}
-        {/* Labels */}
-        <rect x="64" y="148" width="72" height="12" rx="4" fill="#DBEAFE" />
-        <rect x="384" y="148" width="72" height="12" rx="4" fill="#DBEAFE" />
-        <rect x="64" y="328" width="72" height="12" rx="4" fill="#DBEAFE" />
-        <rect x="384" y="328" width="72" height="12" rx="4" fill="#DBEAFE" />
-        {/* AI chip in center */}
-        <text x="253" y="196" fontSize="11" fontWeight="bold" fill="white" fontFamily="monospace">AI</text>
-    </svg>
-)
+const CircularWhoWeAre = () => {
+    const containerRef = useRef(null)
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start end", "end start"]
+    })
+
+    // Logo stays very slow and subtle: scroll-linked
+    const logoRotation = useTransform(scrollYProgress, [0, 1], [-20, 20])
+
+    const nodes = [
+        { label: 'CULTURE', icon: StepSupportSVG, angle: 90 },
+        { label: 'STRATEGY', icon: StepSoftwareSVG, angle: 30 },
+        { label: 'UX DESIGN', icon: StepAutomationSVG, angle: 330 },
+        { label: 'BRANDING', icon: StepPlatformSVG, angle: 270 },
+        { label: 'DELIVERY', icon: StepSupportSVG, angle: 210 },
+        { label: 'UI DESIGN', icon: StepPlatformSVG, angle: 150 },
+    ]
+
+    const radius = 180
+
+    return (
+        <div ref={containerRef} className="relative w-full max-w-[500px] aspect-square flex items-center justify-center translate-y-4">
+            {/* Dotted Orbit Line: Continuous Rotation */}
+            <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+                className="absolute w-[360px] h-[360px] border-2 border-dashed border-gray-200 rounded-full"
+            />
+
+            {/* Central Logo: Scroll-linked slow rotation */}
+            <motion.div
+                initial={{ scale: 0, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
+                viewport={{ once: true }}
+                style={{ rotate: logoRotation }}
+                transition={{ duration: 1, ease: 'easeOut' }}
+                className="relative z-20 w-[100px] lg:w-[120px] flex items-center justify-center p-2"
+            >
+                <img
+                    src={caldimLogo}
+                    alt="CALDIM Logo"
+                    className="w-full h-auto object-contain"
+                    style={{
+                        filter: 'brightness(0) saturate(100%) invert(11%) sepia(87%) saturate(2222%) hue-rotate(196deg) brightness(97%) contrast(106%)'
+                    }}
+                />
+            </motion.div>
+
+            {/* Orbiting Nodes: Continuous Rotation */}
+            <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+                className="absolute inset-0 flex items-center justify-center"
+            >
+                {nodes.map((node, i) => {
+                    const rad = (node.angle * Math.PI) / 180
+                    const x = Math.cos(rad) * radius
+                    const y = -Math.sin(rad) * radius
+
+                    return (
+                        <motion.div
+                            key={node.label}
+                            initial={{ opacity: 0, scale: 0 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.5 + i * 0.1, duration: 0.8, type: 'spring' }}
+                            style={{ x, y }}
+                            className="absolute flex flex-col items-center gap-3"
+                        >
+                            {/* Counter-rotate the individual node content infinitely so icons stay upright */}
+                            {/* Counter-rotate the individual node content infinitely so icons stay upright */}
+                            <motion.div
+                                animate={{ rotate: -360 }}
+                                transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+                                className="flex flex-col items-center gap-4"
+                            >
+                                <div className="hover:scale-125 transition-transform duration-500 cursor-pointer">
+                                    <node.icon />
+                                </div>
+                                <span className="text-[9px] font-black tracking-widest text-blue-900 bg-white/40 backdrop-blur-sm px-3 py-1 rounded-full shadow-sm whitespace-nowrap uppercase">
+                                    {node.label}
+                                </span>
+                            </motion.div>
+                        </motion.div>
+                    )
+                })}
+            </motion.div>
+        </div>
+    )
+}
+
+const WhoWeAreSVG = () => null // Deprecated
 
 const MissionSVG = () => (
     <svg viewBox="0 0 480 340" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
@@ -374,36 +437,34 @@ const AboutPage = () => {
             {/* ══════════════════════════════════════════════════════════
                 2. WHO WE ARE
             ══════════════════════════════════════════════════════════ */}
-            <section className="py-24 bg-gray-50 border-y border-blue-600/10">
-                <div className="section-container flex flex-col lg:flex-row-reverse items-center gap-16">
-                    <FadeIn direction="right" className="flex-1 flex justify-center">
-                        <div className="w-full max-w-md aspect-square">
-                            <WhoWeAreSVG />
-                        </div>
-                    </FadeIn>
-                    <div className="flex-1">
-                        <SectionHeader
-                            iconStyle={{ background: 'linear-gradient(135deg,#7C3AED 0%,#EC4899 55%,#F97316 100%)', boxShadow: '0 0 28px rgba(168,85,247,0.5)' }}
-                            icon={<Users size={22} className="text-white" />}
-                            title="Who We Are"
-                            subtitle="A startup built on technology, trust, and transformation."
-                        />
-                        <div className="relative pl-0">
-                            {/* Vertical spine */}
-                            <div className="hidden md:block absolute left-6 top-0 bottom-0 w-[2.5px] bg-gradient-to-b from-blue-700 via-blue-400 to-transparent" />
-                            {whoWeAre.map((item, i) => (
-                                <FadeIn key={i} delay={i * 0.15} direction="left">
-                                    <div className="flex items-start gap-6 mb-8 group">
-                                        <div className="relative z-10 flex-shrink-0 w-12 h-12 bg-white border-2 border-blue-600/20 rounded-2xl flex items-center justify-center shadow-[0_8px_20px_rgba(0,0,0,0.05)] group-hover:scale-110 group-hover:border-blue-600 group-hover:shadow-[0_0_20px_rgba(37,99,235,0.4)] transition-all duration-300">
-                                            <div className="absolute inset-1.5 bg-blue-600 rounded-xl" />
-                                            <div className="relative z-10 scale-90">{item.icon}</div>
+            <section className="py-32 bg-gray-50 border-y border-blue-600/10 overflow-hidden">
+                <div className="section-container">
+                    <div className="grid lg:grid-cols-2 gap-20 items-center">
+                        {/* LEFT: Orbital Diagram */}
+                        <FadeIn direction="left" className="flex justify-center h-full">
+                            <CircularWhoWeAre />
+                        </FadeIn>
+
+                        {/* RIGHT: Who We Are Details */}
+                        <div className="flex flex-col gap-10">
+                            <div>
+                                <SectionHeader
+                                    iconStyle={{ background: 'linear-gradient(135deg,#7C3AED 0%,#EC4899 55%,#F97316 100%)', boxShadow: '0 0 28px rgba(168,85,247,0.5)' }}
+                                    icon={<Users size={22} className="text-white" />}
+                                    title="Who We Are"
+                                    subtitle="A startup built on technology, trust, and transformation."
+                                />
+                            </div>
+
+                            <div className="space-y-8">
+                                {whoWeAre.map((item, i) => (
+                                    <FadeIn key={i} delay={i * 0.1} direction="right">
+                                        <div className="group border-l-2 border-blue-600/20 pl-6 hover:border-blue-600 transition-colors duration-300">
+                                            <p className="text-gray-700 font-medium text-lg leading-relaxed">{item.text}</p>
                                         </div>
-                                        <div className="flex-1 bg-white/70 backdrop-blur-sm border border-blue-600/10 rounded-2xl px-7 py-5 shadow-sm group-hover:border-blue-600/40 group-hover:shadow-xl group-hover:-translate-y-1 transition-all duration-300">
-                                            <p className="text-gray-700 text-base leading-relaxed font-medium">{item.text}</p>
-                                        </div>
-                                    </div>
-                                </FadeIn>
-                            ))}
+                                    </FadeIn>
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </div>

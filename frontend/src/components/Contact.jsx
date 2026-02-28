@@ -82,7 +82,7 @@ const Contact = () => {
     const contactInfo = [
         {
             icon: Mail,
-            title: 'PROTOCOL.SMTP',
+            title: '',
             value: 'support@caldimengg.in',
             link: 'mailto:support@caldimengg.in',
         },
