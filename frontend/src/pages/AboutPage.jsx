@@ -177,51 +177,48 @@ const WhoWeAreSVG = () => null // Deprecated
 
 const MissionSVG = () => (
     <svg viewBox="0 0 480 340" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-        {/* Rocket */}
-        <ellipse cx="240" cy="200" rx="30" ry="60" fill="#2563EB" opacity="0.85" />
-        <polygon points="240,100 210,180 270,180" fill="#1D4ED8" />
-        <ellipse cx="240" cy="260" rx="30" ry="12" fill="#BFDBFE" />
-        {/* Flames */}
-        <ellipse cx="225" cy="272" rx="10" ry="18" fill="#FCD34D" opacity="0.8" />
-        <ellipse cx="240" cy="278" rx="12" ry="22" fill="#F97316" opacity="0.7" />
-        <ellipse cx="255" cy="272" rx="10" ry="18" fill="#FCD34D" opacity="0.8" />
+        {/* Rocket Body */}
+        <ellipse cx="240" cy="200" rx="30" ry="60" fill="#002B54" opacity="0.9" />
+        <polygon points="240,100 210,180 270,180" fill="#002B54" />
+        <ellipse cx="240" cy="260" rx="30" ry="12" fill="#E0F2FE" />
+        {/* Flames (Muted) */}
+        <ellipse cx="225" cy="272" rx="10" ry="18" fill="#93C5FD" opacity="0.6" />
+        <ellipse cx="240" cy="278" rx="12" ry="22" fill="#60A5FA" opacity="0.5" />
+        <ellipse cx="255" cy="272" rx="10" ry="18" fill="#93C5FD" opacity="0.6" />
         {/* Stars */}
-        {[[80, 80], [400, 60], [440, 200], [60, 260], [370, 290], [120, 180], [320, 150]].map(([x, y], i) => (
-            <circle key={i} cx={x} cy={y} r={i % 2 === 0 ? 4 : 3} fill="#2563EB" opacity={0.2 + i * 0.07} />
+        {[[80, 80], [400, 60], [440, 200], [60, 260], [370, 290]].map(([x, y], i) => (
+            <circle key={i} cx={x} cy={y} r={2} fill="#002B54" opacity={0.15} />
         ))}
         {/* Path arc */}
-        <path d="M120 300 Q240 140 360 300" stroke="#BFDBFE" strokeWidth="2" strokeDasharray="6 4" fill="none" />
+        <path d="M120 300 Q240 140 360 300" stroke="#002B54" strokeWidth="1" strokeDasharray="6 4" fill="none" opacity="0.2" />
         {/* Target */}
-        <circle cx="380" cy="100" r="32" fill="none" stroke="#DBEAFE" strokeWidth="2" />
-        <circle cx="380" cy="100" r="20" fill="none" stroke="#93C5FD" strokeWidth="2" />
-        <circle cx="380" cy="100" r="8" fill="#2563EB" opacity="0.6" />
+        <circle cx="380" cy="100" r="32" fill="none" stroke="#E0F2FE" strokeWidth="2" />
+        <circle cx="380" cy="100" r="20" fill="none" stroke="#BAE6FD" strokeWidth="2" />
+        <circle cx="380" cy="100" r="8" fill="#002B54" opacity="0.4" />
     </svg>
 )
 
 const VisionSVG = () => (
     <svg viewBox="0 0 480 340" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
         {/* Eye shape */}
-        <path d="M60 170 Q240 60 420 170 Q240 280 60 170Z" fill="#EFF6FF" stroke="#BFDBFE" strokeWidth="2" />
-        <circle cx="240" cy="170" r="50" fill="#DBEAFE" />
-        <circle cx="240" cy="170" r="30" fill="#93C5FD" />
-        <circle cx="240" cy="170" r="16" fill="#2563EB" opacity="0.85" />
-        <circle cx="248" cy="162" r="5" fill="white" opacity="0.7" />
+        <path d="M60 170 Q240 60 420 170 Q240 280 60 170Z" fill="#F8FAFC" stroke="#E2E8F0" strokeWidth="2" />
+        <circle cx="240" cy="170" r="50" fill="#F1F5F9" />
+        <circle cx="240" cy="170" r="30" fill="#E2E8F0" />
+        <circle cx="240" cy="170" r="16" fill="#002B54" opacity="0.8" />
+        <circle cx="248" cy="162" r="5" fill="white" opacity="0.6" />
         {/* Rays */}
         {[0, 45, 90, 135, 180, 225, 270, 315].map((deg, i) => (
             <line key={i}
                 x1={240 + Math.cos(deg * Math.PI / 180) * 60}
                 y1={170 + Math.sin(deg * Math.PI / 180) * 60}
-                x2={240 + Math.cos(deg * Math.PI / 180) * 80}
-                y2={170 + Math.sin(deg * Math.PI / 180) * 80}
-                stroke="#BFDBFE" strokeWidth="2.5" strokeLinecap="round"
+                x2={240 + Math.cos(deg * Math.PI / 180) * 85}
+                y2={170 + Math.sin(deg * Math.PI / 180) * 85}
+                stroke="#002B54" strokeWidth="1.5" strokeLinecap="round" opacity="0.1"
             />
         ))}
-        {/* Horizon */}
-        <rect x="60" y="280" width="360" height="4" rx="2" fill="#DBEAFE" />
-        <rect x="100" y="296" width="280" height="4" rx="2" fill="#EFF6FF" />
         {/* Stars */}
         {[[100, 60], [380, 80], [160, 40], [320, 50]].map(([x, y], i) => (
-            <circle key={i} cx={x} cy={y} r="4" fill="#2563EB" opacity={0.15 + i * 0.1} />
+            <circle key={i} cx={x} cy={y} r="2" fill="#002B54" opacity="0.2" />
         ))}
     </svg>
 )
@@ -473,37 +470,39 @@ const AboutPage = () => {
             {/* ══════════════════════════════════════════════════════════
                 3. MISSION & VISION
             ══════════════════════════════════════════════════════════ */}
-            <section className="py-24 bg-white">
-                <div className="section-container grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <section className="py-24 bg-[#f8fafc]">
+                <div className="section-container grid grid-cols-1 lg:grid-cols-2 gap-10">
+                    {/* Mission */}
                     <FadeIn direction="left">
-                        <div className="h-full rounded-[32px] overflow-hidden border border-orange-500/10 shadow-2xl hover:shadow-orange-500/10 transition-all duration-500 flex flex-col group"
-                            style={{ background: 'linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,247,237,1) 100%)' }}>
-                            <div className="bg-gradient-to-br from-orange-500 via-red-600 to-purple-800 p-8 flex items-center gap-5 relative overflow-hidden">
-                                <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 blur-3xl rounded-full translate-x-10 -translate-y-10 group-hover:scale-150 transition-transform duration-700" />
-                                <div className="w-14 h-14 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center shadow-inner">
-                                    <Target size={28} className="text-white" />
+                        <div className="h-full rounded-[2.5rem] bg-white border border-[#002B54]/5 shadow-[0_30px_70px_rgba(0,43,84,0.04)] overflow-hidden flex flex-col group p-2">
+                            <div className="bg-[#fcfdfe] rounded-[2rem] p-8 lg:p-12 flex flex-col h-full border border-gray-50">
+                                <div className="flex items-center gap-6 mb-12">
+                                    <div className="w-16 h-16 bg-[#002B54] rounded-2xl flex items-center justify-center shadow-lg shadow-blue-900/10">
+                                        <Target size={30} className="text-white" />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-3xl font-black text-[#002B54] tracking-tight uppercase">Our Mission</h3>
+                                        <div className="h-1 w-12 bg-[#002B54]/10 rounded-full mt-2" />
+                                    </div>
                                 </div>
-                                <div className="z-10">
-                                    <h3 className="text-2xl font-black text-white tracking-wide uppercase">Our Mission</h3>
-                                    <div className="h-1 w-12 bg-white/40 rounded-full mt-1" />
-                                </div>
-                            </div>
-                            <div className="flex flex-col lg:flex-row items-center gap-6 p-10 flex-1">
-                                <div className="w-full lg:w-1/2 flex justify-center">
-                                    <div className="w-44 h-44 drop-shadow-[0_20px_40px_rgba(249,115,22,0.2)]"><MissionSVG /></div>
-                                </div>
-                                <div className="flex-1 space-y-5">
-                                    {[
-                                        'To empower organizations through intelligent, efficient, and reliable software solutions.',
-                                        'To transform complex business processes into streamlined digital experiences.',
-                                    ].map((pt, i) => (
-                                        <FadeIn key={i} delay={0.2 + i * 0.1} direction="right">
-                                            <div className="flex items-start gap-4">
-                                                <div className="mt-2.5 w-3 h-3 rounded-full bg-orange-600 shadow-[0_0_10px_rgba(234,88,12,0.5)] flex-shrink-0" />
-                                                <p className="text-gray-700 text-sm leading-relaxed font-medium">{pt}</p>
+
+                                <div className="flex flex-col gap-10">
+                                    <div className="w-full flex justify-center">
+                                        <div className="w-48 h-48 opacity-80 group-hover:opacity-100 transition-opacity duration-500">
+                                            <MissionSVG />
+                                        </div>
+                                    </div>
+                                    <div className="space-y-6">
+                                        {[
+                                            'To empower organizations through intelligent, efficient, and reliable software solutions.',
+                                            'To transform complex business processes into streamlined digital experiences.',
+                                        ].map((pt, i) => (
+                                            <div key={i} className="flex items-start gap-5">
+                                                <div className="mt-1.5 w-2 h-2 rounded-full bg-[#002B54] shrink-0" />
+                                                <p className="text-[#002B54]/80 text-base leading-relaxed font-medium">{pt}</p>
                                             </div>
-                                        </FadeIn>
-                                    ))}
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -511,34 +510,35 @@ const AboutPage = () => {
 
                     {/* Vision */}
                     <FadeIn direction="right" delay={0.15}>
-                        <div className="h-full rounded-[32px] overflow-hidden border border-indigo-500/10 shadow-2xl hover:shadow-indigo-500/10 transition-all duration-500 flex flex-col group"
-                            style={{ background: 'linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(238,242,255,1) 100%)' }}>
-                            <div className="bg-gradient-to-br from-indigo-500 via-blue-700 to-blue-900 p-8 flex items-center gap-5 relative overflow-hidden">
-                                <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 blur-3xl rounded-full translate-x-10 -translate-y-10 group-hover:scale-150 transition-transform duration-700" />
-                                <div className="w-14 h-14 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center shadow-inner">
-                                    <Telescope size={28} className="text-white" />
+                        <div className="h-full rounded-[2.5rem] bg-white border border-[#002B54]/5 shadow-[0_30px_70px_rgba(0,43,84,0.04)] overflow-hidden flex flex-col group p-2">
+                            <div className="bg-[#fcfdfe] rounded-[2rem] p-8 lg:p-12 flex flex-col h-full border border-gray-50">
+                                <div className="flex items-center gap-6 mb-12">
+                                    <div className="w-16 h-16 bg-[#002B54] rounded-2xl flex items-center justify-center shadow-lg shadow-blue-900/10">
+                                        <Telescope size={30} className="text-white" />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-3xl font-black text-[#002B54] tracking-tight uppercase">Our Vision</h3>
+                                        <div className="h-1 w-12 bg-[#002B54]/10 rounded-full mt-2" />
+                                    </div>
                                 </div>
-                                <div className="z-10">
-                                    <h3 className="text-2xl font-black text-white tracking-wide uppercase">Our Vision</h3>
-                                    <div className="h-1 w-12 bg-white/40 rounded-full mt-1" />
-                                </div>
-                            </div>
-                            <div className="flex flex-col lg:flex-row items-center gap-6 p-10 flex-1">
-                                <div className="w-full lg:w-1/2 flex justify-center">
-                                    <div className="w-44 h-44 drop-shadow-[0_20px_40px_rgba(99,102,241,0.2)]"><VisionSVG /></div>
-                                </div>
-                                <div className="flex-1 space-y-5">
-                                    {[
-                                        'To be a trusted technology partner delivering impactful and future-ready solutions.',
-                                        'To drive digital transformation through innovation and excellence.',
-                                    ].map((pt, i) => (
-                                        <FadeIn key={i} delay={0.3 + i * 0.1} direction="right">
-                                            <div className="flex items-start gap-4">
-                                                <div className="mt-2.5 w-3 h-3 rounded-full bg-indigo-600 shadow-[0_0_10px_rgba(79,70,229,0.5)] flex-shrink-0" />
-                                                <p className="text-gray-700 text-sm leading-relaxed font-medium">{pt}</p>
+
+                                <div className="flex flex-col gap-10">
+                                    <div className="w-full flex justify-center">
+                                        <div className="w-48 h-48 opacity-80 group-hover:opacity-100 transition-opacity duration-500">
+                                            <VisionSVG />
+                                        </div>
+                                    </div>
+                                    <div className="space-y-6">
+                                        {[
+                                            'To be a trusted technology partner delivering impactful and future-ready solutions.',
+                                            'To drive digital transformation through innovation and excellence.',
+                                        ].map((pt, i) => (
+                                            <div key={i} className="flex items-start gap-5">
+                                                <div className="mt-1.5 w-2 h-2 rounded-full bg-[#002B54] shrink-0" />
+                                                <p className="text-[#002B54]/80 text-base leading-relaxed font-medium">{pt}</p>
                                             </div>
-                                        </FadeIn>
-                                    ))}
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
                         </div>

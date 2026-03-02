@@ -1,5 +1,6 @@
 import React from 'react'
 import MechanicalCore from '../components/MechanicalCore'
+import WhatWeDo from '../components/WhatWeDo'
 import Projects from '../components/Projects'
 import Features from '../components/Features'
 import ValueProposition from '../components/ValueProposition'
@@ -9,6 +10,7 @@ const Home = () => {
     return (
         <main>
             <MechanicalCore />
+            <WhatWeDo />
             <Projects />
             <Features />
             <ValueProposition />

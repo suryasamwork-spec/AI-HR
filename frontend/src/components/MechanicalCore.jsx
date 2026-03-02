@@ -91,10 +91,10 @@ const MechanicalCore = () => {
 
     // Abstract Data Layers (Spread globally across the stage)
     const layers = [
-        { id: 1, x: -500, y: -250, z: -150, icon: Cpu, color: 'text-blue-500', label: 'develp' },
-        { id: 2, x: 500, y: -250, z: -150, icon: BarChart3, color: 'text-blue-500', label: 'ANALYTICS' },
-        { id: 3, x: -500, y: 250, z: -150, icon: Shield, color: 'text-blue-500', label: 'SECURE' },
-        { id: 4, x: 500, y: 250, z: -150, icon: Layers, color: 'text-blue-500', label: 'APPLICATION' },
+        { id: 1, x: -350, y: -180, z: -150, icon: Cpu, color: 'text-blue-500', label: 'develp' },
+        { id: 2, x: 350, y: -180, z: -150, icon: BarChart3, color: 'text-blue-500', label: 'ANALYTICS' },
+        { id: 3, x: -350, y: 180, z: -150, icon: Shield, color: 'text-blue-500', label: 'SECURE' },
+        { id: 4, x: 350, y: 180, z: -150, icon: Layers, color: 'text-blue-500', label: 'APPLICATION' },
     ]
 
     return (
@@ -193,14 +193,14 @@ const MechanicalCore = () => {
                                 transformStyle: 'preserve-3d'
                             }}
                         >
-                            <div className="w-full h-full p-6 flex flex-col justify-between relative overflow-hidden">
-                                <div className="space-y-4">
+                            <div className="w-full h-full p-6 flex flex-col justify-start gap-8 relative overflow-hidden text-left">
+                                <div className="space-y-2">
                                     <div className={`w-12 h-12 rounded-2xl bg-blue-50/80 flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-500`}>
                                         <layer.icon className="w-6 h-6" style={{ color: '#002B54' }} strokeWidth={2} />
                                     </div>
                                     <div className="text-[10px] font-black tracking-[0.4em] uppercase" style={{ color: '#002B54' }}>{layer.label}</div>
                                 </div>
-                                <div className="space-y-4">
+                                <div className="space-y-3">
                                     <div className="h-[3px] w-full bg-blue-100/80 relative overflow-hidden rounded-full">
                                         <motion.div
                                             className="absolute inset-y-0 left-0"
@@ -254,16 +254,6 @@ const MechanicalCore = () => {
                             Smart<br />
                             <span className="text-transparent" style={{ WebkitTextStroke: '1.5px rgba(0, 43, 84, 0.4)' }}>Software</span> Solutions
                         </h1>
-
-                        {/* Description */}
-                        <div className="max-w-3xl space-y-4">
-                            <p className="text-base md:text-lg font-medium leading-relaxed opacity-60" style={{ color: '#002B54' }}>
-                                Custom-built digital systems that streamline workflows, enhance visibility, and improve decision-making across modern organizations.
-                            </p>
-                            <p className="text-base md:text-lg font-medium leading-relaxed opacity-60" style={{ color: '#002B54' }}>
-                                Custom web applications and cloud solutions designed to maximize your ROI and streamline your operations.
-                            </p>
-                        </div>
 
                         {/* Button */}
                         <motion.button

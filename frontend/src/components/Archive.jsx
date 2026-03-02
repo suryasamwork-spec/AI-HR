@@ -56,22 +56,7 @@ const impacts = [
 const Archive = () => {
 
     return (
-        <section id="archive" className="py-32 bg-[#f8fafc] relative overflow-hidden">
-            {/* 1. Enhanced Background & Dynamic Orbs */}
-            <div className="absolute inset-0 pointer-events-none">
-                {/* Primary Glows */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[1200px] bg-blue-100/40 blur-[200px] rounded-full" />
-
-                {/* Floating Accent Orbs */}
-                <div className="absolute top-[10%] right-[5%] w-[500px] h-[500px] bg-blue-200/20 blur-[120px] rounded-full" />
-                <div className="absolute bottom-[10%] left-[5%] w-[400px] h-[400px] bg-indigo-100/30 blur-[100px] rounded-full" />
-
-                {/* Subtle Grid Accent */}
-                <div className="absolute inset-0 opacity-[0.035]" style={{
-                    backgroundImage: `linear-gradient(#002B54 1px, transparent 1px), linear-gradient(90deg, #002B54 1px, transparent 1px)`,
-                    backgroundSize: '80px 80px'
-                }} />
-            </div>
+        <section id="archive" className="py-32 bg-white relative overflow-hidden">
 
             <div className="max-w-7xl mx-auto px-6 relative z-10">
 
@@ -86,9 +71,9 @@ const Archive = () => {
                             <span className="text-[10px] font-black uppercase tracking-[0.8em]" style={{ color: '#002B54' }}>Digital Archive</span>
                             <div className="w-8 h-[1px]" style={{ background: '#002B54' }} />
                         </div>
-                        <h2 className="text-5xl md:text-7xl font-black tracking-tighter uppercase italic leading-none mb-6" style={{ color: '#002B54' }}>
+                        <h2 className="text-5xl md:text-7xl font-black tracking-tighter uppercase leading-none mb-6" style={{ color: '#002B54' }}>
                             OUR DIGITAL<br />
-                            <span className="text-transparent" style={{ WebkitTextStroke: '1.5px rgba(0,43,84,0.4)' }}>ARCHIVE</span>
+                            ARCHIVE
                         </h2>
                         <p className="text-base font-black uppercase tracking-[0.15em] mb-4" style={{ color: 'rgba(0,43,84,0.6)' }}>
                             Preserving Our Legacy
@@ -148,11 +133,8 @@ const Archive = () => {
                                     initial="hidden"
                                     whileInView="show"
                                     viewport={{ once: true }}
-                                    className="group p-8 rounded-[2.5rem] bg-white/80 backdrop-blur-md border border-white/60 shadow-[0_20px_50px_rgba(0,43,84,0.04)] hover:shadow-[0_30px_70px_rgba(0,43,84,0.08)] transition-all duration-500 relative overflow-hidden"
+                                    className="group p-8 rounded-3xl bg-white border border-gray-100 relative overflow-hidden"
                                 >
-                                    {/* gradient blob bg on hover */}
-                                    <div className="absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity duration-500 rounded-[2rem]"
-                                        style={{ background: `linear-gradient(135deg, ${f.gradient[0]}, ${f.gradient[1]})` }} />
                                     <div
                                         className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-lg"
                                         style={{ background: `linear-gradient(135deg, ${f.gradient[0]}, ${f.gradient[1]})` }}
@@ -164,9 +146,7 @@ const Archive = () => {
                                     </h4>
                                     <p className="text-sm font-light font-sans leading-relaxed" style={{ color: 'rgba(0,43,84,0.65)' }}>{f.desc}</p>
 
-                                    {/* bottom accent line */}
-                                    <div className="absolute bottom-0 left-0 right-0 h-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                                        style={{ background: `linear-gradient(90deg, ${f.gradient[0]}, ${f.gradient[1]})` }} />
+                                    <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#002B54]/10" />
                                 </motion.div>
                             )
                         })}
@@ -195,7 +175,7 @@ const Archive = () => {
                                 initial="hidden"
                                 whileInView="show"
                                 viewport={{ once: true }}
-                                className="flex items-start gap-5 p-8 rounded-[2.5rem] bg-white/70 backdrop-blur-sm border border-white/60 shadow-[0_15px_40px_rgba(0,43,84,0.03)] hover:shadow-xl transition-all duration-500 group"
+                                className="flex items-start gap-5 p-8 rounded-3xl bg-white border border-gray-100 group"
                             >
                                 <div
                                     className="w-14 h-14 shrink-0 rounded-2xl flex items-center justify-center transition-all duration-500 group-hover:scale-110"

@@ -123,19 +123,19 @@ const Header = () => {
                                 </defs>
                                 <path
                                     d="M48 5 L10 26 L10 54 Q10 58 14 58 L48 58 L48 48 L18 48 Q16 48 16 46 L16 34 L48 16 Z"
-                                    fill="url(#logo-gradient-header)"
-                                    stroke="#2563eb"
+                                    fill="url(#logo-gradient-footer)"
+                                    stroke="#60a5fa"
                                     strokeWidth="1.5"
                                     strokeLinejoin="round"
-                                />
+                                    />
                                 <path
                                     d="M52 5 L52 58 L86 58 Q90 58 90 54 L90 26 L52 5 Z M62 18 V46 L80 46 V28 Z"
-                                    fill="url(#logo-gradient-header)"
+                                    fill="url(#logo-gradient-footer)"
                                     fillRule="evenodd"
-                                    stroke="#2563eb"
+                                    stroke="#60a5fa"
                                     strokeWidth="1.5"
                                     strokeLinejoin="round"
-                                />
+                                    />
                             </svg>
                         </div>
                         <span className={`text-2xl font-bold tracking-[0.2em] transition-colors ${isScrolled ? 'text-white' : 'text-black'} group-hover:text-blue-400`}>

@@ -1,6 +1,9 @@
-import loginPageImg from '../assets/loginpage.jpg'
+import loginPageImg from '../assets/Timesheet.png'
 import backgroundImage from '../assets/2650401.jpg'
 import designImage from '../assets/26760925_2112.i301.031.S.m004.c13.UI_and_UX_designers_concepts_isometric_composition-removebg-preview.png'
+import projectMgmtImg from '../assets/Project management.png'
+import recruitmentImg from '../assets/AI Powered Recruitment System.png'
+import procurementImg from '../assets/AI Procurement Workflow.png'
 import caldimLogo from '../assets/caldim-logo.png'
 import demoVid from '../assets/video/videoplayback.mp4'
 import { BarChart3, TrendingUp, Shield, PieChart, Sparkles } from 'lucide-react'
@@ -120,7 +123,7 @@ export const projectsData = [
             ]
         },
         gradient: 'from-[#6366f1] via-[#a855f7] to-[#d946ef]',
-        images: [designImage, loginPageImg, backgroundImage, designImage, loginPageImg],
+        images: [projectMgmtImg, loginPageImg, backgroundImage, designImage, loginPageImg],
         demoVideo: demoVid,
         icon: TrendingUp,
         year: '2023',
@@ -190,54 +193,57 @@ export const projectsData = [
         id: 4,
         title: 'AI Powered Recruitment System',
         tagline: 'Intelligent Talent Acquisition',
-        fullDescription: 'The AI-Powered Recruitment System is an intelligent talent acquisition platform designed to streamline hiring through automation, advanced analytics, and data-driven decision-making. It enhances recruitment efficiency by leveraging AI to screen and prioritize high-potential applicants.',
+        fullDescription: 'An intelligent talent acquisition platform designed to streamline hiring through automation, advanced analytics, and data-driven evaluation. The system centralizes recruitment activities into a unified digital environment, enabling organizations to identitfy, assess, and select candidates effectively while maintaining consistency, transparency, and control.',
         features: [
-            { title: 'Automated Candidate Screening', desc: 'Automatically filters and ranks applicants based on job requirements and qualifications.' },
-            { title: 'AI Driven Skill Assessment', desc: 'Evaluates candidate competencies using intelligent, data-based analysis.' },
-            { title: 'Natural Language Evaluation', desc: 'Analyzes resumes and responses using advanced language understanding.' },
-            { title: 'Bias Free Short Listing', desc: 'Ensures fair candidate selection through objective, AI-based evaluation.' }
+            { title: 'Hiring Efficiency', desc: 'Automates repetitive tasks and accelerates recruitment cycles for faster onboarding.' },
+            { title: 'Candidate Matching', desc: 'AI-driven evaluation enhances role alignment and selection accuracy through data.' },
+            { title: 'Transparency', desc: 'Standardized processes ensure structured and accountable hiring decisions across departments.' },
+            { title: 'Time-to-Hire', desc: 'Streamlined workflows enable faster candidate identification and onboarding readiness.' }
         ],
         tech: ['Python', 'TensorFlow', 'NLP', 'React'],
         advancedFeatures: [
             {
-                title: 'Predictive Success Modeling',
-                desc: 'Beyond just matching keywords, the system uses historical data to predict which candidates are likely to stay long-term and perform well.',
+                title: 'Intelligent Core Capabilities',
+                desc: 'Advanced evaluation models designed for precise candidate matching and screening.',
                 subItems: [
-                    { label: 'Performance Correlation', content: 'Analyzes the traits of your current top performers to create a "success profile" for new applicants.' },
-                    { label: 'Retention Scoring', content: 'Identifies patterns in career progression that suggest a higher likelihood of long-term commitment.' }
+                    { label: 'Automated Candidate Screening', content: 'Automatically analyzes applications against job requirements, filtering and ranking candidates based on relevance.' },
+                    { label: 'AI-Driven Skill Assessment', content: 'Models assess candidate competencies and experience alignment using structured data analysis.' },
+                    { label: 'Natural Language Evaluation', content: 'Processes resumes and candidate responses to identify relevant skills and contextual fit.' }
+                ],
+                image: recruitmentImg
+            },
+            {
+                title: 'Structured Workflow & Automation',
+                desc: 'Streamlining recruitment stages through configurable digital processes.',
+                subItems: [
+                    { label: 'Configurable Workflows', content: 'Manage application review, evaluation, and shortlisting through controlled, multi-stage approval processes.' },
+                    { label: 'Automated Resume Parsing', content: 'High-speed extraction of text and metadata from resumes to standardize candidate profiles.' },
+                    { label: 'Centralized Tracking', content: 'A unified database for all candidate information, historical applications, and communication logs.' }
                 ],
                 image: backgroundImage
             },
             {
-                title: 'Behavioral & Soft Skill Mapping',
-                desc: 'Since technical skills are only half the battle, the AI evaluates cultural fit and "power skills."',
+                title: 'Recruitment Analytics & Strategy',
+                desc: 'Data-driven insights to optimize workforce acquisition and performance monitoring.',
                 subItems: [
-                    { label: 'Sentiment Analysis', content: 'Scans video interview transcripts or open-ended questions to assess enthusiasm, leadership potential, and communication style.' },
-                    { label: 'Gamified Assessments', content: 'Uses short, interactive logic puzzles to measure cognitive flexibility and problem-solving under pressure.' }
+                    { label: 'Performance Dashboards', content: 'Real-time visibility into hiring pipelines, candidate status, and recruitment cycle performance metrics.' },
+                    { label: 'Objective Evaluation', content: 'Standardized scoring and assessment rules ensure consistency and fairness in selection decisions.' },
+                    { label: 'Scalable Architecture', content: 'Designed to adapt to organizational policies and integrate with enterprise HR and onboarding systems.' }
                 ],
                 image: designImage
-            },
-            {
-                title: 'Automated Interview Orchestration',
-                desc: 'Reduces the "time-to-hire" by removing the manual back-and-forth of scheduling.',
-                subItems: [
-                    { label: 'Smart Scheduling', content: 'Syncs with recruiters\' calendars and automatically invites top-ranked candidates to book slots.' },
-                    { label: 'AI Video Interviewing', content: 'An asynchronous tool that records candidate responses to preset questions and provides a "first-pass" evaluation for recruiters to review.' }
-                ],
-                image: loginPageImg
             }
         ],
-        biasFreeFramework: {
-            title: 'The "Bias-Free" Framework (Technical Depth)',
-            desc: 'To make "bias-free" claims credible, the system implements specific algorithmic guardrails:',
+        securityFramework: {
+            title: 'Security & Governance',
+            desc: 'Ensuring secure handling of candidate data through role-based access and traceable workflows.',
             items: [
-                { label: 'Anonymized Pipeline', content: 'Automatically masks names, genders, ages, and photos during the initial screening phase to prevent unconscious bias.' },
-                { label: 'Adverse Impact Monitoring', content: 'Real-time audits that alert HR if the AI’s ranking algorithm is disproportionately filtering out a protected demographic.' },
-                { label: 'Explainable AI (XAI)', content: 'Provides a "Reasoning Score" for every candidate, showing exactly why the AI ranked them highly (e.g., "5 years of Python experience," not "went to an Ivy League school").' }
+                { label: 'Role-Based Access Control', content: 'Granular permissions ensure that only authorized HR and management personnel can access sensitive data.' },
+                { label: 'Traceable Audit Logs', content: 'All recruitment actions, modifications, and approvals are recorded for full governance and compliance.' },
+                { label: 'Data Sovereignty', content: 'Built-in safeguards for secure record management and confidentiality of candidate information.' }
             ]
         },
         gradient: 'from-[#f59e0b] via-[#ef4444] to-[#ec4899]',
-        images: [caldimLogo, backgroundImage, designImage, caldimLogo, backgroundImage],
+        images: [recruitmentImg, backgroundImage, designImage, caldimLogo, backgroundImage],
         demoVideo: demoVid,
         icon: PieChart,
         year: '2024',
@@ -246,53 +252,86 @@ export const projectsData = [
     },
     {
         id: 5,
-        title: 'AI Procurement Workflow',
+        title: 'AI-Powered Procurement System',
         tagline: 'End-to-End Procurement Automation',
-        fullDescription: 'CALBUY is an AI-powered procurement automation platform designed to streamline the process from CAD drawing upload to vendor selection and RFQ evaluation. The system leverages AI to generate BOMs, assist in vendor selection, and provide intelligent scoring.',
-        features: [
-            { title: 'Automation', desc: 'End-to-end automation from CAD uploads to Purchase Order' },
-            { title: 'Efficiency', desc: 'Reduces manual effort, cycle time, and procurement errors' },
-            { title: 'Intelligence', desc: 'Combines AI intelligence with human approvals' },
-            { title: 'Scalability', desc: 'Designed for growth, compliance, and full auditability' }
-        ],
-        tech: ['AI/ML', 'CAD Analysis', 'Cloud Infrastructure', 'React'],
-        advancedFeatures: [
-            {
-                title: 'Automation: Pixels to Purchase Orders',
-                desc: 'CALBUY bridges the gap between digital design and physical part procurement.',
-                subItems: [
-                    { label: 'CAD-to-BOM Extraction', content: 'AI utilizes computer vision and metadata parsing to "read" models and drawings, generating structured BOMs.' },
-                    { label: 'Auto-RFQ Generation', content: 'Automatically creates quote packages with technical drawings, NDAs, and quality requirements.' },
-                    { label: 'Touchless PO Issuance', content: 'Configurable "Auto-Win" criteria for recurring parts enable automatic Purchase Order issuance.' }
-                ],
-                image: backgroundImage
+        fullDescription: 'The AI-Powered Procurement System is an intelligent digital platform designed to streamline and optimize the end-to-end procurement lifecycle through automation, analytics, and data-driven decision-making. The system centralizes purchasing activities, vendor management, and approval workflows into a unified environment that enhances operational transparency, cost control, and compliance.\n\nBy leveraging AI-driven insights and structured process management, the platform enables organizations to make informed purchasing decisions, reduce manual effort, and improve procurement efficiency across departments.',
+        isPremiumLayout: true,
+        hero: {
+            title: 'AI-Powered Procurement System',
+            subtitle: 'Transforming fragmented manual procurement into a unified, intelligent ecosystem.',
+            description: 'Our AI-driven environment streamlines complex global operations while maximizing cost efficiency and vendor compliance.'
+        },
+        projectScope: {
+            title: 'Project Scope & Objectives',
+            card1: {
+                title: 'Fragmented Chaos',
+                content: 'Legacy procurement suffered from manual data entry, siloed multi-regional approvals, and zero visibility into regional spend tracks.',
+                items: ['Manual PO Processing', 'Invisible Spend Categories', 'Paper-based compliance']
             },
-            {
-                title: 'Efficiency: Compressed Cycle Times',
-                desc: 'Targeting friction points to eliminate data entry errors and parallelize sourcing.',
-                subItems: [
-                    { label: 'Parallel Sourcing', content: 'Manages simultaneous bidding, normalizing currencies and lead times into a single "apples-to-apples" view.' },
-                    { label: 'Real-time Collaboration', content: 'Centralized Q&A within the platform prevents fragmented email chains and production delays.' },
-                    { label: 'Scoring Engine', content: 'Intelligence that optimizes for Total Cost of Ownership (TCO) rather than just the cheapest price.' }
-                ],
-                image: designImage
+            card2: {
+                title: 'AI-Driven Future',
+                content: 'Our solution establishes an automated workflow with predictive insights and 100% centralized data.',
+                items: ['Automated Intelligent Workflows', 'Predictive Spend Forecasting', 'Centralized Vendor Intelligence']
             }
-        ],
-        procurementFramework: {
-            title: 'Scalability & Compliance Guardrails',
-            desc: 'Future-proofing procurement with full auditability and global compliance standards.',
+        },
+        businessChallenges: {
+            title: 'Business Challenges',
+            desc: 'Organizations often encounter challenges in procurement practices due to manual processes and siloed data. We address these by:',
             items: [
-                { label: 'Full Auditability', content: 'Timestamped history of vendor selection, approvals, and CAD versions for ISO and AS9100 compliance.' },
-                { label: 'Global Compliance', content: 'Automatic screening against restricted party lists and validation of ITAR/RoHS/REACH certifications.' },
-                { label: 'ERP Symbiosis', content: 'Push clean, structured data into SAP, Oracle, or NetSuite for synchronized financial and physical records.' }
+                'Automating requisition, approval, and purchase workflows',
+                'Providing real-time visibility into procurement activities and spending',
+                'Standardizing vendor selection and evaluation processes',
+                'Reducing processing errors and cycle times',
+                'Supporting compliance and audit readiness'
             ]
         },
+        features: [
+            { title: 'Transparency', desc: 'Complete visibility into procurement activities and spending.' },
+            { title: 'Cost Optimization', desc: 'Data-driven insights support smarter purchasing.' },
+            { title: 'Faster Processing', desc: 'Automated workflows reduce cycle times.' },
+            { title: 'Compliance', desc: 'Standardized processes ensure accountability.' }
+        ],
+        coreCapabilities: [
+            { title: 'Intelligent Requisition', content: 'Users create, submit, and track purchase requests through structured workflows ensuring policy compliance.', icon: 'Sparkles' },
+            { title: 'Vendor Insights', content: 'Analyzes supplier performance, pricing trends, and procurement patterns to support informed selection.', icon: 'BarChart3' },
+            { title: 'Automated Approval', content: 'Configurable multi-level approval processes streamline authorization and reduce delays.', icon: 'Shield' },
+            { title: 'Real-Time Visibility', content: 'Centralized dashboards provide insight into request status, purchasing trends, and vendor metrics.', icon: 'PieChart' },
+            { title: 'Reporting & Analytics', content: 'Comprehensive tools generate insights to support budgeting, forecasting, and strategic planning.', icon: 'TrendingUp' }
+        ],
+        keyFeaturesDetail: {
+            title: 'Key Features Detail',
+            subtitle: 'A closer look at the advanced technical modules powering the transformation.',
+            items: [
+                { title: 'Centralized Data Management', content: 'Single source of truth for all procurement data across departments and regions.', icon: 'Shield' },
+                { title: 'AI-Assisted Evaluation', content: 'Intelligent scoring for vendor evaluation based on performance and risk factors.', icon: 'Sparkles' },
+                { title: 'Secure Access Control', content: 'Role-based permissions and secure data handling for industrial confidentiality.', icon: 'Shield' },
+                { title: 'Integration Readiness', content: 'Ready to integrate with existing ERP and finance systems for unified data flow.', icon: 'TrendingUp' }
+            ]
+        },
+        businessValueStats: [
+            { value: '70%', label: 'FASTER PROCESSING', desc: 'Reduction in procurement cycle times' },
+            { value: '22%', label: 'COST OPTIMIZATION', desc: 'Average reduction in operational spend' },
+            { value: '100%', label: 'COMPLIANCE', desc: 'Automated audit trails and governance' },
+            { value: '95%', label: 'ACCURACY', desc: 'In spend forecasting and planning' },
+            { value: '0.5s', label: 'VISIBILITY', desc: 'Real-time data retrieval and reporting' }
+        ],
+        securityGovernance: {
+            title: 'Security & Governance',
+            desc: 'The system enforces structured control through role-based permissions, secure data handling, and comprehensive activity tracking.',
+            items: [
+                { title: 'Role-Based Permissions', content: 'Granular control over who can view and approve sensitive procurement data.', icon: 'Shield' },
+                { title: 'Secure Data Handling', content: 'Advanced encryption and secure protocols for all transaction records.', icon: 'Shield' },
+                { title: 'Traceable Actions', content: 'Every procurement action is recorded, ensuring full auditability and integrity.', icon: 'Shield' },
+                { title: 'Compliance Monitoring', content: 'Automated checks against organizational and regulatory policies.', icon: 'Shield' }
+            ]
+        },
+        tech: ['AI/ML', 'Cloud Infrastructure', 'React', 'Node.js'],
         gradient: 'from-[#3b82f6] via-[#2563eb] to-[#1d4ed8]',
-        images: [backgroundImage, loginPageImg, designImage, backgroundImage, caldimLogo],
+        images: [procurementImg, loginPageImg, designImage, backgroundImage, caldimLogo],
         demoVideo: demoVid,
         icon: Sparkles,
         year: '2024',
-        client: 'CALBUY Platform',
+        client: 'Strategic Procurement',
         theme: 'blue'
     },
 ]
