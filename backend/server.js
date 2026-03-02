@@ -30,6 +30,7 @@ app.use(cors({
         'http://localhost:4173',
         'https://caldimengg.in',
         'https://www.caldimengg.in',
+        'https://caldim-website1.onrender.com'
     ],
     methods: ['GET', 'POST', 'OPTIONS'],
     credentials: true
