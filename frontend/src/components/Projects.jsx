@@ -79,9 +79,6 @@ const Projects = () => {
                                 BUSINESS<br />
                                 <span className="text-blue-600">VALUE</span> SECTION
                             </h2>
-                            <p className="text-slate-500 font-medium text-lg leading-relaxed">
-                                A high-fidelity centralized vault designed for the future of industrial data sovereignty.
-                            </p>
                         </div>
                     </motion.div>
 

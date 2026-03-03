@@ -5,10 +5,11 @@ import jsLogo from '../assets/logos/logo js.png'
 import pyLogo from '../assets/logos/logo py.png'
 import mongoLogo from '../assets/logos/mongo logo.png'
 import nodeLogo from '../assets/logos/node logo.png'
+import reactLogo from '../assets/logos/react.png.png'
 
 const Features = () => {
     const logos = [
-        javaLogo, cppLogo, jsLogo, pyLogo, mongoLogo, nodeLogo
+        javaLogo, cppLogo, jsLogo, pyLogo, mongoLogo, nodeLogo, reactLogo
     ]
 
     // Triple for a seamless loop
@@ -24,10 +25,7 @@ const Features = () => {
                             <img
                                 src={logo}
                                 alt="tech logo"
-                                className="h-10 lg:h-12 w-auto object-contain grayscale-0 opacity-80 hover:opacity-100 transition-opacity duration-300"
-                                style={{
-                                    filter: 'brightness(0) saturate(100%) invert(11%) sepia(87%) saturate(2222%) hue-rotate(196deg) brightness(97%) contrast(106%)'
-                                }}
+                                className="h-10 lg:h-12 w-auto object-contain grayscale-0 opacity-100 transition-opacity duration-300"
                             />
                         </div>
                     ))}

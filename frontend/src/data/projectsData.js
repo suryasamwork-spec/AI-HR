@@ -193,56 +193,87 @@ export const projectsData = [
         id: 4,
         title: 'AI Powered Recruitment System',
         tagline: 'Intelligent Talent Acquisition',
-        fullDescription: 'An intelligent talent acquisition platform designed to streamline hiring through automation, advanced analytics, and data-driven evaluation. The system centralizes recruitment activities into a unified digital environment, enabling organizations to identitfy, assess, and select candidates effectively while maintaining consistency, transparency, and control.',
-        features: [
-            { title: 'Hiring Efficiency', desc: 'Automates repetitive tasks and accelerates recruitment cycles for faster onboarding.' },
-            { title: 'Candidate Matching', desc: 'AI-driven evaluation enhances role alignment and selection accuracy through data.' },
-            { title: 'Transparency', desc: 'Standardized processes ensure structured and accountable hiring decisions across departments.' },
-            { title: 'Time-to-Hire', desc: 'Streamlined workflows enable faster candidate identification and onboarding readiness.' }
-        ],
-        tech: ['Python', 'TensorFlow', 'NLP', 'React'],
-        advancedFeatures: [
-            {
-                title: 'Intelligent Core Capabilities',
-                desc: 'Advanced evaluation models designed for precise candidate matching and screening.',
-                subItems: [
-                    { label: 'Automated Candidate Screening', content: 'Automatically analyzes applications against job requirements, filtering and ranking candidates based on relevance.' },
-                    { label: 'AI-Driven Skill Assessment', content: 'Models assess candidate competencies and experience alignment using structured data analysis.' },
-                    { label: 'Natural Language Evaluation', content: 'Processes resumes and candidate responses to identify relevant skills and contextual fit.' }
-                ],
-                image: recruitmentImg
+        fullDescription: 'The AI-Powered Recruitment System is an intelligent talent acquisition platform designed to streamline hiring through automation, advanced analytics, and data-driven evaluation. The system centralizes recruitment activities into a unified digital environment, enabling organizations to identify, assess, and select candidates efficiently while maintaining consistency, transparency, and control throughout the hiring lifecycle. \n\nBy combining automated screening, skill analysis, and structured evaluation workflows, the platform helps organizations reduce hiring time, improve candidate quality, and enhance decision-making accuracy.',
+        isPremiumLayout: true,
+        hero: {
+            title: 'AI Powered Recruitment System',
+            subtitle: 'Transforming fragmented manual procurement into a unified, intelligent ecosystem.',
+            description: 'Our AI-driven environment streamlines complex global operations while maximizing cost efficiency and vendor compliance.'
+        },
+        projectScope: {
+            title: 'Hiring Efficiency & Matching',
+            card1: {
+                title: 'Traditional Recruitment',
+                content: 'Manual screening and inconsistent evaluation lead to slow hiring cycles and misaligned talent acquisition.',
+                items: ['Manual CV Screening', 'Subjective Assessment', 'Disconnected Workflows']
             },
-            {
-                title: 'Structured Workflow & Automation',
-                desc: 'Streamlining recruitment stages through configurable digital processes.',
-                subItems: [
-                    { label: 'Configurable Workflows', content: 'Manage application review, evaluation, and shortlisting through controlled, multi-stage approval processes.' },
-                    { label: 'Automated Resume Parsing', content: 'High-speed extraction of text and metadata from resumes to standardize candidate profiles.' },
-                    { label: 'Centralized Tracking', content: 'A unified database for all candidate information, historical applications, and communication logs.' }
-                ],
-                image: backgroundImage
-            },
-            {
-                title: 'Recruitment Analytics & Strategy',
-                desc: 'Data-driven insights to optimize workforce acquisition and performance monitoring.',
-                subItems: [
-                    { label: 'Performance Dashboards', content: 'Real-time visibility into hiring pipelines, candidate status, and recruitment cycle performance metrics.' },
-                    { label: 'Objective Evaluation', content: 'Standardized scoring and assessment rules ensure consistency and fairness in selection decisions.' },
-                    { label: 'Scalable Architecture', content: 'Designed to adapt to organizational policies and integrate with enterprise HR and onboarding systems.' }
-                ],
-                image: designImage
+            card2: {
+                title: 'AI-Driven Hiring',
+                content: 'Automated evaluation and structured data analysis ensure faster, more accurate, and transparent selection.',
+                items: ['Automated Screening', 'Objective Evaluation', 'Unified Pipeline Tracking']
             }
-        ],
-        securityFramework: {
-            title: 'Security & Governance',
-            desc: 'Ensuring secure handling of candidate data through role-based access and traceable workflows.',
+        },
+        businessChallenges: {
+            title: 'Recruitment Challenges',
+            desc: 'Organizations face significant delays and inconsistencies in manual hiring processes. We solve this by:',
             items: [
-                { label: 'Role-Based Access Control', content: 'Granular permissions ensure that only authorized HR and management personnel can access sensitive data.' },
-                { label: 'Traceable Audit Logs', content: 'All recruitment actions, modifications, and approvals are recorded for full governance and compliance.' },
-                { label: 'Data Sovereignty', content: 'Built-in safeguards for secure record management and confidentiality of candidate information.' }
+                'Automating high-volume candidate screening and ranking',
+                'Implementing standardized objective assessment models',
+                'Centralizing communication and candidate history',
+                'Accelerating the end-to-end recruitment lifecycle',
+                'Providing actionable insights into hiring metrics'
             ]
         },
-        gradient: 'from-[#f59e0b] via-[#ef4444] to-[#ec4899]',
+        coreCapabilities: [
+            {
+                title: 'Automated Candidate Screening',
+                content: 'The system automatically analyzes applications against job requirements, filtering and ranking candidates based on relevance and qualifications.',
+                logo: 'react'
+            },
+            {
+                title: 'AI-Driven Skill Assessment',
+                content: 'Intelligent evaluation models assess candidate competencies, experience alignment, and role suitability using structured data analysis.',
+                logo: 'python'
+            },
+            {
+                title: 'Natural Language Evaluation',
+                content: 'Advanced language processing analyzes resumes and candidate responses to identify relevant skills, experience, and contextual fit.',
+                logo: 'javascript'
+            },
+            {
+                title: 'Structured Hiring Workflow',
+                content: 'Recruitment stages such as application review, evaluation, shortlisting, and approval are managed through configurable workflows.',
+                logo: 'java'
+            },
+            {
+                title: 'Recruitment Analytics & Insights',
+                content: 'Centralized dashboards provide real-time visibility into hiring pipelines, candidate status, and recruitment performance metrics.',
+                logo: 'nodejs'
+            }
+        ],
+        businessValueStats: [
+            { value: 65, label: 'FASTER SCREENING', desc: 'Reduction in time spent on initial application review' },
+            { value: 40, label: 'HIRING ACCURACY', desc: 'Improvement in candidate-to-role alignment scores' },
+            { value: 100, label: 'TRANSPARENCY', desc: 'Full audit trails for every hiring stage and decision' },
+            { value: 25, label: 'COST REDUCTION', desc: 'Decrease in cost-per-hire through process automation' },
+            { value: 50, label: 'ONBOARDING SPEED', desc: 'Acceleration in total time-to-fill for critical roles' }
+        ],
+        securityGovernance: {
+            title: 'Security & Privacy',
+            items: [
+                { title: 'Data Confidentiality', content: 'Secure handling of personal candidate information with enterprise-grade encryption.' },
+                { title: 'Access Control', content: 'Granular role-based permissions ensuring data is only visible to authorized personnel.' },
+                { title: 'Compliance Logs', content: 'Complete traceability of every interaction and modification for regulatory compliance.' }
+            ]
+        },
+        keyFeaturesArchitecture: {
+            items: [
+                { title: 'Intelligent Matching Engine', content: 'Proprietary models that map candidate skills to complex job architectures.', icon: 'Cpu' },
+                { title: 'Multi-Stage Workflows', content: 'Configurable recruitment pipelines with automated stage transitions.', icon: 'Layers' },
+                { title: 'Unified Data Repository', content: 'Single source of truth for all talent acquisition activity and candidate records.', icon: 'Database' }
+            ]
+        },
+        tech: ['Python', 'TensorFlow', 'NLP', 'React'],
         images: [recruitmentImg, backgroundImage, designImage, caldimLogo, backgroundImage],
         demoVideo: demoVid,
         icon: PieChart,
@@ -298,14 +329,49 @@ export const projectsData = [
             { title: 'Real-Time Visibility', content: 'Centralized dashboards provide insight into request status, purchasing trends, and vendor metrics.', icon: 'PieChart' },
             { title: 'Reporting & Analytics', content: 'Comprehensive tools generate insights to support budgeting, forecasting, and strategic planning.', icon: 'TrendingUp' }
         ],
-        keyFeaturesDetail: {
-            title: 'Key Features Detail',
-            subtitle: 'A closer look at the advanced technical modules powering the transformation.',
+        keyFeaturesArchitecture: {
+            title: 'Key Features Architecture',
             items: [
-                { title: 'Centralized Data Management', content: 'Single source of truth for all procurement data across departments and regions.', icon: 'Shield' },
-                { title: 'AI-Assisted Evaluation', content: 'Intelligent scoring for vendor evaluation based on performance and risk factors.', icon: 'Sparkles' },
-                { title: 'Secure Access Control', content: 'Role-based permissions and secure data handling for industrial confidentiality.', icon: 'Shield' },
-                { title: 'Integration Readiness', content: 'Ready to integrate with existing ERP and finance systems for unified data flow.', icon: 'TrendingUp' }
+                {
+                    title: 'Automated Workflows',
+                    content: 'Automated purchase request and approval workflows.',
+                    icon: 'Sparkles'
+                },
+                {
+                    title: 'Centralized Management',
+                    content: 'Centralized vendor and procurement data management.',
+                    icon: 'Database'
+                },
+                {
+                    title: 'AI-Assisted Evaluation',
+                    content: 'AI-assisted vendor evaluation and recommendation.',
+                    icon: 'Cpu'
+                },
+                {
+                    title: 'Real-Time Tracking',
+                    content: 'Real-time tracking of procurement lifecycle.',
+                    icon: 'PieChart'
+                },
+                {
+                    title: 'Secure Access & Control',
+                    content: 'Secure role-based access and process control.',
+                    icon: 'Shield'
+                },
+                {
+                    title: 'Reporting & Analysis',
+                    content: 'Structured reporting and spend analysis.',
+                    icon: 'BarChart3'
+                },
+                {
+                    title: 'Scalable Architecture',
+                    content: 'Scalable architecture supporting organizational growth.',
+                    icon: 'Gauge'
+                },
+                {
+                    title: 'Integration Readiness',
+                    content: 'Integration readiness with finance and enterprise systems.',
+                    icon: 'Network'
+                },
             ]
         },
         businessValueStats: [

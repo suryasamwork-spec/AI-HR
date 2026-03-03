@@ -6,8 +6,9 @@ import {
     FileText, Image, Globe, BookOpen,
     ArrowRight, Database, Layers, CheckCircle2,
     Zap, Scale, Link2, BookMarked,
+    Activity, TrendingUp, Rocket
 } from 'lucide-react'
-import archiveHeroImg from '../assets/Gemini_Generated_Image_nrizv1nrizv1nriz.png'
+import archiveHeroImg from '../assets/Gemini_Generated_Image_iiqh3diiqh3diiqh.png'
 
 /* ─── Reusable fade-up variant ──────────────────────────────── */
 const fadeUp = (delay = 0) => ({
@@ -46,10 +47,11 @@ const features = [
 ]
 
 const impacts = [
-    { benefit: 'Efficiency', impact: 'Reduces time spent searching for legacy information by up to 80%.', icon: Zap, color: '#002B54' },
-    { benefit: 'Compliance', impact: 'Meets legal requirements for document retention and data privacy.', icon: Scale, color: '#002B54' },
-    { benefit: 'Continuity', impact: 'Protects institutional knowledge against hardware failure or staff turnover.', icon: Link2, color: '#002B54' },
-    { benefit: 'Storytelling', impact: 'Provides a rich source of material for anniversaries and marketing.', icon: BookMarked, color: '#002B54' },
+    { benefit: 'Improves Operational Efficiency', impact: 'Streamlines processes and reduces manual effort across business functions.', icon: Zap, color: '#002B54' },
+    { benefit: 'Enhances Transparency', impact: 'Provides real-time visibility into workflows, performance, and outcomes.', icon: Activity, color: '#002B54' },
+    { benefit: 'Supports Better Decisions', impact: 'Transforms data into actionable insights for informed strategic planning.', icon: TrendingUp, color: '#002B54' },
+    { benefit: 'Strengthens Accountability', impact: 'Ensures structured workflows, role clarity, and measurable results.', icon: CheckCircle2, color: '#002B54' },
+    { benefit: 'Drives Business Growth', impact: 'Optimizes resources and improves productivity to deliver sustainable value.', icon: Rocket, color: '#002B54' },
 ]
 
 /* ═══════════════════════════════════════════════════════════ */
@@ -78,11 +80,21 @@ const Archive = () => {
                         <p className="text-base font-black uppercase tracking-[0.15em] mb-4" style={{ color: 'rgba(0,43,84,0.6)' }}>
                             Preserving Our Legacy
                         </p>
-                        <p className="text-lg font-light leading-relaxed border-l-2 pl-6 max-w-xl" style={{ borderColor: 'rgba(0,43,84,0.15)', color: 'rgba(0,43,84,0.7)' }}>
-                            A central, secure repository designed to collect, organise, and safeguard our digital assets.
-                            Unlike a simple backup, our archive ensures that historical records, documents, and media
-                            remain accessible and usable for decades to come.
-                        </p>
+
+                        <div className="space-y-6 max-w-xl">
+                            <p className="text-lg font-light leading-relaxed border-l-2 pl-6" style={{ borderColor: 'rgba(0,43,84,0.15)', color: 'rgba(0,43,84,0.7)' }}>
+                                A central, secure repository designed to collect, organise, and safeguard our digital assets.
+                                Unlike a simple backup, our archive ensures that historical records, documents, and media
+                                remain accessible and usable for decades to come.
+                            </p>
+
+                            <p className="text-sm font-light leading-relaxed text-gray-500 italic">
+                                The phrase <span className="font-bold text-[#002B54]">"Our Digital Archive"</span> often refers to specific modules
+                                or services within document management systems (DMS) or digital asset management (DAM) platforms.
+                                In 2026, we focus on providing the most relevant software content for business tools and
+                                enterprise preservation.
+                            </p>
+                        </div>
 
                         <div className="flex flex-wrap gap-4 mt-10">
                             <Link to="/contact"
@@ -167,7 +179,7 @@ const Archive = () => {
                         <h3 className="text-4xl md:text-5xl font-black tracking-tighter uppercase" style={{ color: '#002B54' }}>Why It Matters</h3>
                     </div>
 
-                    <div className="grid md:grid-cols-2 gap-5">
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
                         {impacts.map((row, i) => (
                             <motion.div
                                 key={i}

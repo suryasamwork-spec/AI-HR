@@ -2,6 +2,7 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { Github, Linkedin, Instagram, Youtube } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import caldimLogo from '../assets/caldim-logo.png'
 
 const Footer = () => {
     const socialLinks = [
@@ -67,29 +68,12 @@ const Footer = () => {
                     <div className="lg:col-span-2">
                         <Link to="/" className="flex items-center space-x-3 mb-4 group">
                             <div className="relative w-12 h-12 flex items-center justify-center">
-                                <svg viewBox="0 0 100 60" className="w-full h-full filter drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">
-                                    <defs>
-                                        <linearGradient id="logo-gradient-footer" x1="0%" y1="0%" x2="0%" y2="100%">
-                                            <stop offset="0%" stopColor="#60a5fa" />
-                                            <stop offset="100%" stopColor="#2563eb" />
-                                        </linearGradient>
-                                    </defs>
-                                    <path
-                                        d="M48 5 L10 26 L10 54 Q10 58 14 58 L48 58 L48 48 L18 48 Q16 48 16 46 L16 34 L48 16 Z"
-                                        fill="url(#logo-gradient-footer)"
-                                        stroke="#60a5fa"
-                                        strokeWidth="1.5"
-                                        strokeLinejoin="round"
-                                    />
-                                    <path
-                                        d="M52 5 L52 58 L86 58 Q90 58 90 54 L90 26 L52 5 Z M62 18 V46 L80 46 V28 Z"
-                                        fill="url(#logo-gradient-footer)"
-                                        fillRule="evenodd"
-                                        stroke="#60a5fa"
-                                        strokeWidth="1.5"
-                                        strokeLinejoin="round"
-                                    />
-                                </svg>
+                                <img
+                                    src={caldimLogo}
+                                    alt="Caldim Logo"
+                                    className="w-full h-full object-contain filter"
+                                    style={{ filter: 'brightness(0) invert(1) drop-shadow(0px 0px 5px rgba(255, 255, 255, 0.2))' }}
+                                />
                             </div>
                             <span className="text-2xl font-bold tracking-[0.2em] text-white">CALDIM</span>
                         </Link>
@@ -149,7 +133,7 @@ const Footer = () => {
                         © {new Date().getFullYear()} CALDIM. All rights reserved.
                     </p>
                     <p className="text-blue-100/40 text-xs tracking-wider uppercase font-medium flex items-center gap-2">
-                        Crafted with <span className="text-blue-400 animate-pulse text-lg">#</span> by CALDIM
+                        developed by <span className="text-blue-400 animate-pulse text-lg"></span> CALDIM
                     </p>
                 </div>
             </div>

@@ -67,15 +67,17 @@ const TechStackHero = () => {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1, ease: "easeOut" }}
-                    className="text-[8rem] md:text-[15rem] font-black text-black leading-none tracking-tighter"
+                    className="text-[8rem] md:text-[15rem] font-black leading-none tracking-tighter"
+                    style={{ color: '#002B54' }}
                 >
-                    H23
+                    CALDIM
                 </motion.h1>
                 <motion.h2
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
-                    className="text-2xl md:text-4xl font-light text-blue-600 uppercase tracking-[1em] -mt-4 md:-mt-8"
+                    className="text-2xl md:text-4xl font-light uppercase tracking-[1em] -mt-4 md:-mt-8"
+                    style={{ color: '#002B54', opacity: 0.6 }}
                 >
                     SOLUTIONS
                 </motion.h2>

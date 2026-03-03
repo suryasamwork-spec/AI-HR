@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion'
-import { ChevronRight, BarChart3, TrendingUp, Shield, PieChart, Sparkles, Play, CheckCircle2, CheckCircle, X } from 'lucide-react'
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform, useInView, animate } from 'framer-motion'
+import { ChevronRight, BarChart3, TrendingUp, Shield, PieChart, Sparkles, Play, CheckCircle2, CheckCircle, X, Network, Cpu, Database, Gauge, Cloud, AlertCircle } from 'lucide-react'
 import { useLocation } from 'react-router-dom'
 import ProjectDemoModal from '../components/ProjectDemoModal'
 import ScrollToTop from '../components/ScrollToTop'
@@ -9,9 +9,306 @@ import backgroundImage from '../assets/2650401.jpg'
 import designImage from '../assets/26760925_2112.i301.031.S.m004.c13.UI_and_UX_designers_concepts_isometric_composition-removebg-preview.png'
 import caldimLogo from '../assets/caldim-logo.png'
 import demoVid from '../assets/video/videoplayback.mp4'
+import archVisualNew from '../assets/slazzer-preview-twxul.png'
+import javaLogo from '../assets/logos/java logo.png'
+import cppLogo from '../assets/logos/logo c+.png'
+import jsLogo from '../assets/logos/logo js.png'
+import pyLogo from '../assets/logos/logo py.png'
+import mongoLogo from '../assets/logos/mongo logo.png'
+import nodeLogo from '../assets/logos/node logo.png'
+import reactLogo from '../assets/logos/react.png.png'
+
+const logoMap = {
+    java: javaLogo,
+    cpp: cppLogo,
+    javascript: jsLogo,
+    python: pyLogo,
+    mongodb: mongoLogo,
+    nodejs: nodeLogo,
+    react: reactLogo
+}
 
 
 import { projectsData } from '../data/projectsData'
+
+// Counter Component for Stat Animation
+const Counter = ({ value, duration = 3 }) => {
+    const ref = useRef(null)
+    const isInView = useInView(ref, { once: true, margin: "-45% 0px" })
+    const count = useMotionValue(0)
+
+    // Ensure value is a string and parse
+    const valueStr = String(value)
+    const numericValue = parseFloat(valueStr)
+    const unit = valueStr.replace(/[0-9.]/g, '')
+
+    const displayValue = useTransform(count, (latest) => {
+        if (valueStr.includes('.')) {
+            return latest.toFixed(1) + unit
+        }
+        return Math.floor(latest) + unit
+    })
+
+    useEffect(() => {
+        if (isInView) {
+            animate(count, numericValue, {
+                duration: duration,
+                ease: "easeOut"
+            })
+        }
+    }, [isInView, numericValue, count])
+
+    return <motion.span ref={ref}>{displayValue}</motion.span>
+}
+
+// Premium Layout Components
+const PremiumLayout = ({ project, setIsDemoModalOpen }) => {
+    const iconMap = {
+        Sparkles: <Sparkles className="text-blue-600" size={24} />,
+        Shield: <Shield className="text-blue-600" size={24} />,
+        BarChart3: <BarChart3 className="text-blue-600" size={24} />,
+        PieChart: <PieChart className="text-blue-600" size={24} />,
+        TrendingUp: <TrendingUp className="text-blue-600" size={24} />,
+        Network: <Network className="text-blue-600" size={20} />,
+        Cpu: <Cpu className="text-blue-600" size={20} />,
+        Database: <Database className="text-blue-600" size={20} />,
+        Gauge: <Gauge className="text-blue-600" size={20} />,
+        Cloud: <Cloud className="text-blue-600" size={20} />,
+    }
+
+    return (
+        <div className="bg-white">
+            {/* Hero Section */}
+            <section className="max-w-[1700px] mx-auto px-6 lg:px-12 py-20 lg:py-32">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    <div className="space-y-8">
+                        <h1 className="text-6xl lg:text-7xl font-black tracking-tighter uppercase leading-[0.9] text-black">
+                            {project.hero.title}
+                        </h1>
+                        <p className="text-xl text-black font-light leading-relaxed max-w-xl italic">
+                            "{project.hero.subtitle}" {project.hero.description}
+                        </p>
+                        <div className="flex flex-wrap gap-4 pt-4">
+                            <button
+                                onClick={() => setIsDemoModalOpen(true)}
+                                className="px-10 py-5 bg-blue-600 text-white rounded-xl text-xs font-black uppercase tracking-widest flex items-center gap-3 hover:bg-blue-700 transition-all shadow-xl shadow-blue-600/20"
+                            >
+                                <Play size={14} fill="currentColor" />
+                                Demo Video
+                            </button>
+                        </div>
+                    </div>
+                    <div className="relative group">
+                        <div className="absolute inset-0 bg-blue-600/5 rounded-[3rem] blur-3xl transform group-hover:scale-105 transition-transform duration-700" />
+                        <div className="relative aspect-video rounded-[3rem] overflow-hidden shadow-2xl border border-black/5">
+                            <img src={project.images[0]} className="w-full h-full object-cover" alt="hero" />
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Project Scope Section */}
+            <section className="max-w-[1700px] mx-auto px-6 lg:px-12 py-24 border-t border-black/5">
+                <div className="mb-16">
+                    <h2 className="text-5xl font-black uppercase tracking-tighter text-black">{project.projectScope.title}</h2>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-16 lg:gap-32">
+                    {[project.projectScope.card1, project.projectScope.card2].map((card, i) => (
+                        <div key={i} className="space-y-6">
+                            <div className="space-y-4">
+                                <h3 className="text-3xl font-black uppercase tracking-tight text-black">{card.title}</h3>
+                                <p className="text-black font-light leading-relaxed text-lg">{card.content}</p>
+                            </div>
+                            <div className="space-y-3">
+                                {card.items.map((item, j) => (
+                                    <div key={j} className="flex items-center gap-3 text-sm font-medium text-black">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-black" />
+                                        {item}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            {/* Business Challenges Strip */}
+            <section className="bg-slate-900 py-32 overflow-hidden relative">
+                <div className="absolute top-0 right-0 w-[50%] h-full bg-blue-600/5 skew-x-12 transform translate-x-32" />
+                <div className="max-w-[1700px] mx-auto px-6 lg:px-12 relative z-10 text-center">
+                    <h2 className="text-5xl font-black uppercase tracking-tighter text-white mb-8">{project.businessChallenges.title}</h2>
+                    <p className="text-white/40 text-lg max-w-2xl mx-auto mb-16 font-light">{project.businessChallenges.desc}</p>
+                    <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6 text-left">
+                        {project.businessChallenges.items.map((item, i) => (
+                            <div key={i} className="flex items-start gap-4">
+                                <span className="text-white/60 font-light leading-relaxed text-lg tracking-wide">{item}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Core Capabilities */}
+            <section className="max-w-[1700px] mx-auto px-6 lg:px-12 py-32 bg-gray-50/50">
+                <div className="text-center mb-20">
+                    <h2 className="text-5xl font-black uppercase tracking-tighter text-black">Core Capabilities</h2>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-12">
+                    {project.coreCapabilities.map((cap, i) => (
+                        <div key={i} className="space-y-4 text-left group">
+                            {cap.logo && logoMap[cap.logo] && (
+                                <div className="mb-6 h-12 flex items-center justify-start">
+                                    <img
+                                        src={logoMap[cap.logo]}
+                                        alt="tech logo"
+                                        className="h-full w-auto object-contain opacity-80 group-hover:opacity-100 transition-opacity"
+                                    />
+                                </div>
+                            )}
+                            <h3 className="text-xl font-black uppercase tracking-tight text-black border-b border-black/5 pb-4 inline-block">{cap.title}</h3>
+                            <p className="text-sm text-black/50 leading-relaxed font-light">{cap.content}</p>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            {/* Key Features Architecture Redesign */}
+            <section className="max-w-[1700px] mx-auto px-6 lg:px-12 py-32 bg-white">
+                <div className="mb-20">
+                    <h2 className="text-5xl font-black uppercase tracking-tighter text-black">
+                        Key Features Architecture
+                    </h2>
+                </div>
+
+                <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 relative items-stretch">
+                    {/* Features List */}
+                    <div className="w-full lg:w-[40%] space-y-0 divide-y divide-black/5">
+                        {(project.keyFeaturesArchitecture?.items || project.keyFeaturesDetail.items).map((item, i) => (
+                            <div key={i} className="py-12 group first:pt-0 last:pb-0">
+                                <div className="space-y-3">
+                                    <h4 className="text-xl font-black uppercase tracking-tight text-black leading-none">{item.title}</h4>
+                                    <p className="text-base text-black/50 leading-relaxed font-light">{item.content}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Sticky Tech Visual (Pinned) */}
+                    <div className="w-full lg:w-[60%] flex flex-col justify-start">
+                        <div className="sticky top-32 h-fit space-y-12">
+                            <img
+                                src={archVisualNew}
+                                alt="Architecture Visual"
+                                className="w-full max-w-md mx-auto h-auto object-contain p-0"
+                            />
+
+                            {/* Tech Stack Marquee */}
+                            <div className="feat-outer scale-75">
+                                <div className="feat-track">
+                                    {[...Array(3)].map((_, i) => (
+                                        <React.Fragment key={i}>
+                                            {[javaLogo, cppLogo, jsLogo, pyLogo, mongoLogo, nodeLogo, reactLogo].map((logo, j) => (
+                                                <div key={`${i}-${j}`} className="feat-logo-item">
+                                                    <img
+                                                        src={logo}
+                                                        alt="tech logo"
+                                                        className="h-10 w-auto object-contain opacity-100 hover:scale-110 transition-transform duration-300"
+                                                    />
+                                                </div>
+                                            ))}
+                                        </React.Fragment>
+                                    ))}
+                                </div>
+                                <div className="feat-fade-l" />
+                                <div className="feat-fade-r" />
+                            </div>
+                        </div>
+
+                        <style>{`
+                            .feat-outer {
+                                position: relative;
+                                overflow: hidden;
+                                padding: 20px 0;
+                            }
+                            .feat-track {
+                                display: flex;
+                                align-items: center;
+                                width: max-content;
+                                animation: feat-scroll-projects 30s linear infinite;
+                            }
+                            .feat-logo-item {
+                                padding: 0 40px;
+                                flex-shrink: 0;
+                            }
+                            @keyframes feat-scroll-projects {
+                                from { transform: translateX(0); }
+                                to   { transform: translateX(-33.333%); }
+                            }
+                            .feat-fade-l, .feat-fade-r {
+                                position: absolute;
+                                top: 0;
+                                bottom: 0;
+                                width: 100px;
+                                z-index: 10;
+                                pointer-events: none;
+                            }
+                            .feat-fade-l { left: 0; background: linear-gradient(to right, #ffffff, transparent); }
+                            .feat-fade-r { right: 0; background: linear-gradient(to left, #ffffff, transparent); }
+                        `}</style>
+                    </div>
+                </div>
+            </section>
+
+            {/* Business Value Stats Strip */}
+            <section className="bg-[#002B54] py-20 relative overflow-hidden">
+                <div className="max-w-[1700px] mx-auto px-6 lg:px-12 relative z-10">
+                    <div className="text-center mb-12">
+                        <h2 className="text-4xl font-black uppercase tracking-tighter text-white">Business Value</h2>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-12 text-center text-white">
+                        {project.businessValueStats.map((stat, i) => (
+                            <div key={i} className="space-y-3">
+                                <div className="text-6xl lg:text-7xl font-black tracking-tighter">
+                                    <Counter value={stat.value} />
+                                </div>
+                                <div className="space-y-1">
+                                    <div className="text-[9px] font-black uppercase tracking-[0.2em] text-white/50">{stat.label}</div>
+                                    <div className="text-[11px] font-medium text-white/30 leading-tight px-4">{stat.desc}</div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Security Section Redesign */}
+            <section className="max-w-[1700px] mx-auto px-6 lg:px-12 py-32">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-24">
+                    <div className="lg:col-span-4 space-y-8">
+                        <h2 className="text-6xl font-black uppercase tracking-tighter text-black leading-[0.9]">Security & Governance</h2>
+                        <p className="text-black/60 text-lg font-light leading-relaxed italic">
+                            "The architecture is designed with enterprise-grade security protocols, ensuring that every transaction is verified..."
+                        </p>
+                    </div>
+                    <div className="lg:col-span-8">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                            {project.securityGovernance.items.map((item, i) => (
+                                <div key={i} className="space-y-4 group">
+                                    <div className="flex items-center gap-4">
+                                        <h4 className="text-lg font-black uppercase text-black">{item.title}</h4>
+                                    </div>
+                                    <p className="text-sm text-black/60 leading-relaxed font-light">
+                                        {item.content}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    )
+}
 
 const ProjectsPage = () => {
     const location = useLocation()
@@ -42,202 +339,12 @@ const ProjectsPage = () => {
 
     const currentProject = projects[activeIndex]
 
-    // Premium Layout Components
-    const PremiumLayout = ({ project }) => {
-        const iconMap = {
-            Sparkles: <Sparkles className="text-blue-600" size={24} />,
-            Shield: <Shield className="text-blue-600" size={24} />,
-            BarChart3: <BarChart3 className="text-blue-600" size={24} />,
-            PieChart: <PieChart className="text-blue-600" size={24} />,
-            TrendingUp: <TrendingUp className="text-blue-600" size={24} />,
-        }
-
-        return (
-            <div className="bg-white">
-                {/* Hero Section */}
-                <section className="max-w-[1700px] mx-auto px-6 lg:px-12 py-20 lg:py-32">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                        <div className="space-y-8">
-                            <div className="text-blue-600 text-xs font-black uppercase tracking-[0.3em] font-serif">Strategy & Design</div>
-                            <h1 className="text-6xl lg:text-7xl font-black tracking-tighter uppercase leading-[0.9] text-black">
-                                Project Overview:<br />
-                                {project.hero.title}
-                            </h1>
-                            <p className="text-xl text-black font-light leading-relaxed max-w-xl italic">
-                                "{project.hero.subtitle}" {project.hero.description}
-                            </p>
-                            <div className="flex flex-wrap gap-4 pt-4">
-                                <button
-                                    onClick={() => setIsDemoModalOpen(true)}
-                                    className="px-10 py-5 bg-blue-600 text-white rounded-xl text-xs font-black uppercase tracking-widest flex items-center gap-3 hover:bg-blue-700 transition-all shadow-xl shadow-blue-600/20"
-                                >
-                                    <Play size={14} fill="currentColor" />
-                                    Demo Video
-                                </button>
-                                <button className="px-10 py-5 bg-white border border-black/10 text-black rounded-xl text-xs font-black uppercase tracking-widest hover:bg-gray-50 transition-all">
-                                    View Roadmap
-                                </button>
-                            </div>
-                        </div>
-                        <div className="relative group">
-                            <div className="absolute inset-0 bg-blue-600/5 rounded-[3rem] blur-3xl transform group-hover:scale-105 transition-transform duration-700" />
-                            <div className="relative aspect-video rounded-[3rem] overflow-hidden shadow-2xl border border-black/5">
-                                <img src={project.images[0]} className="w-full h-full object-cover" alt="hero" />
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                {/* Project Scope Section */}
-                <section className="max-w-[1700px] mx-auto px-6 lg:px-12 py-24 border-t border-black/5">
-                    <div className="mb-16">
-                        <div className="text-blue-600 text-xs font-black uppercase tracking-[0.3em] mb-4">Strategy</div>
-                        <h2 className="text-5xl font-black uppercase tracking-tighter text-black">{project.projectScope.title}</h2>
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        {[project.projectScope.card1, project.projectScope.card2].map((card, i) => (
-                            <div key={i} className={`p-12 rounded-[2.5rem] border ${i === 0 ? 'bg-red-50/30 border-red-100' : 'bg-blue-50/30 border-blue-100'} space-y-8`}>
-                                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${i === 0 ? 'bg-red-100 text-red-600' : 'bg-blue-100 text-blue-600'}`}>
-                                    {i === 0 ? <X size={24} /> : <CheckCircle2 size={24} />}
-                                </div>
-                                <div className="space-y-4">
-                                    <h3 className="text-3xl font-black uppercase tracking-tight text-black">{card.title}</h3>
-                                    <p className="text-black/60 font-light leading-relaxed">{card.content}</p>
-                                </div>
-                                <div className="space-y-3">
-                                    {card.items.map((item, j) => (
-                                        <div key={j} className="flex items-center gap-3 text-sm font-medium text-black/80">
-                                            <div className={`w-1.5 h-1.5 rounded-full ${i === 0 ? 'bg-red-400' : 'bg-blue-400'}`} />
-                                            {item}
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </section>
-
-                {/* Business Challenges Strip */}
-                <section className="bg-slate-900 py-32 overflow-hidden relative">
-                    <div className="absolute top-0 right-0 w-[50%] h-full bg-blue-600/5 skew-x-12 transform translate-x-32" />
-                    <div className="max-w-[1700px] mx-auto px-6 lg:px-12 relative z-10 text-center">
-                        <div className="text-blue-500 text-xs font-black uppercase tracking-[0.3em] mb-4">Global Network</div>
-                        <h2 className="text-5xl font-black uppercase tracking-tighter text-white mb-8">{project.businessChallenges.title}</h2>
-                        <p className="text-white/40 text-lg max-w-2xl mx-auto mb-16 font-light">{project.businessChallenges.desc}</p>
-                        <div className="max-w-3xl mx-auto space-y-6">
-                            {project.businessChallenges.items.map((item, i) => (
-                                <div key={i} className="flex items-center gap-6 p-6 rounded-2xl bg-white/5 border border-white/10 text-left hover:bg-white/10 transition-all group">
-                                    <div className="w-8 h-8 rounded-full bg-blue-600/20 flex items-center justify-center text-blue-500 group-hover:scale-110 transition-transform">
-                                        <CheckCircle2 size={16} />
-                                    </div>
-                                    <span className="text-white/80 font-medium tracking-wide">{item}</span>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </section>
-
-                {/* Core Capabilities */}
-                <section className="max-w-[1700px] mx-auto px-6 lg:px-12 py-32 bg-gray-50/50">
-                    <div className="text-center mb-20">
-                        <div className="text-blue-600 text-xs font-black uppercase tracking-[0.3em] mb-4">Features</div>
-                        <h2 className="text-5xl font-black uppercase tracking-tighter text-black">Core Capabilities</h2>
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
-                        {project.coreCapabilities.map((cap, i) => (
-                            <div key={i} className="bg-white p-10 rounded-[2.5rem] border border-black/5 hover:shadow-2xl hover:shadow-blue-600/5 transition-all space-y-6 text-center group">
-                                <div className="w-16 h-16 rounded-2xl bg-blue-50 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform">
-                                    {iconMap[cap.icon] || <Sparkles className="text-blue-600" size={24} />}
-                                </div>
-                                <h3 className="text-xl font-black uppercase tracking-tight text-black">{cap.title}</h3>
-                                <p className="text-xs text-black/40 leading-relaxed font-medium">{cap.content}</p>
-                            </div>
-                        ))}
-                    </div>
-                </section>
-
-                {/* Key Features Detail */}
-                <section className="max-w-[1700px] mx-auto px-6 lg:px-12 py-32">
-                    <div className="mb-20">
-                        <div className="text-blue-600 text-xs font-black uppercase tracking-[0.3em] mb-4">Deep Dive</div>
-                        <h2 className="text-5xl font-black uppercase tracking-tighter text-black mb-4">{project.keyFeaturesDetail.title}</h2>
-                        <p className="text-black/40 italic font-medium">{project.keyFeaturesDetail.subtitle}</p>
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                        {project.keyFeaturesDetail.items.map((item, i) => (
-                            <div key={i} className="flex gap-8 items-start p-8 rounded-3xl border border-black/5 hover:bg-gray-50 transition-all">
-                                <div className="w-14 h-14 rounded-2xl bg-gray-100 flex items-center justify-center shrink-0">
-                                    {iconMap[item.icon] || <Sparkles size={20} className="text-black" />}
-                                </div>
-                                <div className="space-y-3">
-                                    <h4 className="text-xl font-black uppercase tracking-tight text-black">{item.title}</h4>
-                                    <p className="text-sm text-black/60 leading-relaxed font-light">{item.content}</p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </section>
-
-                {/* Business Value Stats Strip */}
-                <section className="bg-blue-600 py-32 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-700 to-blue-500 opacity-50" />
-                    <div className="max-w-[1700px] mx-auto px-6 lg:px-12 relative z-10">
-                        <div className="text-center mb-20">
-                            <div className="text-white/60 text-xs font-black uppercase tracking-[0.3em] mb-4">Impact</div>
-                            <h2 className="text-5xl font-black uppercase tracking-tighter text-white">Projected Business Value</h2>
-                        </div>
-                        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-12 text-center text-white">
-                            {project.businessValueStats.map((stat, i) => (
-                                <div key={i} className="space-y-4">
-                                    <div className="text-7xl lg:text-8xl font-black tracking-tighter">{stat.value}</div>
-                                    <div className="space-y-1">
-                                        <div className="text-[10px] font-black uppercase tracking-[0.2em] text-white/60">{stat.label}</div>
-                                        <div className="text-xs font-medium text-white/40">{stat.desc}</div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </section>
-
-                {/* Security Section Redesign */}
-                <section className="max-w-[1700px] mx-auto px-6 lg:px-12 py-32">
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-24">
-                        <div className="lg:col-span-4 space-y-8">
-                            <div className="text-blue-600 text-xs font-black uppercase tracking-[0.3em]">Integrity</div>
-                            <h2 className="text-6xl font-black uppercase tracking-tighter text-black leading-[0.9]">Security & Governance</h2>
-                            <p className="text-black/60 text-lg font-light leading-relaxed italic">
-                                "The architecture is designed with enterprise-grade security protocols, ensuring that every transaction is verified..."
-                            </p>
-                        </div>
-                        <div className="lg:col-span-8">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                                {project.securityGovernance.items.map((item, i) => (
-                                    <div key={i} className="space-y-4 group">
-                                        <div className="flex items-center gap-4">
-                                            <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all">
-                                                <Shield size={18} />
-                                            </div>
-                                            <h4 className="text-lg font-black uppercase text-black">{item.title}</h4>
-                                        </div>
-                                        <p className="text-sm text-black/60 leading-relaxed font-light pl-14">
-                                            {item.content}
-                                        </p>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        )
-    }
 
     if (currentProject.isPremiumLayout) {
         return (
-            <div className="min-h-screen bg-white text-black overflow-hidden relative">
+            <div className="min-h-screen bg-white text-black relative">
                 <ScrollToTop />
-                <PremiumLayout project={currentProject} />
+                <PremiumLayout project={currentProject} setIsDemoModalOpen={setIsDemoModalOpen} />
                 <ProjectDemoModal
                     project={currentProject}
                     isOpen={isDemoModalOpen}
@@ -249,7 +356,7 @@ const ProjectsPage = () => {
 
     return (
         <div
-            className="pt-32 min-h-screen bg-white text-black overflow-hidden relative"
+            className="pt-32 min-h-screen bg-white text-black relative"
         >
             <ScrollToTop />
 

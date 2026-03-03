@@ -2,6 +2,10 @@ import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { motion, AnimatePresence, useSpring, useMotionValue, useTransform } from 'framer-motion'
 import { Cpu, Activity, Shield, Zap, Binary, ChevronRight, BarChart3, Layers, Database } from 'lucide-react'
 import { Compass, Code2, Wrench, ShieldCheck, Rocket } from 'lucide-react'
+import jsLogo from '../assets/logos/logo js.png'
+import pyLogo from '../assets/logos/logo py.png'
+import javaLogo from '../assets/logos/java logo.png'
+import nodeLogo from '../assets/logos/node logo.png'
 
 /* ═══════════════════════════════════════════
    PIPELINE CONSTANTS
@@ -91,10 +95,10 @@ const MechanicalCore = () => {
 
     // Abstract Data Layers (Spread globally across the stage)
     const layers = [
-        { id: 1, x: -350, y: -180, z: -150, icon: Cpu, color: 'text-blue-500', label: 'develp' },
-        { id: 2, x: 350, y: -180, z: -150, icon: BarChart3, color: 'text-blue-500', label: 'ANALYTICS' },
-        { id: 3, x: -350, y: 180, z: -150, icon: Shield, color: 'text-blue-500', label: 'SECURE' },
-        { id: 4, x: 350, y: 180, z: -150, icon: Layers, color: 'text-blue-500', label: 'APPLICATION' },
+        { id: 1, x: -350, y: -180, z: -150, img: jsLogo, color: '#f7df1e', label: 'JAVASCRIPT' },
+        { id: 2, x: 350, y: -180, z: -150, img: pyLogo, color: '#3776ab', label: 'PYTHON' },
+        { id: 3, x: -350, y: 180, z: -150, img: javaLogo, color: '#f80000', label: 'JAVA' },
+        { id: 4, x: 350, y: 180, z: -150, img: nodeLogo, color: '#68a063', label: 'NODE.JS' },
     ]
 
     return (
@@ -195,8 +199,8 @@ const MechanicalCore = () => {
                         >
                             <div className="w-full h-full p-6 flex flex-col justify-start gap-8 relative overflow-hidden text-left">
                                 <div className="space-y-2">
-                                    <div className={`w-12 h-12 rounded-2xl bg-blue-50/80 flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-500`}>
-                                        <layer.icon className="w-6 h-6" style={{ color: '#002B54' }} strokeWidth={2} />
+                                    <div className={`w-12 h-12 rounded-2xl bg-white flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-500 p-2`}>
+                                        <img src={layer.img} alt={layer.label} className="w-full h-full object-contain" />
                                     </div>
                                     <div className="text-[10px] font-black tracking-[0.4em] uppercase" style={{ color: '#002B54' }}>{layer.label}</div>
                                 </div>
@@ -244,9 +248,9 @@ const MechanicalCore = () => {
                     <div className="flex flex-col items-center gap-6">
                         {/* Smaller CALDIM SOLUTIONS branding */}
                         <div className="flex items-center gap-4">
-                            <div className="w-8 h-[1px] bg-[#002B54]/30" />
-                            <h2 className="text-sm font-black uppercase tracking-[0.8em] opacity-60" style={{ color: '#00aaffff' }}>CALDIM SOLUTIONS</h2>
-                            <div className="w-8 h-[1px] bg-[#002B54]/30" />
+                            <div className="w-8 h-[2px] bg-[#002B54]/30" />
+                            <h2 className="text-md font-black uppercase tracking-[0.8em] opacity-100" style={{ color: '#002B54' }}>CALDIM SOLUTIONS</h2>
+                            <div className="w-8 h-[2px] bg-[#002B54]/30" />
                         </div>
 
                         {/* Main Headline */}

@@ -101,7 +101,7 @@ const ContactPage = () => {
         },
     ]
 
-    const inputClass = "w-full px-6 sm:px-8 py-4 sm:py-5 rounded-xl sm:rounded-2xl bg-gray-50 border border-blue-600/10 text-black focus:border-blue-600 focus:bg-white focus:outline-none transition-all placeholder:text-gray-400 text-sm font-medium"
+    const inputClass = "w-full px-8 py-5 rounded-[1.8rem] bg-gray-50/50 border border-gray-100 text-black focus:border-blue-600 focus:bg-white focus:outline-none transition-all placeholder:text-gray-300 text-sm font-medium shadow-sm"
 
     return (
         <div className="pt-24 sm:pt-32 pb-16 sm:pb-24 bg-white min-h-screen relative overflow-hidden">
@@ -138,15 +138,15 @@ const ContactPage = () => {
                             backfaceVisibility: 'hidden',
                         }}
                         transition={{ duration: 0.8 }}
-                        className="bg-white p-6 sm:p-12 rounded-[2rem] sm:rounded-[1rem] border border-blue-600/10 relative group shadow-2xl overflow-hidden"
+                        className="bg-white p-6 sm:p-12 rounded-[2.5rem] border border-gray-100 relative group shadow-[0_32px_64px_-12px_rgba(0,0,0,0.08)] overflow-hidden"
                     >
-                        <form ref={formRef} onSubmit={handleSubmit} className="space-y-6 sm:space-y-8 relative z-10">
+                        <form ref={formRef} onSubmit={handleSubmit} className="space-y-8 sm:space-y-10 relative z-10">
                             {/* Name Row */}
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
-                                <div className="space-y-2 sm:space-y-3">
-                                    <div className="flex items-center gap-2 ml-4">
-                                        <User size={12} className="text-blue-600" />
-                                        <label className="text-[9px] font-black uppercase tracking-[0.3em] text-gray-500">First Name</label>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-10">
+                                <div className="space-y-3 sm:space-y-4">
+                                    <div className="flex items-center gap-2 ml-2">
+                                        <User size={14} className="text-blue-600" />
+                                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-900/40">First Name</label>
                                     </div>
                                     <input
                                         type="text"
@@ -159,10 +159,10 @@ const ContactPage = () => {
                                         placeholder="John"
                                     />
                                 </div>
-                                <div className="space-y-2 sm:space-y-3">
-                                    <div className="flex items-center gap-2 ml-4">
-                                        <User size={12} className="text-blue-600" />
-                                        <label className="text-[9px] font-black uppercase tracking-[0.3em] text-gray-500">Last Name</label>
+                                <div className="space-y-3 sm:space-y-4">
+                                    <div className="flex items-center gap-2 ml-2">
+                                        <User size={14} className="text-blue-600" />
+                                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-900/40">Last Name</label>
                                     </div>
                                     <input
                                         type="text"
@@ -178,11 +178,11 @@ const ContactPage = () => {
                             </div>
 
                             {/* Email & Phone Row */}
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
-                                <div className="space-y-2 sm:space-y-3">
-                                    <div className="flex items-center gap-2 ml-4">
-                                        <AtSign size={12} className="text-blue-600" />
-                                        <label className="text-[9px] font-black uppercase tracking-[0.3em] text-gray-500">Email Address</label>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-10">
+                                <div className="space-y-3 sm:space-y-4">
+                                    <div className="flex items-center gap-2 ml-2">
+                                        <AtSign size={14} className="text-blue-600" />
+                                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-900/40">Email Address</label>
                                     </div>
                                     <input
                                         type="email"
@@ -195,10 +195,10 @@ const ContactPage = () => {
                                         placeholder="john@company.com"
                                     />
                                 </div>
-                                <div className="space-y-2 sm:space-y-3">
-                                    <div className="flex items-center gap-2 ml-4">
-                                        <Phone size={12} className="text-blue-600" />
-                                        <label className="text-[9px] font-black uppercase tracking-[0.3em] text-gray-500">Contact Number</label>
+                                <div className="space-y-3 sm:space-y-4">
+                                    <div className="flex items-center gap-2 ml-2">
+                                        <Phone size={14} className="text-blue-600" />
+                                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-900/40">Contact Number</label>
                                     </div>
                                     <input
                                         type="tel"
@@ -214,10 +214,10 @@ const ContactPage = () => {
                             </div>
 
                             {/* Project Information */}
-                            <div className="space-y-2 sm:space-y-3">
-                                <div className="flex items-center gap-2 ml-4">
-                                    <Cpu size={13} className="text-blue-600" />
-                                    <label className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500">Project Information</label>
+                            <div className="space-y-3 sm:space-y-4">
+                                <div className="flex items-center gap-2 ml-2">
+                                    <Cpu size={14} className="text-blue-600" />
+                                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-900/40">Project Information</label>
                                 </div>
                                 <textarea
                                     name="projectInfo"
@@ -226,7 +226,7 @@ const ContactPage = () => {
                                     required
                                     rows={5}
                                     disabled={submitStatus === 'loading'}
-                                    className="w-full px-6 sm:px-8 py-4 sm:py-6 rounded-[1.5rem] sm:rounded-[2rem] bg-gray-50 border border-blue-600/10 text-black focus:border-blue-600 focus:bg-white focus:outline-none transition-all placeholder:text-gray-400 text-sm font-medium resize-none"
+                                    className="w-full px-8 py-6 rounded-[2rem] bg-gray-50/50 border border-gray-100 text-black focus:border-blue-600 focus:bg-white focus:outline-none transition-all placeholder:text-gray-300 text-sm font-medium resize-none shadow-sm"
                                     placeholder="Describe your project requirements, technical specifications, timeline, and any other relevant details..."
                                 />
                             </div>
@@ -251,38 +251,37 @@ const ContactPage = () => {
                             <motion.button
                                 type="submit"
                                 disabled={submitStatus === 'loading' || submitStatus === 'success'}
-                                whileHover={submitStatus === 'idle' ? { scale: 1.02, y: -5 } : {}}
-                                whileTap={submitStatus === 'idle' ? { scale: 0.98 } : {}}
-                                className={`w-full py-5 sm:py-7 font-black uppercase text-[9px] sm:text-[10px] tracking-[0.5em] rounded-xl sm:rounded-[2rem] flex items-center justify-center gap-4 transition-all relative overflow-hidden group/btn ${submitStatus === 'success'
+                                whileHover={submitStatus === 'idle' ? { scale: 1.01 } : {}}
+                                whileTap={submitStatus === 'idle' ? { scale: 0.99 } : {}}
+                                className={`w-full py-6 sm:py-7 font-black uppercase text-[11px] sm:text-[12px] tracking-[0.4em] rounded-full flex items-center justify-center gap-4 transition-all relative overflow-hidden group/btn shadow-xl shadow-blue-600/10 ${submitStatus === 'success'
                                     ? 'bg-green-500 text-white cursor-default'
                                     : submitStatus === 'loading'
                                         ? 'bg-blue-400 text-white cursor-not-allowed'
-                                        : 'bg-blue-600 text-white'
+                                        : 'bg-blue-600 text-white hover:bg-blue-700'
                                     }`}
                             >
                                 {submitStatus === 'idle' && (
                                     <>
-                                        <motion.div className="absolute inset-0 bg-blue-700 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500" />
                                         <span className="relative z-10">Send</span>
-                                        <Send size={14} className="relative z-10" />
+                                        <Send size={16} className="relative z-10" />
                                     </>
                                 )}
                                 {submitStatus === 'loading' && (
                                     <>
-                                        <Loader size={16} className="animate-spin" />
+                                        <Loader size={18} className="animate-spin" />
                                         <span>Sending...</span>
                                     </>
                                 )}
                                 {submitStatus === 'success' && (
                                     <>
-                                        <CheckCircle size={16} />
+                                        <CheckCircle size={18} />
                                         <span>MESSAGE SENT SUCCESSFULLY!</span>
                                     </>
                                 )}
                                 {submitStatus === 'error' && (
                                     <>
                                         <span>RETRY TRANSMISSION</span>
-                                        <Send size={14} />
+                                        <Send size={16} />
                                     </>
                                 )}
                             </motion.button>
@@ -310,12 +309,6 @@ const ContactPage = () => {
                     {/* Contact details */}
                     <div className="space-y-12 sm:space-y-16">
                         <div className="space-y-6 sm:space-y-8">
-                            {/* <div className="flex items-center gap-4">
-                                <div className="w-10 h-10 rounded-full bg-blue-600/10 border border-blue-600/20 flex items-center justify-center">
-                                    <Terminal size={16} className="text-blue-600" />
-                                </div>
-                                <span className="text-[10px] font-black text-blue-600 uppercase tracking-[0.5em]">Global Nodes</span>
-                            </div> */}
                             <h2 className="text-3xl sm:text-5xl text-black font-black leading-tight tracking-tighter uppercase italic">
                                 ESTABLISH<br />
                                 <span className="text-transparent" style={{ WebkitTextStroke: '1px rgba(0,0,0,0.4)' }}>CONNECTION</span>
@@ -337,7 +330,7 @@ const ContactPage = () => {
                                         initial={{ opacity: 0, x: 50 }}
                                         animate={{ opacity: 1, x: 0 }}
                                         transition={{ delay: index * 0.1 }}
-                                        className="group flex items-center gap-6 sm:gap-8 p-6 sm:p-10 rounded-[2rem] sm:rounded-[3rem] bg-gray-50 border border-blue-600/10 hover:border-blue-600 hover:bg-white transition-all shadow-sm"
+                                        className="group flex items-center gap-4 sm:gap-6 p-2 sm:p-4 rounded-[2rem] sm:rounded-[3rem] bg-gray-50 border border-blue-600/10 hover:border-blue-600 hover:bg-white transition-all shadow-sm"
                                     >
                                         <div className="w-12 h-12 sm:w-16 sm:h-16 bg-white border border-blue-600/10 rounded-xl flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-all shrink-0">
                                             <Icon size={20} strokeWidth={1} />

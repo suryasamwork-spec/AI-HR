@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { Menu, X, ChevronDown } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
+import caldimLogo from '../assets/caldim-logo.png'
 
 const Header = () => {
     const [isScrolled, setIsScrolled] = useState(false)
@@ -114,31 +115,18 @@ const Header = () => {
                         }}
                     >
                         <div className="relative w-12 h-12 flex items-center justify-center">
-                            <svg viewBox="0 0 100 60" className="w-full h-full filter drop-shadow-[0_0_10px_rgba(59,130,246,0.3)]">
-                                <defs>
-                                    <linearGradient id="logo-gradient-header" x1="0%" y1="0%" x2="0%" y2="100%">
-                                        <stop offset="0%" stopColor="#2563eb" />
-                                        <stop offset="100%" stopColor="#1d4ed8" />
-                                    </linearGradient>
-                                </defs>
-                                <path
-                                    d="M48 5 L10 26 L10 54 Q10 58 14 58 L48 58 L48 48 L18 48 Q16 48 16 46 L16 34 L48 16 Z"
-                                    fill="url(#logo-gradient-footer)"
-                                    stroke="#60a5fa"
-                                    strokeWidth="1.5"
-                                    strokeLinejoin="round"
-                                    />
-                                <path
-                                    d="M52 5 L52 58 L86 58 Q90 58 90 54 L90 26 L52 5 Z M62 18 V46 L80 46 V28 Z"
-                                    fill="url(#logo-gradient-footer)"
-                                    fillRule="evenodd"
-                                    stroke="#60a5fa"
-                                    strokeWidth="1.5"
-                                    strokeLinejoin="round"
-                                    />
-                            </svg>
+                            <img
+                                src={caldimLogo}
+                                alt="Caldim Logo"
+                                className="w-full h-full object-contain filter"
+                                style={{
+                                    filter: isScrolled
+                                        ? 'brightness(0) invert(1) drop-shadow(0 0 5px rgba(255,255,255,0.2))'
+                                        : 'brightness(0) saturate(100%) invert(11%) sepia(87%) saturate(2222%) hue-rotate(196deg) brightness(97%) contrast(106%) drop-shadow(0 0 10px rgba(59,130,246,0.3))'
+                                }}
+                            />
                         </div>
-                        <span className={`text-2xl font-bold tracking-[0.2em] transition-colors ${isScrolled ? 'text-white' : 'text-black'} group-hover:text-blue-400`}>
+                        <span className={`text-2xl font-bold tracking-[0.2em] transition-colors ${isScrolled ? 'text-white' : 'text-[#002B54]'} group-hover:text-blue-400`}>
                             CALDIM
                         </span>
                     </Link>
