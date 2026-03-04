@@ -90,13 +90,13 @@ const ContactPage = () => {
         {
             icon: Phone,
             title: 'PROTOCOL.VOIP',
-            value: '+91 9876543210',
-            link: 'tel:+919876543210',
+            value: '+910000000000 ',
+            link: 'tel:+0000000000',
         },
         {
             icon: Terminal,
             title: 'NODE.LOCATION',
-            value: 'Hosur, Tamil Nadu',
+            value: 'Hosur,Chennai, Tamil Nadu',
             link: 'https://www.google.com/maps/search/?api=1&query=12.754579,77.834673',
         },
     ]
@@ -112,13 +112,8 @@ const ContactPage = () => {
                     transition={{ duration: 0.8 }}
                     className="mb-16 sm:mb-24 text-center"
                 >
-                    <div className="inline-flex items-center gap-4 mb-6">
-                        <div className="w-8 h-[1px] bg-blue-600" />
-                        <span className="text-[10px] font-black uppercase tracking-[0.8em] text-blue-600">Secure Transmission</span>
-                        <div className="w-8 h-[1px] bg-blue-600" />
-                    </div>
                     <h1 className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tighter text-black uppercase italic leading-none">
-                        CONTACT<br />
+                        CONTACT<br /> 
                         <span className="text-transparent" style={{ WebkitTextStroke: '1px rgba(0,0,0,0.4)' }}>INTERFACE</span>
                     </h1>
                 </motion.div>
@@ -156,7 +151,7 @@ const ContactPage = () => {
                                         required
                                         disabled={submitStatus === 'loading'}
                                         className={inputClass}
-                                        placeholder="John"
+                                        placeholder="firstname"
                                     />
                                 </div>
                                 <div className="space-y-3 sm:space-y-4">
@@ -172,7 +167,7 @@ const ContactPage = () => {
                                         required
                                         disabled={submitStatus === 'loading'}
                                         className={inputClass}
-                                        placeholder="Cooper"
+                                        placeholder="lastname"
                                     />
                                 </div>
                             </div>
@@ -192,7 +187,7 @@ const ContactPage = () => {
                                         required
                                         disabled={submitStatus === 'loading'}
                                         className={inputClass}
-                                        placeholder="john@company.com"
+                                        placeholder="busniess@company.com"
                                     />
                                 </div>
                                 <div className="space-y-3 sm:space-y-4">
@@ -336,7 +331,6 @@ const ContactPage = () => {
                                             <Icon size={20} strokeWidth={1} />
                                         </div>
                                         <div className="overflow-hidden">
-                                            <div className="text-[8px] sm:text-[9px] font-black text-gray-400 uppercase tracking-[0.3em] mb-1">{info.title}</div>
                                             <div className="text-base sm:text-xl font-black text-black group-hover:text-blue-600 transition-colors uppercase tracking-tight truncate">{info.value}</div>
                                         </div>
                                     </motion.a>

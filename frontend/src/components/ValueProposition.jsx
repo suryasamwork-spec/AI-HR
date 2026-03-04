@@ -98,7 +98,7 @@ const ValueProposition = () => {
                                 initial="hidden"
                                 whileInView="show"
                                 viewport={{ once: true }}
-                                className="relative p-8 rounded-[2rem] bg-white/75 backdrop-blur-sm border border-blue-600/10 shadow-sm transition-all duration-500 overflow-hidden"
+                                className="relative py-4 transition-all duration-500"
                             >
                                 {/* Number watermark */}
                                 <div className="absolute top-6 right-7 text-[11px] font-black tracking-widest text-gray-100 select-none">{v.num}</div>
@@ -132,7 +132,7 @@ const ValueProposition = () => {
                                 initial="hidden"
                                 whileInView="show"
                                 viewport={{ once: true }}
-                                className="relative p-8 rounded-[2rem] bg-white/75 backdrop-blur-sm border border-blue-600/10 shadow-sm transition-all duration-500 overflow-hidden"
+                                className="relative py-4 transition-all duration-500"
                             >
                                 <div className="absolute top-6 right-7 text-[11px] font-black tracking-widest text-gray-100 select-none">{v.num}</div>
 

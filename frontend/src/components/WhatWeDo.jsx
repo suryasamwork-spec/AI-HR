@@ -1,6 +1,5 @@
 import React from 'react'
-import { motion } from 'framer-motion'
-import { Code2, Cpu, Settings, Globe, Layout, Activity, ShieldCheck, Rocket } from 'lucide-react'
+import { Code2, Cpu, Settings, Layout, ShieldCheck } from 'lucide-react'
 
 const services = [
     {
@@ -30,46 +29,121 @@ const services = [
     }
 ]
 
-const fadeUp = (delay = 0) => ({
-    hidden: { opacity: 0, y: 30 },
-    show: {
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1], delay }
-    }
-})
+// Diagonal clip polygon — same value used for both the white background and the navy-text overlay
+// so they're guaranteed to be perfectly aligned.
+const CLIP = 'polygon(0 0, 62% 0, 38% 100%, 0 100%)'
+
+/**
+ * ContentBlock — renders all text with the given colour tokens.
+ * Rendered twice: once for each half of the diagonal.
+ */
+const ContentBlock = ({ titleColor, descColor, labelColor, borderColor, outlineColor }) => (
+    <div className="container mx-auto px-6">
+        {/* Header */}
+        <div className="max-w-4xl mb-20 text-center mx-auto">
+            <div className="flex items-center justify-center gap-4 mb-4">
+                <div className="w-10 h-[1px]" style={{ background: labelColor }} />
+                <span
+                    className="text-xs font-black uppercase tracking-[0.6em]"
+                    style={{ color: labelColor }}
+                >
+                    Our Expertise
+                </span>
+                <div className="w-10 h-[1px]" style={{ background: labelColor }} />
+            </div>
+
+            <h1
+                className="text-5xl md:text-7xl font-black uppercase tracking-tight leading-none mb-8"
+                style={{ color: titleColor }}
+            >
+                What We{' '}
+                <span style={{
+                    color: 'transparent',
+                    WebkitTextStroke: `2px ${outlineColor}`
+                }}>
+                    Do
+                </span>
+            </h1>
+
+            <p
+                className="text-xl font-light max-w-2xl mx-auto leading-relaxed"
+                style={{ color: descColor }}
+            >
+                We bridge the gap between complex business problems and elegant technological
+                solutions with a human-centric approach.
+            </p>
+        </div>
+
+        {/* Service cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16">
+            {services.map((service, index) => (
+                <div key={index} className="space-y-4">
+                    <h3
+                        className="text-xl font-black uppercase tracking-tight pb-4 inline-block"
+                        style={{
+                            color: titleColor,
+                            borderBottom: `2px solid ${borderColor}`
+                        }}
+                    >
+                        {service.title}
+                    </h3>
+                    <p
+                        className="text-base leading-relaxed font-light"
+                        style={{ color: descColor }}
+                    >
+                        {service.desc}
+                    </p>
+                </div>
+            ))}
+        </div>
+    </div>
+)
 
 const WhatWeDo = () => {
     return (
-        <section className="py-24 bg-white relative overflow-hidden">
-            <div className="container mx-auto px-6 relative z-10">
-                <div className="max-w-4xl mb-20 text-center mx-auto">
-                    <div className="flex items-center justify-center gap-4 mb-4">
-                        <div className="w-10 h-[1px] bg-blue-600/30" />
-                        <span className="text-xs font-black uppercase tracking-[0.6em] text-blue-600">Our Expertise</span>
-                        <div className="w-10 h-[1px] bg-blue-600/30" />
-                    </div>
-                    <h1 className="text-5xl md:text-7xl font-black text-[#002B54] uppercase tracking-tight leading-none mb-8">
-                        What We <span className="text-transparent" style={{ WebkitTextStroke: '2px #002B54' }}>Do</span>
-                    </h1>
-                    <p className="text-gray-500 text-xl font-light max-w-2xl mx-auto leading-relaxed">
-                        We bridge the gap between complex business problems and elegant technological solutions with a human-centric approach.
-                    </p>
-                </div>
+        <section className="relative overflow-hidden" style={{ background: '#002B54' }}>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16">
-                    {services.map((service, index) => (
-                        <div key={index} className="space-y-4">
-                            <h3 className="text-xl font-black text-[#002B54] uppercase tracking-tight border-b-2 border-blue-50 pb-4 inline-block">
-                                {service.title}
-                            </h3>
-                            <p className="text-gray-500 text-base leading-relaxed font-light">
-                                {service.desc}
-                            </p>
-                        </div>
-                    ))}
-                </div>
+            {/* ── White triangle (top-left half) ─────────────────────────────── */}
+            <div style={{
+                position: 'absolute',
+                inset: 0,
+                background: '#ffffff',
+                clipPath: CLIP,
+                zIndex: 0
+            }} />
+
+            {/* ── Base layer: WHITE text — sits on the blue half ───────────── */}
+            <div className="py-24" style={{ position: 'relative', zIndex: 1 }}>
+                <ContentBlock
+                    titleColor="#ffffff"
+                    descColor="rgba(255,255,255,0.75)"
+                    labelColor="rgba(255,255,255,0.6)"
+                    borderColor="rgba(255,255,255,0.2)"
+                    outlineColor="#ffffff"
+                />
             </div>
+
+            {/* ── Overlay layer: NAVY text — clipped to white triangle ─────── */}
+            {/* Uses the SAME clip polygon as the white background div above,
+                so text and background edges are pixel-perfect. */}
+            <div
+                className="py-24"
+                style={{
+                    position: 'absolute',
+                    inset: 0,
+                    clipPath: CLIP,
+                    zIndex: 2
+                }}
+            >
+                <ContentBlock
+                    titleColor="#002B54"
+                    descColor="#6b7280"
+                    labelColor="#2563eb"
+                    borderColor="rgba(0,43,84,0.12)"
+                    outlineColor="#002B54"
+                />
+            </div>
+
         </section>
     )
 }

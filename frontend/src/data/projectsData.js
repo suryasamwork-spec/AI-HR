@@ -11,55 +11,95 @@ import { BarChart3, TrendingUp, Shield, PieChart, Sparkles } from 'lucide-react'
 export const projectsData = [
     {
         id: 1,
-        title: 'Employee Timesheet',
+        title: 'Employee Timesheet Management System',
         tagline: 'Workforce Monitoring & Transparency',
-        fullDescription: 'The Employee Timesheet system is a comprehensive software solution designed to streamline time tracking and workforce monitoring through a centralized digital platform. It brings intelligent automation to organizational workflows.',
-        features: [
-            { title: 'Transparency', desc: 'Complete visibility into hours worked, projects assigned, and productivity metrics' },
-            { title: 'Traceability', desc: 'Full audit trail of time entries, approvals, and modifications for compliance' },
-            { title: 'Faster Settlement', desc: 'Automated payroll processing with reduced cycle times and error elimination' },
-            { title: 'Productivity', desc: 'Data-driven insights to optimize workforce allocation and performance' }
-        ],
-        tech: ['React', 'Node.js', 'SQL', 'Automation'],
-        advancedFeatures: [
-            {
-                title: 'Advanced Core Functionality',
-                desc: 'Engineered for field-readiness and high-security enterprise environments.',
-                subItems: [
-                    { label: 'Geofencing & Mobile Validation', content: 'Uses GPS geofencing to ensure employees are at designated work locations before allowing clock-ins.' },
-                    { label: 'Biometric & MFA', content: 'Integration with facial recognition or fingerprint scanning to prevent "buddy punching" and secure data.' },
-                    { label: 'Offline Mode', content: 'Local hour logging in remote areas with automatic synchronization once connectivity is restored.' }
-                ],
-                image: loginPageImg
+        fullDescription: 'The Employee Timesheet Management System is a centralized digital platform designed to automate time tracking, streamline approval workflows, and provide real-time visibility into workforce activity. The system replaces manual and fragmented tracking methods with a structured, secure, and scalable solution that improves operational transparency, payroll accuracy, and productivity monitoring across the organization.\n\nBy capturing work hours, project allocation, and attendance data in a unified environment, the platform enables organizations to maintain control over workforce utilization while ensuring compliance, traceability, and efficient reporting.',
+        isPremiumLayout: true,
+        hero: {
+            title: 'Employee Timesheet Management System',
+            subtitle: 'Automate time tracking, streamline approval workflows, and gain real-time visibility into workforce activity.',
+            description: 'A centralized digital platform that replaces manual and fragmented tracking methods with a structured, secure, and scalable solution.'
+        },
+        projectScope: {
+            title: 'From Manual to Digital',
+            card1: {
+                title: 'Manual Time Tracking',
+                content: 'Manual and fragmented tracking methods lead to timesheet errors, delays, limited visibility, and inconsistent reporting across the organization.',
+                items: ['Manual Timesheet Errors', 'Inconsistent Reporting', 'Limited Visibility']
             },
-            {
-                title: 'Intelligent Automation & Integration',
-                desc: 'Streamlining payroll and project tracking through a unified technical architecture.',
-                subItems: [
-                    { label: 'Predictive Scheduling (AI)', content: 'Uses historical data to forecast staffing needs, helping managers avoid understaffing or expensive overtime.' },
-                    { label: 'Unified Tech Stack (ERP/HRMS)', content: 'Seamless API integrations with Jira, Asana, and SAP to directly push billable hours and sync PTO.' }
-                ],
-                image: backgroundImage
-            },
-            {
-                title: 'Employee Experience (The "Trust" Layer)',
-                desc: 'Transparency is a two-way street; modern systems focus on trust rather than surveillance.',
-                subItems: [
-                    { label: 'Self-Service Dashboards', content: 'Employees view productivity trends, check PTO balances, and dispute missed punches directly.' },
-                    { label: 'Privacy-First Monitoring', content: 'Prioritizes task completion over intrusive keystroke or webcam logging to foster a healthy culture.' }
-                ],
-                image: designImage
+            card2: {
+                title: 'Centralized Digital Platform',
+                content: 'A unified environment that automates time tracking, standardizes approval workflows, and delivers payroll-ready data with full audit traceability.',
+                items: ['Automated Time Entry', 'Standardized Approval Workflows', 'Payroll-Ready Data Generation']
             }
-        ],
-        complianceFramework: {
-            title: 'Compliance & Legal Safeguards',
-            desc: 'Built-in logic to handle global labor laws and data sovereignty requirements.',
+        },
+        businessChallenges: {
+            title: 'Business Challenges Addressed',
+            desc: 'Organizations often face operational inefficiencies due to manual time tracking, inconsistent reporting, and limited visibility into employee activity. The system addresses these challenges by:',
             items: [
-                { label: 'Legal "Break Lockouts"', content: 'Physically prevents clock-ins until legally mandated rest periods have elapsed.' },
-                { label: 'Data Sovereignty (SOC2/GDPR)', content: 'Built-in templates ensure data is stored according to local retention laws like the US FLSA.' },
-                { label: 'Automated Overtime Logic', content: 'Calculates daily and weekly overtime based on local labor codes, eliminating payroll manual error.' }
+                'Eliminating manual timesheet errors and delays',
+                'Providing real-time insight into work hours and task allocation',
+                'Standardizing approval and validation processes',
+                'Supporting payroll-ready time data generation',
+                'Ensuring audit-ready records for compliance and governance'
             ]
         },
+        coreCapabilities: [
+            {
+                title: 'Time Tracking & Entry',
+                content: 'Employees can log daily or weekly work hours, record task-level effort, and submit timesheets through a structured interface that ensures accuracy and consistency.',
+                logo: 'react'
+            },
+            {
+                title: 'Approval Workflow Management',
+                content: 'Configurable multi-level approval workflows allow managers to review, validate, and authorize time entries with complete visibility and accountability.',
+                logo: 'nodejs'
+            },
+            {
+                title: 'Real-Time Workforce Visibility',
+                content: 'Administrators gain instant insight into employee work hours, attendance trends, and project allocation through centralized dashboards.',
+                logo: 'python'
+            },
+            {
+                title: 'Audit Trail & Traceability',
+                content: 'Every time entry, modification, and approval action is recorded, ensuring full traceability for compliance and operational review.',
+                logo: 'javascript'
+            },
+            {
+                title: 'Reporting & Analytics',
+                content: 'The system generates structured reports including employee-wise, project-wise, and period-based summaries to support decision-making and performance monitoring.',
+                logo: 'java'
+            }
+        ],
+        keyFeaturesArchitecture: {
+            title: 'Key Features',
+            items: [
+                { title: 'Automated Time Entry & Submission', content: 'Automated time entry and submission workflow.', icon: 'Sparkles' },
+                { title: 'Role-Based Access Control', content: 'Role-based access for employees, managers, and administrators.', icon: 'Shield' },
+                { title: 'Configurable Approval Rules', content: 'Configurable approval and validation rules.', icon: 'Layers' },
+                { title: 'Centralized Dashboard', content: 'Centralized dashboard for operational monitoring.', icon: 'PieChart' },
+                { title: 'Secure Data Management', content: 'Secure data management and audit logging.', icon: 'Database' },
+                { title: 'Payroll-Ready Reporting', content: 'Payroll-ready reporting and export capability.', icon: 'BarChart3' },
+                { title: 'Scalable Architecture', content: 'Scalable architecture for organizational growth.', icon: 'Gauge' },
+            ]
+        },
+        businessValueStats: [
+            { value: '100%', label: 'TRANSPARENCY', desc: 'Complete visibility into hours worked, project allocation, and workforce activity' },
+            { value: '100%', label: 'TRACEABILITY', desc: 'Comprehensive audit trail supporting compliance and accountability' },
+            { value: 'FAST', label: 'FASTER SETTLEMENT', desc: 'Automated processing enables quicker payroll preparation with reduced errors' },
+            { value: 'DATA', label: 'PRODUCTIVITY INSIGHTS', desc: 'Data-driven analysis supports better workforce planning and performance optimization' },
+        ],
+        securityGovernance: {
+            title: 'Security & Governance',
+            desc: 'The system enforces structured governance through role-based access control, controlled data modification, and secure record management. Built-in safeguards ensure data integrity while maintaining confidentiality and operational reliability.',
+            items: [
+                { title: 'Role-Based Access Control', content: 'Structured governance through role-based access control ensuring only authorized personnel can view and modify records.', icon: 'Shield' },
+                { title: 'Controlled Data Modification', content: 'Controlled data modification with full change history maintained for every time entry and approval action.', icon: 'Shield' },
+                { title: 'Secure Record Management', content: 'Built-in safeguards ensure data integrity while maintaining confidentiality and operational reliability.', icon: 'Shield' },
+                { title: 'Customization & Integration', content: 'The platform supports configurable business rules, custom reporting formats, and integration readiness with payroll, HR, or enterprise systems.', icon: 'Shield' }
+            ]
+        },
+        tech: ['React', 'Node.js', 'SQL', 'Automation'],
         gradient: 'from-[#00d2ff] via-[#3a7bd5] to-[#00d2ff]',
         images: [loginPageImg, backgroundImage, designImage, loginPageImg, backgroundImage],
         demoVideo: demoVid,
@@ -68,6 +108,7 @@ export const projectsData = [
         client: 'Enterprise Systems',
         theme: 'blue'
     },
+
     {
         id: 2,
         title: 'Project Management',

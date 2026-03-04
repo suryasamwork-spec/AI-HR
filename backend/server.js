@@ -2,6 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const nodemailer = require('nodemailer')
 const cors = require('cors')
+const mysql = require('mysql2/promise')
 
 const app = express()
 const PORT = process.env.PORT || 5000
@@ -47,6 +48,36 @@ app.use((req, res, next) => {
     }
     next()
 })
+
+// ── MySQL Connection Pool ───────────────────────────────────────────────────
+const pool = mysql.createPool({
+    host: process.env.DB_HOST || 'localhost',
+    port: Number(process.env.DB_PORT) || 3306,
+    user: process.env.DB_USER || 'root',
+    password: process.env.DB_PASS || '',
+    database: process.env.DB_NAME || 'caldim_db',
+    waitForConnections: true,
+    connectionLimit: 10,
+})
+
+    // ── Create enquiries table if it doesn't exist ───────────────────────────────
+    ; (async () => {
+        try {
+            await pool.execute(`
+            CREATE TABLE IF NOT EXISTS enquiries (
+                id            INT AUTO_INCREMENT PRIMARY KEY,
+                name          VARCHAR(255)  NOT NULL,
+                email         VARCHAR(255)  NOT NULL,
+                contact_number VARCHAR(50)  NOT NULL,
+                project_info  TEXT          NOT NULL,
+                submitted_at  DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+        `)
+            console.log('✅ MySQL connected — enquiries table ready')
+        } catch (err) {
+            console.error('❌ MySQL init error:', err.message)
+        }
+    })()
 
 // ── Nodemailer transporter ──────────────────────────────────────────────────
 const transporter = nodemailer.createTransport({
@@ -222,6 +253,19 @@ app.post('/api/contact', async (req, res) => {
     const ccList = process.env.CC_EMAILS
         ? process.env.CC_EMAILS.split(',').map(e => e.trim()).filter(Boolean)
         : []
+
+    // ── Save enquiry to MySQL ─────────────────────────────────────────────
+    try {
+        await pool.execute(
+            `INSERT INTO enquiries (name, email, contact_number, project_info, submitted_at)
+             VALUES (?, ?, ?, ?, NOW())`,
+            [name, email, contactNumber, projectInfo]
+        )
+        console.log(`💾 Enquiry saved to DB from ${name} <${email}>`)
+    } catch (dbErr) {
+        console.error('❌ DB save error:', dbErr.message)
+        // Continue — email will still be sent even if DB write fails
+    }
 
     try {
         // ── Email to CALDIM (notification) ──────────────────────────────────

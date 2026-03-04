@@ -10,6 +10,7 @@ import designImage from '../assets/26760925_2112.i301.031.S.m004.c13.UI_and_UX_d
 import caldimLogo from '../assets/caldim-logo.png'
 import demoVid from '../assets/video/videoplayback.mp4'
 import archVisualNew from '../assets/slazzer-preview-twxul.png'
+import timesheetVisual from '../assets/standard-quality-control-concept-m.jpg'
 import javaLogo from '../assets/logos/java logo.png'
 import cppLogo from '../assets/logos/logo c+.png'
 import jsLogo from '../assets/logos/logo js.png'
@@ -156,7 +157,7 @@ const PremiumLayout = ({ project, setIsDemoModalOpen }) => {
                 <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-12">
                     {project.coreCapabilities.map((cap, i) => (
                         <div key={i} className="space-y-4 text-left group">
-                            {cap.logo && logoMap[cap.logo] && (
+                            {cap.logo && logoMap[cap.logo] && project.id !== 1 && (
                                 <div className="mb-6 h-12 flex items-center justify-start">
                                     <img
                                         src={logoMap[cap.logo]}
@@ -197,31 +198,33 @@ const PremiumLayout = ({ project, setIsDemoModalOpen }) => {
                     <div className="w-full lg:w-[60%] flex flex-col justify-start">
                         <div className="sticky top-32 h-fit space-y-12">
                             <img
-                                src={archVisualNew}
+                                src={project.id === 1 ? timesheetVisual : archVisualNew}
                                 alt="Architecture Visual"
                                 className="w-full max-w-md mx-auto h-auto object-contain p-0"
                             />
 
-                            {/* Tech Stack Marquee */}
-                            <div className="feat-outer scale-75">
-                                <div className="feat-track">
-                                    {[...Array(3)].map((_, i) => (
-                                        <React.Fragment key={i}>
-                                            {[javaLogo, cppLogo, jsLogo, pyLogo, mongoLogo, nodeLogo, reactLogo].map((logo, j) => (
-                                                <div key={`${i}-${j}`} className="feat-logo-item">
-                                                    <img
-                                                        src={logo}
-                                                        alt="tech logo"
-                                                        className="h-10 w-auto object-contain opacity-100 hover:scale-110 transition-transform duration-300"
-                                                    />
-                                                </div>
-                                            ))}
-                                        </React.Fragment>
-                                    ))}
+                            {/* Tech Stack Marquee — hidden for Employee Timesheet (id 1) */}
+                            {project.id !== 1 && (
+                                <div className="feat-outer scale-75">
+                                    <div className="feat-track">
+                                        {[...Array(3)].map((_, i) => (
+                                            <React.Fragment key={i}>
+                                                {[javaLogo, cppLogo, jsLogo, pyLogo, mongoLogo, nodeLogo, reactLogo].map((logo, j) => (
+                                                    <div key={`${i}-${j}`} className="feat-logo-item">
+                                                        <img
+                                                            src={logo}
+                                                            alt="tech logo"
+                                                            className="h-10 w-auto object-contain opacity-100 hover:scale-110 transition-transform duration-300"
+                                                        />
+                                                    </div>
+                                                ))}
+                                            </React.Fragment>
+                                        ))}
+                                    </div>
+                                    <div className="feat-fade-l" />
+                                    <div className="feat-fade-r" />
                                 </div>
-                                <div className="feat-fade-l" />
-                                <div className="feat-fade-r" />
-                            </div>
+                            )}
                         </div>
 
                         <style>{`
@@ -259,27 +262,69 @@ const PremiumLayout = ({ project, setIsDemoModalOpen }) => {
                 </div>
             </section>
 
-            {/* Business Value Stats Strip */}
-            <section className="bg-[#002B54] py-20 relative overflow-hidden">
-                <div className="max-w-[1700px] mx-auto px-6 lg:px-12 relative z-10">
-                    <div className="text-center mb-12">
-                        <h2 className="text-4xl font-black uppercase tracking-tighter text-white">Business Value</h2>
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-12 text-center text-white">
-                        {project.businessValueStats.map((stat, i) => (
-                            <div key={i} className="space-y-3">
-                                <div className="text-6xl lg:text-7xl font-black tracking-tighter">
-                                    <Counter value={stat.value} />
+            {/* Business Value Stats Strip — hidden for Employee Timesheet (id 1) */}
+            {project.id !== 1 && (
+                <section className="bg-[#002B54] py-20 relative overflow-hidden">
+                    <div className="max-w-[1700px] mx-auto px-6 lg:px-12 relative z-10">
+                        <div className="text-center mb-12">
+                            <h2 className="text-4xl font-black uppercase tracking-tighter text-white">Business Value</h2>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-12 text-center text-white">
+                            {project.businessValueStats.map((stat, i) => (
+                                <div key={i} className="space-y-3">
+                                    <div className="text-6xl lg:text-7xl font-black tracking-tighter">
+                                        <Counter value={stat.value} />
+                                    </div>
+                                    <div className="space-y-1">
+                                        <div className="text-[9px] font-black uppercase tracking-[0.2em] text-white/50">{stat.label}</div>
+                                        <div className="text-[11px] font-medium text-white/30 leading-tight px-4">{stat.desc}</div>
+                                    </div>
                                 </div>
-                                <div className="space-y-1">
-                                    <div className="text-[9px] font-black uppercase tracking-[0.2em] text-white/50">{stat.label}</div>
-                                    <div className="text-[11px] font-medium text-white/30 leading-tight px-4">{stat.desc}</div>
-                                </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
-                </div>
-            </section>
+                </section>
+            )}
+
+            {/* Business Value — Employee Timesheet only (id 1) */}
+            {project.id === 1 && (
+                <section className="bg-[#002B54] py-24 relative overflow-hidden">
+                    <div className="max-w-[1700px] mx-auto px-6 lg:px-12 relative z-10">
+                        <div className="text-center mb-16">
+                            <h2 className="text-5xl font-black uppercase tracking-tighter text-white">Business Value</h2>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
+                            {[
+                                {
+                                    title: 'Transparency',
+                                    desc: 'Complete visibility into hours worked, project allocation, and workforce activity.'
+                                },
+                                {
+                                    title: 'Traceability',
+                                    desc: 'Comprehensive audit trail supporting compliance and accountability.'
+                                },
+                                {
+                                    title: 'Faster Settlement',
+                                    desc: 'Automated processing enables quicker payroll preparation with reduced errors.'
+                                },
+                                {
+                                    title: 'Productivity Insights',
+                                    desc: 'Data-driven analysis supports better workforce planning and performance optimization.'
+                                }
+                            ].map((item, i) => (
+                                <div key={i} className="border-t border-white/10 pt-8 space-y-4">
+                                    <h3 className="text-2xl font-black uppercase tracking-tight text-white leading-none">
+                                        {item.title}
+                                    </h3>
+                                    <p className="text-white/50 text-sm font-light leading-relaxed">
+                                        {item.desc}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            )}
 
             {/* Security Section Redesign */}
             <section className="max-w-[1700px] mx-auto px-6 lg:px-12 py-32">
