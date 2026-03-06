@@ -99,7 +99,8 @@ export const projectsData = [
                 { title: 'Customization & Integration', content: 'The platform supports configurable business rules, custom reporting formats, and integration readiness with payroll, HR, or enterprise systems.', icon: 'Shield' }
             ]
         },
-        tech: ['React', 'Node.js', 'SQL', 'Automation'],
+        outcome: "By digitizing and standardizing workforce time management, the system enhances operational control, improves reporting accuracy, and enables organizations to make informed decisions based on reliable workforce data.",
+        tech: ['React', 'PostgreSQL', 'Socket.io', 'Framer Motion'],
         gradient: 'from-[#00d2ff] via-[#3a7bd5] to-[#00d2ff]',
         images: [loginPageImg, backgroundImage, designImage, loginPageImg, backgroundImage],
         demoVideo: demoVid,
@@ -314,6 +315,7 @@ export const projectsData = [
                 { title: 'Unified Data Repository', content: 'Single source of truth for all talent acquisition activity and candidate records.', icon: 'Database' }
             ]
         },
+        outcome: "The implementation of AI-driven evaluation transformed the recruitment lifecycle, reducing time-to-fill by 40% while significantly improving candidate-role alignment through objective, data-backed screening models.",
         tech: ['Python', 'TensorFlow', 'NLP', 'React'],
         images: [recruitmentImg, backgroundImage, designImage, caldimLogo, backgroundImage],
         demoVideo: demoVid,
@@ -432,6 +434,7 @@ export const projectsData = [
                 { title: 'Compliance Monitoring', content: 'Automated checks against organizational and regulatory policies.', icon: 'Shield' }
             ]
         },
+        outcome: "By centralizing global procurement workflows and introducing AI-assisted vendor evaluation, the system achieved a 70% faster processing cycle and 22% overall cost optimization, establishing a new standard for operational transparency and fiscal control.",
         tech: ['AI/ML', 'Cloud Infrastructure', 'React', 'Node.js'],
         gradient: 'from-[#3b82f6] via-[#2563eb] to-[#1d4ed8]',
         images: [procurementImg, loginPageImg, designImage, backgroundImage, caldimLogo],

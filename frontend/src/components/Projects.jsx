@@ -12,44 +12,49 @@ const Projects = () => {
             icon: Database,
             color: "text-blue-600",
             bgColor: "bg-blue-50",
-            points: [
-                { head: "Centralized Secure Repository", desc: "Create a unified storage layer to collect, organize, and safeguard all digital assets (PDFs, industrial records, multimedia)." },
-                { head: "Intelligent Ingestion", desc: "Build an upload interface that handles bulk files and automatically extracts text (using Python/OCR) during the upload process." },
-                { head: "Advanced Metadata Search", desc: "A high-speed search bar that queries not just file names, but the metadata and content inside the documents." },
-                { head: "Automated Lifecycle Management", desc: "Logic that automatically flags old files for 'Cold Storage' or 'Archive' status to optimize database performance." }
-            ]
+            desc: "Automate manual processes, eliminate redundancies, and significantly reduce administrative effort across departments."
         },
         {
             title: "Real-Time Visibility",
             icon: Shield,
             color: "text-indigo-600",
             bgColor: "bg-indigo-50",
-            points: [
-                { head: "WORM Implementation", desc: "'Write Once, Read Many' logic—ensure that once a file is archived, it cannot be edited or deleted without high-level admin override." },
-                { head: "Chain of Custody (Audit Logs)", desc: "A backend table to track every action: Who viewed it? When? From what IP?" },
-                { head: "Data Integrity Checks", desc: "Automatic background 'checksum' scans to ensure files haven't been corrupted or altered over time." }
-            ]
+            desc: "Gain instant insights into workforce activity, resource allocation, project status, and overall performance metrics."
         },
         {
             title: "Process Control & Compliance",
             icon: Layout,
             color: "text-cyan-600",
             bgColor: "bg-cyan-50",
-            points: [
-                { head: "Dynamic Document Viewer", desc: "An integrated previewer so users can view PDFs, images, or CAD files directly in the browser without downloading them." },
-                { head: "Versioning Support", desc: "If a document is updated, the system must keep the 'Archived' version as a historical record while showing the 'Current' version." },
-                { head: "Category Tagging", desc: "A sidebar with filters for 'Project Name,' 'Date Range,' 'Department,' and 'Document Type.'" }
-            ]
+            desc: "Standardized workflows with complete traceability, approval hierarchies, and audit readiness to ensure policy adherence."
         },
         {
             title: "Data-Driven Decisions",
             icon: LinkIcon,
             color: "text-blue-500",
             bgColor: "bg-blue-50",
-            points: [
-                { head: "API-First Approach", desc: "Ensure the archive has a clean REST API so your other industrial automation portals can 'push' data into the archive programmatically." },
-                { head: "Scalable Storage Backend", desc: "Configure the backend to point to scalable 'Cold' buckets (like AWS S3 Glacier or similar) to keep hosting costs low as data grows." }
-            ]
+            desc: "Leverage actionable insights and structured analytics to optimize productivity, resource utilization, and strategic planning."
+        },
+        {
+            title: "Improved Accountability",
+            icon: CheckCircle2,
+            color: "text-green-600",
+            bgColor: "bg-green-50",
+            desc: "Establish clear ownership, defined responsibilities, and measurable performance tracking across teams."
+        },
+        {
+            title: "Cost Optimization",
+            icon: Database, // Reusing or could use another
+            color: "text-amber-600",
+            bgColor: "bg-amber-50",
+            desc: "Identify inefficiencies, control operational expenses, and maximize return on organizational resources."
+        },
+        {
+            title: "Scalability & Growth Readiness",
+            icon: Layout, // Reusing or could use another
+            color: "text-purple-600",
+            bgColor: "bg-purple-50",
+            desc: "Adapt seamlessly to expanding teams, increasing workloads, and evolving business requirements."
         }
     ]
 
@@ -103,19 +108,9 @@ const Projects = () => {
                                 </div>
 
                                 <div className="grid gap-6">
-                                    {cat.points.map((point, pIdx) => (
-                                        <div key={pIdx} className="relative pl-12">
-                                            <div className="absolute left-0 top-1.5 p-1 rounded-full bg-blue-600/10 text-blue-600">
-                                                <CheckCircle2 size={16} strokeWidth={3} />
-                                            </div>
-                                            <h4 className="text-lg font-bold text-slate-800 mb-1">
-                                                {point.head}
-                                            </h4>
-                                            <p className="text-slate-500 font-light leading-relaxed">
-                                                {point.desc}
-                                            </p>
-                                        </div>
-                                    ))}
+                                    <p className="text-slate-500 font-light leading-relaxed text-lg">
+                                        {cat.desc}
+                                    </p>
                                 </div>
                                 {idx < categories.length - 1 && (
                                     <div className="pt-8 border-b border-slate-100" />

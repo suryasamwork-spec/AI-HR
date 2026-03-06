@@ -9,4 +9,4 @@ const isLocal =
 
 export const API_URL = isLocal
     ? 'http://localhost:5000'
-    : 'https://caldim-website1.onrender.com'   // ← replace with your actual production backend URL
+    : 'https://caldimengg.in/api'   // ← Points to the BigRock backend application root

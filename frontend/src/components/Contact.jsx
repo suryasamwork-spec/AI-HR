@@ -5,7 +5,8 @@ import { API_URL } from '../emailConfig'
 
 const Contact = () => {
     const [formData, setFormData] = useState({
-        name: '',
+        firstName: '',
+        lastName: '',
         email: '',
         contactNumber: '',
         projectInfo: '',
@@ -46,7 +47,8 @@ const Contact = () => {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    name: formData.name,
+                    firstName: formData.firstName,
+                    lastName: formData.lastName,
                     email: formData.email,
                     contactNumber: formData.contactNumber,
                     projectInfo: formData.projectInfo,
@@ -55,7 +57,7 @@ const Contact = () => {
             const data = await res.json()
             if (res.ok && data.success) {
                 setSubmitStatus('success')
-                setFormData({ name: '', email: '', contactNumber: '', projectInfo: '' })
+                setFormData({ firstName: '', lastName: '', email: '', contactNumber: '', projectInfo: '' })
                 setShowPopup(true)
                 setTimeout(() => {
                     setSubmitStatus('idle')
@@ -204,30 +206,71 @@ const Contact = () => {
                             className="bg-white p-8 md:p-12 rounded-[3.5rem] border border-blue-600/20 relative group shadow-2xl isolation-auto overflow-hidden"
                         >
                             <form onSubmit={handleSubmit} className="space-y-8 relative z-10 p-4 md:p-0">
-                                {/* Name & Contact Number Row */}
+                                {/* Name Fields Row */}
                                 <div className="grid md:grid-cols-2 gap-8">
-                                    {/* Name Input */}
                                     <div className="space-y-3">
                                         <div className="flex items-center gap-2 ml-4">
                                             <User size={12} className="text-blue-600" />
-                                            <label className="text-[9px] font-black uppercase tracking-[0.3em] text-gray-500">Your Name</label>
+                                            <label className="text-[9px] font-black uppercase tracking-[0.3em] text-gray-500">First Name</label>
                                         </div>
                                         <div className="relative group/input">
                                             <input
                                                 type="text"
-                                                name="name"
-                                                value={formData.name}
+                                                name="firstName"
+                                                value={formData.firstName}
                                                 onChange={handleChange}
                                                 required
                                                 disabled={submitStatus === 'loading'}
                                                 className={inputClass}
-                                                placeholder="Ex: John Cooper"
+                                                placeholder="Ex: John"
                                             />
                                             <div className="absolute inset-0 rounded-2xl border border-blue-600/0 group-hover/input:border-blue-600/20 pointer-events-none transition-colors" />
                                         </div>
                                     </div>
 
-                                    {/* Contact Number Input */}
+                                    <div className="space-y-3">
+                                        <div className="flex items-center gap-2 ml-4">
+                                            <User size={12} className="text-blue-600" />
+                                            <label className="text-[9px] font-black uppercase tracking-[0.3em] text-gray-500">Last Name</label>
+                                        </div>
+                                        <div className="relative group/input">
+                                            <input
+                                                type="text"
+                                                name="lastName"
+                                                value={formData.lastName}
+                                                onChange={handleChange}
+                                                required
+                                                disabled={submitStatus === 'loading'}
+                                                className={inputClass}
+                                                placeholder="Ex: Cooper"
+                                            />
+                                            <div className="absolute inset-0 rounded-2xl border border-blue-600/0 group-hover/input:border-blue-600/20 pointer-events-none transition-colors" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Contact & Email Row */}
+                                <div className="grid md:grid-cols-2 gap-8">
+                                    <div className="space-y-3">
+                                        <div className="flex items-center gap-2 ml-4">
+                                            <AtSign size={12} className="text-blue-600" />
+                                            <label className="text-[9px] font-black uppercase tracking-[0.3em] text-gray-500">Email Address</label>
+                                        </div>
+                                        <div className="relative group/input">
+                                            <input
+                                                type="email"
+                                                name="email"
+                                                value={formData.email}
+                                                onChange={handleChange}
+                                                required
+                                                disabled={submitStatus === 'loading'}
+                                                className={inputClass}
+                                                placeholder="name@company.com"
+                                            />
+                                            <div className="absolute inset-0 rounded-2xl border border-blue-600/0 group-hover/input:border-blue-600/20 pointer-events-none transition-colors" />
+                                        </div>
+                                    </div>
+
                                     <div className="space-y-3">
                                         <div className="flex items-center gap-2 ml-4">
                                             <Phone size={12} className="text-blue-600" />
@@ -246,27 +289,6 @@ const Contact = () => {
                                             />
                                             <div className="absolute inset-0 rounded-2xl border border-blue-600/0 group-hover/input:border-blue-600/20 pointer-events-none transition-colors" />
                                         </div>
-                                    </div>
-                                </div>
-
-                                {/* Email Input */}
-                                <div className="space-y-3">
-                                    <div className="flex items-center gap-2 ml-4">
-                                        <AtSign size={12} className="text-blue-600" />
-                                        <label className="text-[9px] font-black uppercase tracking-[0.3em] text-gray-500">Email Address</label>
-                                    </div>
-                                    <div className="relative group/input">
-                                        <input
-                                            type="email"
-                                            name="email"
-                                            value={formData.email}
-                                            onChange={handleChange}
-                                            required
-                                            disabled={submitStatus === 'loading'}
-                                            className={inputClass}
-                                            placeholder="name@company.com"
-                                        />
-                                        <div className="absolute inset-0 rounded-2xl border border-blue-600/0 group-hover/input:border-blue-600/20 pointer-events-none transition-colors" />
                                     </div>
                                 </div>
 

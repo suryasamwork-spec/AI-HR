@@ -11,6 +11,7 @@ import caldimLogo from '../assets/caldim-logo.png'
 import demoVid from '../assets/video/videoplayback.mp4'
 import archVisualNew from '../assets/slazzer-preview-twxul.png'
 import timesheetVisual from '../assets/standard-quality-control-concept-m.jpg'
+import outcomeBg from '../assets/19197125.jpg'
 import javaLogo from '../assets/logos/java logo.png'
 import cppLogo from '../assets/logos/logo c+.png'
 import jsLogo from '../assets/logos/logo js.png'
@@ -64,6 +65,8 @@ const Counter = ({ value, duration = 3 }) => {
 
 // Premium Layout Components
 const PremiumLayout = ({ project, setIsDemoModalOpen }) => {
+    const [internalImgIndex, setInternalImgIndex] = useState(0)
+
     const iconMap = {
         Sparkles: <Sparkles className="text-blue-600" size={24} />,
         Shield: <Shield className="text-blue-600" size={24} />,
@@ -89,20 +92,61 @@ const PremiumLayout = ({ project, setIsDemoModalOpen }) => {
                         <p className="text-xl text-black font-light leading-relaxed max-w-xl italic">
                             "{project.hero.subtitle}" {project.hero.description}
                         </p>
-                        <div className="flex flex-wrap gap-4 pt-4">
-                            <button
-                                onClick={() => setIsDemoModalOpen(true)}
-                                className="px-10 py-5 bg-blue-600 text-white rounded-xl text-xs font-black uppercase tracking-widest flex items-center gap-3 hover:bg-blue-700 transition-all shadow-xl shadow-blue-600/20"
-                            >
-                                <Play size={14} fill="currentColor" />
-                                Demo Video
-                            </button>
-                        </div>
+                        {/* Always use the tech matrix with demo button for premium projects */}
                     </div>
-                    <div className="relative group">
-                        <div className="absolute inset-0 bg-blue-600/5 rounded-[3rem] blur-3xl transform group-hover:scale-105 transition-transform duration-700" />
-                        <div className="relative aspect-video rounded-[3rem] overflow-hidden shadow-2xl border border-black/5">
-                            <img src={project.images[0]} className="w-full h-full object-cover" alt="hero" />
+
+                    <div className="space-y-8">
+                        <div className="relative group">
+                            <div className="absolute inset-0 bg-blue-600/5 rounded-[3rem] blur-3xl transform group-hover:scale-105 transition-transform duration-700" />
+                            <div className="relative aspect-video rounded-[3rem] overflow-hidden shadow-2xl border border-black/5">
+                                <AnimatePresence mode="wait">
+                                    <motion.img
+                                        key={internalImgIndex}
+                                        src={project.images[internalImgIndex]}
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        transition={{ duration: 0.3 }}
+                                        className="w-full h-full object-cover"
+                                        alt="hero"
+                                    />
+                                </AnimatePresence>
+                            </div>
+                        </div>
+
+                        {/* Image Thumbnails & Tech Matrix - universal for premium projects */}
+                        <div className="space-y-12">
+                            <div className="flex gap-4 overflow-x-auto pb-4 no-scrollbar">
+                                {project.images.map((img, idx) => (
+                                    <button
+                                        key={idx}
+                                        onClick={() => setInternalImgIndex(idx)}
+                                        className={`relative flex-shrink-0 w-24 aspect-square rounded-2xl overflow-hidden border-2 transition-all duration-300 ${internalImgIndex === idx ? 'border-black scale-105' : 'border-gray-200 opacity-50'}`}
+                                    >
+                                        <img src={img} className="w-full h-full object-cover" alt="view" />
+                                    </button>
+                                ))}
+                            </div>
+
+                            <div className="space-y-6">
+                                <h3 className="text-[11px] font-black uppercase tracking-wider text-black/40 flex items-center gap-3">
+                                    Technology Matrix <div className="h-[1px] flex-1 bg-black/10" />
+                                </h3>
+                                <div className="flex flex-wrap items-center gap-2">
+                                    {project.tech.map((tech) => (
+                                        <span key={tech} className="px-5 py-2 rounded-xl bg-gray-50 border border-black/5 text-[10px] font-bold uppercase tracking-widest text-black">
+                                            {tech}
+                                        </span>
+                                    ))}
+                                    <button
+                                        onClick={() => setIsDemoModalOpen(true)}
+                                        className="px-5 py-2 rounded-xl bg-black text-white flex items-center gap-2 transition-all border border-white/10"
+                                    >
+                                        <Play size={10} fill="currentColor" />
+                                        <span className="text-[10px] font-black uppercase tracking-widest">Play Demo</span>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -157,7 +201,7 @@ const PremiumLayout = ({ project, setIsDemoModalOpen }) => {
                 <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-12">
                     {project.coreCapabilities.map((cap, i) => (
                         <div key={i} className="space-y-4 text-left group">
-                            {cap.logo && logoMap[cap.logo] && project.id !== 1 && (
+                            {cap.logo && logoMap[cap.logo] && (
                                 <div className="mb-6 h-12 flex items-center justify-start">
                                     <img
                                         src={logoMap[cap.logo]}
@@ -203,28 +247,6 @@ const PremiumLayout = ({ project, setIsDemoModalOpen }) => {
                                 className="w-full max-w-md mx-auto h-auto object-contain p-0"
                             />
 
-                            {/* Tech Stack Marquee — hidden for Employee Timesheet (id 1) */}
-                            {project.id !== 1 && (
-                                <div className="feat-outer scale-75">
-                                    <div className="feat-track">
-                                        {[...Array(3)].map((_, i) => (
-                                            <React.Fragment key={i}>
-                                                {[javaLogo, cppLogo, jsLogo, pyLogo, mongoLogo, nodeLogo, reactLogo].map((logo, j) => (
-                                                    <div key={`${i}-${j}`} className="feat-logo-item">
-                                                        <img
-                                                            src={logo}
-                                                            alt="tech logo"
-                                                            className="h-10 w-auto object-contain opacity-100 hover:scale-110 transition-transform duration-300"
-                                                        />
-                                                    </div>
-                                                ))}
-                                            </React.Fragment>
-                                        ))}
-                                    </div>
-                                    <div className="feat-fade-l" />
-                                    <div className="feat-fade-r" />
-                                </div>
-                            )}
                         </div>
 
                         <style>{`
@@ -262,69 +284,7 @@ const PremiumLayout = ({ project, setIsDemoModalOpen }) => {
                 </div>
             </section>
 
-            {/* Business Value Stats Strip — hidden for Employee Timesheet (id 1) */}
-            {project.id !== 1 && (
-                <section className="bg-[#002B54] py-20 relative overflow-hidden">
-                    <div className="max-w-[1700px] mx-auto px-6 lg:px-12 relative z-10">
-                        <div className="text-center mb-12">
-                            <h2 className="text-4xl font-black uppercase tracking-tighter text-white">Business Value</h2>
-                        </div>
-                        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-12 text-center text-white">
-                            {project.businessValueStats.map((stat, i) => (
-                                <div key={i} className="space-y-3">
-                                    <div className="text-6xl lg:text-7xl font-black tracking-tighter">
-                                        <Counter value={stat.value} />
-                                    </div>
-                                    <div className="space-y-1">
-                                        <div className="text-[9px] font-black uppercase tracking-[0.2em] text-white/50">{stat.label}</div>
-                                        <div className="text-[11px] font-medium text-white/30 leading-tight px-4">{stat.desc}</div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </section>
-            )}
 
-            {/* Business Value — Employee Timesheet only (id 1) */}
-            {project.id === 1 && (
-                <section className="bg-[#002B54] py-24 relative overflow-hidden">
-                    <div className="max-w-[1700px] mx-auto px-6 lg:px-12 relative z-10">
-                        <div className="text-center mb-16">
-                            <h2 className="text-5xl font-black uppercase tracking-tighter text-white">Business Value</h2>
-                        </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
-                            {[
-                                {
-                                    title: 'Transparency',
-                                    desc: 'Complete visibility into hours worked, project allocation, and workforce activity.'
-                                },
-                                {
-                                    title: 'Traceability',
-                                    desc: 'Comprehensive audit trail supporting compliance and accountability.'
-                                },
-                                {
-                                    title: 'Faster Settlement',
-                                    desc: 'Automated processing enables quicker payroll preparation with reduced errors.'
-                                },
-                                {
-                                    title: 'Productivity Insights',
-                                    desc: 'Data-driven analysis supports better workforce planning and performance optimization.'
-                                }
-                            ].map((item, i) => (
-                                <div key={i} className="border-t border-white/10 pt-8 space-y-4">
-                                    <h3 className="text-2xl font-black uppercase tracking-tight text-white leading-none">
-                                        {item.title}
-                                    </h3>
-                                    <p className="text-white/50 text-sm font-light leading-relaxed">
-                                        {item.desc}
-                                    </p>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </section>
-            )}
 
             {/* Security Section Redesign */}
             <section className="max-w-[1700px] mx-auto px-6 lg:px-12 py-32">
@@ -351,6 +311,50 @@ const PremiumLayout = ({ project, setIsDemoModalOpen }) => {
                     </div>
                 </div>
             </section>
+
+            {/* Outcome & Business Value — universal for premium projects */}
+            {project.outcome && (
+                <section className="relative py-32 bg-[#002B54] overflow-hidden">
+                    {/* Background Image with 50% opacity */}
+                    <div className="absolute inset-0 z-0">
+                        <img
+                            src={outcomeBg}
+                            alt="Outcome Background"
+                            className="w-full h-full object-cover opacity-50"
+                        />
+                        <div className="absolute inset-0 bg-[#002B54]/50" /> {/* Extra overlay for readability */}
+                    </div>
+
+                    <div className="max-w-[1700px] mx-auto px-6 lg:px-12 relative z-10">
+                        {/* Outcome Header */}
+                        <div className="text-center max-w-4xl mx-auto mb-24">
+                            <h2 className="text-5xl lg:text-6xl font-black uppercase tracking-tighter text-white mb-8">Outcome</h2>
+                            <p className="text-xl lg:text-2xl text-white font-light leading-relaxed italic">
+                                "{project.outcome}"
+                            </p>
+                        </div>
+
+                        {/* Business Value Grid */}
+                        <div className="pt-24 border-t border-white/20">
+                            <div className="text-center mb-16">
+                                <h2 className="text-4xl font-black uppercase tracking-tighter text-white">Business Value</h2>
+                            </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
+                                {project.businessValueStats.map((item, i) => (
+                                    <div key={i} className="border-t border-white/10 pt-8 space-y-4">
+                                        <h3 className="text-2xl font-black uppercase tracking-tight text-white leading-none">
+                                            {item.label}
+                                        </h3>
+                                        <p className="text-white/70 text-sm font-light leading-relaxed">
+                                            {item.desc}
+                                        </p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            )}
         </div>
     )
 }

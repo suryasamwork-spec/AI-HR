@@ -51,7 +51,8 @@ const ContactPage = () => {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    name: `${formData.firstName} ${formData.lastName}`.trim(),
+                    firstName: formData.firstName,
+                    lastName: formData.lastName,
                     email: formData.businessEmail,
                     contactNumber: formData.contactNumber,
                     projectInfo: formData.projectInfo,
@@ -113,7 +114,7 @@ const ContactPage = () => {
                     className="mb-16 sm:mb-24 text-center"
                 >
                     <h1 className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tighter text-black uppercase italic leading-none">
-                        CONTACT<br /> 
+                        CONTACT<br />
                         <span className="text-transparent" style={{ WebkitTextStroke: '1px rgba(0,0,0,0.4)' }}>INTERFACE</span>
                     </h1>
                 </motion.div>

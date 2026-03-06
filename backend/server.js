@@ -66,13 +66,27 @@ const pool = mysql.createPool({
             await pool.execute(`
             CREATE TABLE IF NOT EXISTS enquiries (
                 id            INT AUTO_INCREMENT PRIMARY KEY,
-                name          VARCHAR(255)  NOT NULL,
+                first_name    VARCHAR(255)  NOT NULL,
+                last_name     VARCHAR(255)  NOT NULL,
                 email         VARCHAR(255)  NOT NULL,
                 contact_number VARCHAR(50)  NOT NULL,
                 project_info  TEXT          NOT NULL,
                 submitted_at  DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         `)
+            // Migration: Check if 'name' exists and add 'first_name', 'last_name' if needed
+            const [columns] = await pool.execute('SHOW COLUMNS FROM enquiries')
+            const hasFirstName = columns.some(c => c.Field === 'first_name')
+            if (!hasFirstName) {
+                console.log('🔄 Migrating enquiries table schema...')
+                try {
+                    await pool.execute('ALTER TABLE enquiries ADD COLUMN first_name VARCHAR(255) AFTER id')
+                    await pool.execute('ALTER TABLE enquiries ADD COLUMN last_name VARCHAR(255) AFTER first_name')
+                    // If 'name' exists, we could try to split it, but let's just make sure new columns are there
+                } catch (alterErr) {
+                    console.error('⚠️ Could not alter table (might already be updated):', alterErr.message)
+                }
+            }
             console.log('✅ MySQL connected — enquiries table ready')
         } catch (err) {
             console.error('❌ MySQL init error:', err.message)
@@ -106,12 +120,12 @@ transporter.verify((error) => {
 const otpStore = new Map()
 
 // ── GET /api/health ──────────────────────────────────────────────────────────
-app.get('/api/health', (req, res) => {
+app.get(['/api/health', '/health'], (req, res) => {
     res.json({ status: 'ok', timestamp: new Date().toISOString() })
 })
 
 // ── POST /api/send-otp (Lead Discovery) ──────────────────────────────────────
-app.post('/api/send-otp', async (req, res) => {
+app.post(['/api/send-otp', '/send-otp'], async (req, res) => {
     const { email, firstName } = req.body
 
     if (!email) {
@@ -152,7 +166,7 @@ app.post('/api/send-otp', async (req, res) => {
 })
 
 // ── POST /api/verify-otp-only ──────────────────────────────────────────
-app.post('/api/verify-otp-only', (req, res) => {
+app.post(['/api/verify-otp-only', '/verify-otp-only'], (req, res) => {
     const { email, otp } = req.body
     if (!otp || !email) {
         return res.status(400).json({ success: false, message: 'OTP and Email are required.' })
@@ -167,7 +181,7 @@ app.post('/api/verify-otp-only', (req, res) => {
 })
 
 // ── POST /api/verify-otp-and-lead ───────────────────────────────────────
-app.post('/api/verify-otp-and-lead', async (req, res) => {
+app.post(['/api/verify-otp-and-lead', '/verify-otp-and-lead'], async (req, res) => {
     const { firstName, lastName, email, organization, otp, projectTitle } = req.body
 
     if (!otp || !email) {
@@ -236,11 +250,11 @@ app.post('/api/verify-otp-and-lead', async (req, res) => {
 })
 
 // ── POST /api/contact ───────────────────────────────────────────────────────
-app.post('/api/contact', async (req, res) => {
-    const { name, email, contactNumber, projectInfo } = req.body
+app.post(['/api/contact', '/contact'], async (req, res) => {
+    const { firstName, lastName, email, contactNumber, projectInfo } = req.body
 
     // Basic validation
-    if (!name || !email || !contactNumber || !projectInfo) {
+    if (!firstName || !lastName || !email || !contactNumber || !projectInfo) {
         return res.status(400).json({ success: false, message: 'All fields are required.' })
     }
 
@@ -257,17 +271,18 @@ app.post('/api/contact', async (req, res) => {
     // ── Save enquiry to MySQL ─────────────────────────────────────────────
     try {
         await pool.execute(
-            `INSERT INTO enquiries (name, email, contact_number, project_info, submitted_at)
-             VALUES (?, ?, ?, ?, NOW())`,
-            [name, email, contactNumber, projectInfo]
+            `INSERT INTO enquiries (first_name, last_name, email, contact_number, project_info, submitted_at)
+             VALUES (?, ?, ?, ?, ?, NOW())`,
+            [firstName, lastName, email, contactNumber, projectInfo]
         )
-        console.log(`💾 Enquiry saved to DB from ${name} <${email}>`)
+        console.log(`💾 Enquiry saved to DB from ${firstName} ${lastName} <${email}>`)
     } catch (dbErr) {
         console.error('❌ DB save error:', dbErr.message)
         // Continue — email will still be sent even if DB write fails
     }
 
     try {
+        const name = `${firstName} ${lastName}`.trim()
         // ── Email to CALDIM (notification) ──────────────────────────────────
         await transporter.sendMail({
             from: `"CALDIM Website" <${process.env.EMAIL_USER}>`,

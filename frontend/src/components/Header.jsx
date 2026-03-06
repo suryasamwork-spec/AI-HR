@@ -192,7 +192,7 @@ const Header = () => {
                                                             }}
                                                             className="w-full px-6 py-4 text-left text-[10px] font-black uppercase tracking-[0.4em] text-blue-400 hover:text-blue-300 hover:bg-white/5 transition-all"
                                                         >
-                                                            View All Projects
+                                                            View All Products
                                                         </button>
                                                     </div>
                                                 </div>
