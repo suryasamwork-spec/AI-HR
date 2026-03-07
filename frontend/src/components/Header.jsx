@@ -31,18 +31,17 @@ const Header = () => {
 
     const navLinks = [
         { name: 'Home', href: '/', sectionId: 'home' },
-        { name: 'Projects', href: '/projects', hasDropdown: true },
+        { name: 'Products', href: '/products', hasDropdown: true },
         // { name: 'Feature Ideas', href: '/', sectionId: 'features' },
         { name: 'About Us', href: '/about' },
         { name: 'Contact', href: '/contact' },
-        { name: 'Archive', href: '/archive' },
     ]
 
     const projectsList = [
-        { id: 1, title: 'Employee Timesheet' },
+        { id: 1, title: 'CALTIMS - Time Information Management System' },
         { id: 2, title: 'Project Management' },
         { id: 3, title: 'Inventory Management' },
-        { id: 4, title: 'AI Powered Recruitment System' },
+        { id: 4, title: 'CALRIMS - Recruitment Intelligent Management System' },
         { id: 5, title: 'AI Procurement Workflow' }
     ]
 
@@ -144,14 +143,13 @@ const Header = () => {
                                 <motion.button
                                     onClick={(e) => {
                                         if (link.hasDropdown) {
-                                            // Close dropdown and navigate on click
-                                            setIsProjectsDropdownOpen(false)
-                                            navigate(link.href)
+                                            e.preventDefault()
+                                            setIsProjectsDropdownOpen(!isProjectsDropdownOpen)
                                         } else {
                                             handleNavClick(e, link)
                                         }
                                     }}
-                                    className={`nav-link text-sm uppercase tracking-widest font-semibold bg-transparent border-none cursor-pointer flex items-center gap-1 ${isScrolled ? 'text-white' : 'text-gray-700'} ${isProjectsDropdownOpen && link.hasDropdown ? 'text-blue-400' : ''}`}
+                                    className={`nav-link text-sm uppercase tracking-widest font-bold bg-transparent border-none cursor-pointer flex items-center gap-2 px-4 py-2 rounded-xl transition-all ${isScrolled ? 'text-white' : 'text-gray-700'} ${isProjectsDropdownOpen && link.hasDropdown ? 'bg-blue-600/10 text-blue-400 ring-1 ring-blue-400/30' : ''}`}
                                     initial={{ opacity: 0, y: -20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: index * 0.1 }}
@@ -178,10 +176,9 @@ const Header = () => {
                                                         <button
                                                             key={project.id}
                                                             onClick={() => handleProjectItemClick(project.id)}
-                                                            className="w-full px-6 py-4 text-left text-[10px] font-black uppercase tracking-[0.2em] text-white/80 hover:text-white hover:bg-white/10 transition-all flex items-center justify-between group"
+                                                            className="w-full px-6 py-4 text-left text-xs font-bold uppercase tracking-[0.15em] text-white/70 hover:text-white hover:bg-white/5 transition-all flex items-center justify-between group"
                                                         >
                                                             {project.title}
-                                                            <X size={12} className="opacity-0 group-hover:opacity-100 transition-opacity rotate-45 text-blue-400" />
                                                         </button>
                                                     ))}
                                                     <div className="border-t border-white/5 mt-2">
@@ -190,7 +187,7 @@ const Header = () => {
                                                                 setIsProjectsDropdownOpen(false)
                                                                 navigate('/all-projects')
                                                             }}
-                                                            className="w-full px-6 py-4 text-left text-[10px] font-black uppercase tracking-[0.4em] text-blue-400 hover:text-blue-300 hover:bg-white/5 transition-all"
+                                                            className="w-full px-6 py-4 text-left text-xs font-bold uppercase tracking-[0.2em] text-blue-400 hover:text-blue-300 hover:bg-white/5 transition-all text-center"
                                                         >
                                                             View All Products
                                                         </button>

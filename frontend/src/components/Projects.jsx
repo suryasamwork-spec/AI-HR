@@ -74,7 +74,7 @@ const Projects = () => {
                         <div className="relative">
                             <img
                                 src={archiveImg}
-                                alt="Archive Solution Visual"
+                                alt="Business Value Visual"
                                 className="w-full h-auto object-contain select-none pointer-events-none"
                             />
                         </div>

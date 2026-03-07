@@ -42,10 +42,7 @@ const About = () => {
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}
                     >
-                        {/* <div className="flex items-center gap-4 mb-6 sm:mb-8">
-                            <div className="w-12 h-[1px] bg-blue-600" />
-                            <span className="text-[10px] font-black uppercase tracking-[0.5em] text-blue-600">Engineering Archive</span>
-                        </div> */}
+
 
                         <h2 className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tighter text-black mb-6 sm:mb-10 leading-[0.9]">
                             OUR<br />

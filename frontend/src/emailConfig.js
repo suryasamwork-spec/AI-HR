@@ -9,4 +9,4 @@ const isLocal =
 
 export const API_URL = isLocal
     ? 'http://localhost:5000'
-    : 'https://caldimengg.in/api'   // ← Points to the BigRock backend application root
+    : ''   // ← Using an empty string for production makes paths relative (e.g., /api/contact) to avoid SSL errors.

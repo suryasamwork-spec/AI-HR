@@ -30,15 +30,6 @@ const Footer = () => {
                 { name: 'UI/UX Design', href: '/services#ui-ux-design' },
                 { name: 'Cloud Services', href: '/services#cloud-services' },
             ]
-        },
-        {
-            title: 'Resources',
-            links: [
-                { name: 'Documentation' },
-                { name: 'Privacy Policy' },
-                { name: 'Terms of Service' },
-                { name: 'Support' },
-            ]
         }
     ]
 
@@ -125,6 +116,23 @@ const Footer = () => {
                             </ul>
                         </div>
                     ))}
+
+                    {/* Newsletter Section */}
+                    <div className="lg:col-span-1 max-w-xs">
+                        <h3 className="font-bold text-xs uppercase tracking-widest mb-4 text-white">support</h3>
+                        <div className="space-y-3">
+                            <div className="relative">
+                                <input
+                                    type="email"
+                                    placeholder="Enter your email"
+                                    className="w-full bg-white px-3 py-2 rounded-lg text-black border border-blue-600/10 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-400 text-xs"
+                                />
+                            </div>
+                            <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-bold text-xs transition-all active:scale-95 shadow-lg shadow-blue-600/20">
+                                Send
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
                 {/* Bottom Bar */}

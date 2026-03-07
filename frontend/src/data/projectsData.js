@@ -11,17 +11,17 @@ import { BarChart3, TrendingUp, Shield, PieChart, Sparkles } from 'lucide-react'
 export const projectsData = [
     {
         id: 1,
-        title: 'Employee Timesheet Management System',
+        title: 'CALTIMS - Time Information Management System',
         tagline: 'Workforce Monitoring & Transparency',
         fullDescription: 'The Employee Timesheet Management System is a centralized digital platform designed to automate time tracking, streamline approval workflows, and provide real-time visibility into workforce activity. The system replaces manual and fragmented tracking methods with a structured, secure, and scalable solution that improves operational transparency, payroll accuracy, and productivity monitoring across the organization.\n\nBy capturing work hours, project allocation, and attendance data in a unified environment, the platform enables organizations to maintain control over workforce utilization while ensuring compliance, traceability, and efficient reporting.',
         isPremiumLayout: true,
         hero: {
-            title: 'Employee Timesheet Management System',
-            subtitle: 'Automate time tracking, streamline approval workflows, and gain real-time visibility into workforce activity.',
-            description: 'A centralized digital platform that replaces manual and fragmented tracking methods with a structured, secure, and scalable solution.'
+            title: 'CALTIMS - Time Information Management System',
+            subtitle: '',
+            description: 'The Employee Timesheet Management System is a centralized digital platform designed to automate time tracking, streamline approval workflows, and provide real-time visibility into workforce activity. The system replaces manual and fragmented tracking methods with a structured, secure, and scalable solution that improves operational transparency, payroll accuracy, and productivity monitoring across the organization.'
         },
         projectScope: {
-            title: 'From Manual to Digital',
+            title: 'From Manual <br /> to Digital',
             card1: {
                 title: 'Manual Time Tracking',
                 content: 'Manual and fragmented tracking methods lead to timesheet errors, delays, limited visibility, and inconsistent reporting across the organization.',
@@ -32,6 +32,81 @@ export const projectsData = [
                 content: 'A unified environment that automates time tracking, standardizes approval workflows, and delivers payroll-ready data with full audit traceability.',
                 items: ['Automated Time Entry', 'Standardized Approval Workflows', 'Payroll-Ready Data Generation']
             }
+        },
+        pricingPlans: {
+            title: 'Flexible Plans for Every Organization',
+            plans: [
+                {
+                    name: 'BASIC',
+                    price: '29',
+                    unit: '/ PER USER',
+                    tagline: 'ESSENTIAL TIMESHEET TRACKING',
+                    features: [
+                        { text: 'Timesheet Entry', included: true },
+                        { text: 'Weekly Timesheet Submission', included: true },
+                        { text: 'Project-based Time Logging', included: true },
+                        { text: 'Basic Dashboard Overview', included: true },
+                        { text: 'Holiday Calendar', included: true },
+                        { text: 'Leave Tracking', included: true },
+                        { text: 'Timesheet History', included: true },
+                        { text: 'Basic Timesheet Reports', included: true },
+                        { text: 'Employee Management', included: true },
+                        { text: 'Task Categories', included: true },
+                        { text: 'Timesheet Freeze Policy', included: false },
+                        { text: 'Compliance Monitoring', included: false },
+                        { text: 'Timesheet Lock & Compliance Settings', included: false },
+                        { text: 'Advanced Reports & Analytics', included: false },
+                        { text: 'Automated Report Scheduling', included: false },
+                        { text: 'Report Export (PDF / Excel)', included: false },
+                        { text: 'Help & Support Ticket System', included: false },
+                        { text: 'Admin Override for Locked Timesheets', included: false },
+                        { text: 'Incident Management', included: false },
+                        { text: 'Enterprise Dashboard Insights', included: false },
+                        { text: 'Custom Timesheet Policies', included: false },
+                        { text: 'Notification & Reminder Automation', included: false },
+                        { text: 'Compliance Tracking', included: false },
+                        { text: 'Audit Logs', included: false },
+                    ],
+                    buttonText: 'SELECT BASIC',
+                    isPopular: false,
+                    theme: 'light'
+                },
+                {
+                    name: 'PRO',
+                    price: '49',
+                    unit: '/ PER USER',
+                    tagline: 'ADVANCED WORKFORCE & COMPLIANCE',
+                    features: [
+                        { text: 'Timesheet Entry', included: true },
+                        { text: 'Weekly Timesheet Submission', included: true },
+                        { text: 'Project-based Time Logging', included: true },
+                        { text: 'Basic Dashboard Overview', included: true },
+                        { text: 'Holiday Calendar', included: true },
+                        { text: 'Leave Tracking', included: true },
+                        { text: 'Timesheet History', included: true },
+                        { text: 'Basic Timesheet Reports', included: true },
+                        { text: 'Employee Management', included: true },
+                        { text: 'Task Categories', included: true },
+                        { text: 'Timesheet Freeze Policy', included: true },
+                        { text: 'Compliance Monitoring', included: true },
+                        { text: 'Timesheet Lock & Compliance Settings', included: true },
+                        { text: 'Advanced Reports & Analytics', included: true },
+                        { text: 'Automated Report Scheduling', included: true },
+                        { text: 'Report Export (PDF / Excel)', included: true },
+                        { text: 'Help & Support Ticket System', included: true },
+                        { text: 'Admin Override for Locked Timesheets', included: true },
+                        { text: 'Incident Management', included: true },
+                        { text: 'Enterprise Dashboard Insights', included: true },
+                        { text: 'Custom Timesheet Policies', included: true },
+                        { text: 'Notification & Reminder Automation', included: true },
+                        { text: 'Compliance Tracking', included: true },
+                        { text: 'Audit Logs', included: true },
+                    ],
+                    buttonText: 'UPGRADE TO PRO',
+                    isPopular: true,
+                    theme: 'dark'
+                }
+            ]
         },
         businessChallenges: {
             title: 'Business Challenges Addressed',
@@ -100,7 +175,7 @@ export const projectsData = [
             ]
         },
         outcome: "By digitizing and standardizing workforce time management, the system enhances operational control, improves reporting accuracy, and enables organizations to make informed decisions based on reliable workforce data.",
-        tech: ['React', 'PostgreSQL', 'Socket.io', 'Framer Motion'],
+        tech: ['React', 'Tailwindcss', 'Mongodb', 'Nodejs', 'expressjs'],
         gradient: 'from-[#00d2ff] via-[#3a7bd5] to-[#00d2ff]',
         images: [loginPageImg, backgroundImage, designImage, loginPageImg, backgroundImage],
         demoVideo: demoVid,
@@ -233,12 +308,12 @@ export const projectsData = [
     },
     {
         id: 4,
-        title: 'AI Powered Recruitment System',
+        title: 'CALRIMS - Recruitment Intelligent Management System',
         tagline: 'Intelligent Talent Acquisition',
         fullDescription: 'The AI-Powered Recruitment System is an intelligent talent acquisition platform designed to streamline hiring through automation, advanced analytics, and data-driven evaluation. The system centralizes recruitment activities into a unified digital environment, enabling organizations to identify, assess, and select candidates efficiently while maintaining consistency, transparency, and control throughout the hiring lifecycle. \n\nBy combining automated screening, skill analysis, and structured evaluation workflows, the platform helps organizations reduce hiring time, improve candidate quality, and enhance decision-making accuracy.',
         isPremiumLayout: true,
         hero: {
-            title: 'AI Powered Recruitment System',
+            title: 'CALRIMS - Recruitment Intelligent Management System',
             subtitle: 'Transforming fragmented manual procurement into a unified, intelligent ecosystem.',
             description: 'Our AI-driven environment streamlines complex global operations while maximizing cost efficiency and vendor compliance.'
         },

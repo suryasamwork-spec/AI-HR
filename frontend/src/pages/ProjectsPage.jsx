@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform, useInView, animate } from 'framer-motion'
-import { ChevronRight, BarChart3, TrendingUp, Shield, PieChart, Sparkles, Play, CheckCircle2, CheckCircle, X, Network, Cpu, Database, Gauge, Cloud, AlertCircle } from 'lucide-react'
+import { ChevronRight, BarChart3, TrendingUp, Shield, PieChart, Sparkles, Play, CheckCircle2, CheckCircle, Check, X, Network, Cpu, Database, Gauge, Cloud, AlertCircle } from 'lucide-react'
 import { useLocation } from 'react-router-dom'
 import ProjectDemoModal from '../components/ProjectDemoModal'
 import ScrollToTop from '../components/ScrollToTop'
@@ -86,11 +86,21 @@ const PremiumLayout = ({ project, setIsDemoModalOpen }) => {
             <section className="max-w-[1700px] mx-auto px-6 lg:px-12 py-20 lg:py-32">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                     <div className="space-y-8">
-                        <h1 className="text-6xl lg:text-7xl font-black tracking-tighter uppercase leading-[0.9] text-black">
-                            {project.hero.title}
+                        <h1 className="flex flex-col gap-2 font-black tracking-tighter uppercase text-black">
+                            {project.hero.title.includes(' - ') ? (
+                                <>
+                                    <span className="text-5xl lg:text-7xl leading-none">{project.hero.title.split(' - ')[0]}</span>
+                                    <span className="text-2xl lg:text-3xl font-light text-black/50 leading-tight">
+                                        {project.hero.title.split(' - ')[1]}
+                                    </span>
+                                </>
+                            ) : (
+                                <span className="text-4xl lg:text-5xl leading-[0.9]">{project.hero.title}</span>
+                            )}
                         </h1>
-                        <p className="text-xl text-black font-light leading-relaxed max-w-xl italic">
-                            "{project.hero.subtitle}" {project.hero.description}
+                        <p className="text-lg lg:text-xl text-black font-light leading-relaxed max-w-2xl">
+                            {project.hero.subtitle && <span className="italic mr-2">"{project.hero.subtitle}"</span>}
+                            {project.hero.description}
                         </p>
                         {/* Always use the tech matrix with demo button for premium projects */}
                     </div>
@@ -155,7 +165,7 @@ const PremiumLayout = ({ project, setIsDemoModalOpen }) => {
             {/* Project Scope Section */}
             <section className="max-w-[1700px] mx-auto px-6 lg:px-12 py-24 border-t border-black/5">
                 <div className="mb-16">
-                    <h2 className="text-5xl font-black uppercase tracking-tighter text-black">{project.projectScope.title}</h2>
+                    <h2 className="text-5xl lg:text-6xl font-black uppercase tracking-tighter text-black leading-[0.9]" dangerouslySetInnerHTML={{ __html: project.projectScope.title }} />
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-16 lg:gap-32">
                     {[project.projectScope.card1, project.projectScope.card2].map((card, i) => (
@@ -176,6 +186,105 @@ const PremiumLayout = ({ project, setIsDemoModalOpen }) => {
                     ))}
                 </div>
             </section>
+
+            {/* Feature Comparison Table Section (if applicable) */}
+            {/* Pricing Plans Section (if applicable) */}
+            {project.pricingPlans && (
+                <section className="max-w-[1700px] mx-auto px-6 lg:px-12 py-32 border-t border-black/5 bg-gray-50/30">
+                    <div className="text-center mb-24">
+                        <h2 className="text-5xl lg:text-6xl font-black uppercase tracking-tighter text-black leading-none">{project.pricingPlans.title}</h2>
+                    </div>
+
+                    <div className="flex flex-col lg:flex-row items-stretch justify-center gap-12 lg:gap-8 max-w-6xl mx-auto">
+                        {project.pricingPlans.plans.map((plan, idx) => (
+                            <motion.div
+                                key={idx}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: idx * 0.1 }}
+                                className="relative w-full lg:w-1/2 rounded-[3.5rem] shadow-[0_40px_100px_rgba(0,0,0,0.08)] border border-black/5 transition-all duration-500 group overflow-hidden flex flex-col h-[750px] bg-white text-black"
+                            >
+                                {plan.isPopular && (
+                                    <div className="absolute top-8 right-8 bg-blue-600 text-white text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-full flex items-center gap-2 shadow-lg shadow-blue-500/20 z-20">
+                                        <Sparkles size={12} fill="currentColor" /> MOST POPULAR
+                                    </div>
+                                )}
+
+                                {/* Card Header: Name */}
+                                <div className="p-12 pb-6">
+                                    <div className="text-[11px] font-black tracking-[0.2em] uppercase mb-4 text-blue-600">
+                                        {plan.name}
+                                    </div>
+                                    <div className="text-2xl font-black uppercase tracking-tight leading-tight text-black">
+                                        {plan.tagline}
+                                    </div>
+                                </div>
+
+                                <div className="h-[1px] w-full mx-auto bg-black opacity-[0.1] w-[calc(100%-6rem)]" />
+
+                                {/* Card Middle: Scrollable Features */}
+                                <div className="flex-grow overflow-y-auto px-12 py-8 scroll-smooth custom-scrollbar light-scrollbar">
+                                    <div className="space-y-6">
+                                        {plan.features.map((feature, fIdx) => (
+                                            <div key={fIdx} className="flex items-center gap-4 transition-all duration-300">
+                                                <div className="flex-shrink-0">
+                                                    {feature.included ? (
+                                                        <Check size={18} className="text-green-500" />
+                                                    ) : (
+                                                        <X size={18} className="text-red-500" />
+                                                    )}
+                                                </div>
+                                                <span className={`text-base font-medium tracking-tight ${!feature.included ? 'text-black/30' : 'text-black'}`}>
+                                                    {feature.text}
+                                                </span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div className="h-[1px] w-full mx-auto bg-black opacity-[0.1] w-[calc(100%-6rem)]" />
+
+                                {/* Card Footer: Price & Button */}
+                                <div className="p-12 pt-8 bg-gray-50/50">
+                                    <div className="flex flex-col gap-8">
+                                        <div className="flex items-baseline gap-1 justify-center">
+                                            <span className="text-4xl font-black tracking-tighter leading-none text-black/60">₹</span>
+                                            <span className="text-7xl font-black tracking-tighter leading-none">{plan.price}</span>
+                                            <span className="text-base font-bold uppercase tracking-widest text-black/40">
+                                                {plan.unit}
+                                            </span>
+                                        </div>
+                                        <button className={`w-full py-6 rounded-2xl text-[11px] font-black uppercase tracking-[0.3em] transition-all duration-300 ${plan.isPopular
+                                            ? 'bg-blue-600 text-white hover:bg-blue-500 shadow-xl shadow-blue-600/20'
+                                            : 'bg-[#0A1128] text-white hover:bg-[#1a2542] shadow-xl shadow-black/10'
+                                            }`}>
+                                            {plan.buttonText}
+                                        </button>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
+
+                    <style>{`
+                        .custom-scrollbar::-webkit-scrollbar {
+                            width: 4px;
+                        }
+                        .custom-scrollbar::-webkit-scrollbar-track {
+                            background: transparent;
+                        }
+                        .light-scrollbar::-webkit-scrollbar-thumb {
+                            background: rgba(0,0,0,0.1);
+                            border-radius: 10px;
+                        }
+                        .dark-scrollbar::-webkit-scrollbar-thumb {
+                            background: rgba(255,255,255,0.1);
+                            border-radius: 10px;
+                        }
+                    `}</style>
+                </section>
+            )}
 
             {/* Business Challenges Strip */}
             <section className="bg-slate-900 py-32 overflow-hidden relative">
@@ -201,15 +310,7 @@ const PremiumLayout = ({ project, setIsDemoModalOpen }) => {
                 <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-12">
                     {project.coreCapabilities.map((cap, i) => (
                         <div key={i} className="space-y-4 text-left group">
-                            {cap.logo && logoMap[cap.logo] && (
-                                <div className="mb-6 h-12 flex items-center justify-start">
-                                    <img
-                                        src={logoMap[cap.logo]}
-                                        alt="tech logo"
-                                        className="h-full w-auto object-contain opacity-80 group-hover:opacity-100 transition-opacity"
-                                    />
-                                </div>
-                            )}
+
                             <h3 className="text-xl font-black uppercase tracking-tight text-black border-b border-black/5 pb-4 inline-block">{cap.title}</h3>
                             <p className="text-sm text-black/50 leading-relaxed font-light">{cap.content}</p>
                         </div>

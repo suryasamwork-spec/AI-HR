@@ -91,14 +91,20 @@ const Contact = () => {
         {
             icon: Phone,
             title: 'PROTOCOL.VOIP',
-            value: '+91 9876543210',
-            link: 'tel:+919876543210',
+            value: '+91 4344-610637',
+            link: 'tel:+914344610637',
         },
         {
             icon: Terminal,
             title: 'NODE.LOCATION',
             value: 'Hosur, Tamil Nadu',
             link: 'https://www.google.com/maps/search/?api=1&query=12.754579,77.834673',
+        },
+        {
+            icon: Terminal,
+            title: 'NODE.LOCATION',
+            value: 'Chennai, Tamil Nadu',
+            link: 'https://www.google.com/maps/search/?api=1&query=Chennai',
         },
     ]
 
@@ -420,14 +426,14 @@ const Contact = () => {
                                             whileInView={{ opacity: 1, x: 0 }}
                                             viewport={{ once: true }}
                                             transition={{ delay: index * 0.1, duration: 0.8 }}
-                                            className="group flex items-center gap-8 p-10 rounded-[3rem] bg-gray-50 border border-blue-600/10 hover:border-blue-600 hover:bg-white transition-all relative overflow-hidden"
+                                            className="group flex items-center gap-4 p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-gray-50 border border-blue-600/10 hover:border-blue-600 hover:bg-white transition-all relative overflow-hidden"
                                         >
-                                            <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-all relative z-10 shadow-sm border border-blue-600/10">
-                                                <Icon size={24} strokeWidth={1} />
+                                            <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-2xl flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-all relative z-10 shadow-sm border border-blue-600/10">
+                                                <Icon size={20} strokeWidth={1} />
                                             </div>
                                             <div className="relative z-10">
                                                 <div className="text-[9px] font-black text-gray-400 uppercase tracking-[0.3em] mb-1">{info.title}</div>
-                                                <div className="text-xl font-black text-black group-hover:text-blue-600 transition-colors uppercase tracking-tight">{info.value}</div>
+                                                <div className={`text-base sm:text-lg font-black text-black group-hover:text-blue-600 transition-colors tracking-tight ${info.value.includes('@') ? 'lowercase' : 'uppercase'}`}>{info.value}</div>
                                             </div>
                                             <div className="absolute top-1/2 left-0 -translate-y-1/2 w-40 h-40 bg-blue-600/5 blur-[50px] opacity-0 group-hover:opacity-100 transition-opacity" />
                                         </motion.a>

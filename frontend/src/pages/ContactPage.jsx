@@ -91,14 +91,20 @@ const ContactPage = () => {
         {
             icon: Phone,
             title: 'PROTOCOL.VOIP',
-            value: '+910000000000 ',
-            link: 'tel:+0000000000',
+            value: '+91 4344-610637',
+            link: 'tel:+914344610637',
         },
         {
             icon: Terminal,
             title: 'NODE.LOCATION',
-            value: 'Hosur,Chennai, Tamil Nadu',
+            value: 'Hosur, Tamil Nadu',
             link: 'https://www.google.com/maps/search/?api=1&query=12.754579,77.834673',
+        },
+        {
+            icon: Terminal,
+            title: 'NODE.LOCATION',
+            value: 'Chennai, Tamil Nadu',
+            link: 'https://www.google.com/maps/search/?api=1&query=Chennai',
         },
     ]
 
@@ -326,13 +332,13 @@ const ContactPage = () => {
                                         initial={{ opacity: 0, x: 50 }}
                                         animate={{ opacity: 1, x: 0 }}
                                         transition={{ delay: index * 0.1 }}
-                                        className="group flex items-center gap-4 sm:gap-6 p-2 sm:p-4 rounded-[2rem] sm:rounded-[3rem] bg-gray-50 border border-blue-600/10 hover:border-blue-600 hover:bg-white transition-all shadow-sm"
+                                        className="group flex items-center gap-3 sm:gap-4 p-2 sm:p-3 rounded-2xl sm:rounded-3xl bg-gray-50 border border-blue-600/10 hover:border-blue-600 hover:bg-white transition-all shadow-sm"
                                     >
-                                        <div className="w-12 h-12 sm:w-16 sm:h-16 bg-white border border-blue-600/10 rounded-xl flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-all shrink-0">
+                                        <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white border border-blue-600/10 rounded-xl flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-all shrink-0">
                                             <Icon size={20} strokeWidth={1} />
                                         </div>
                                         <div className="overflow-hidden">
-                                            <div className="text-base sm:text-xl font-black text-black group-hover:text-blue-600 transition-colors uppercase tracking-tight truncate">{info.value}</div>
+                                            <div className={`text-base sm:text-xl font-black text-black group-hover:text-blue-600 transition-colors tracking-tight truncate ${info.value.includes('@') ? 'lowercase' : 'uppercase'}`}>{info.value}</div>
                                         </div>
                                     </motion.a>
                                 )

@@ -6,6 +6,7 @@ import {
     MessageSquare, Headphones, TrendingUp, Layout, Server, GitBranch, Telescope, Heart
 } from 'lucide-react'
 import caldimLogo from '../assets/caldim-logo.png'
+import heroImage from '../assets/Gemini_Generated_Image_8kimm38kimm38kim-Photoroom.png'
 
 /* ─── Reusable fade-in wrapper ───────────────────────────────────────── */
 const FadeIn = ({ children, delay = 0, direction = 'up', className = '' }) => {
@@ -44,41 +45,11 @@ const SectionHeader = ({ icon, title, subtitle, iconStyle = {} }) => (
 
 /* ─── SVG Illustrations ──────────────────────────────────────────────── */
 const HeroSVG = () => (
-    <svg viewBox="0 0 520 420" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-        <rect x="60" y="60" width="400" height="280" rx="24" fill="#EFF6FF" />
-        <rect x="100" y="100" width="320" height="200" rx="14" fill="#DBEAFE" />
-        {/* Screen */}
-        <rect x="120" y="118" width="280" height="160" rx="8" fill="white" stroke="#BFDBFE" strokeWidth="1.5" />
-        {/* Code lines */}
-        {[0, 1, 2, 3, 4, 5].map(i => (
-            <rect key={i} x="140" y={138 + i * 22} width={[100, 140, 80, 120, 60, 110][i]} height="8" rx="4" fill={i % 2 === 0 ? '#BFDBFE' : '#93C5FD'} opacity="0.7" />
-        ))}
-        {/* Sidebar */}
-        <rect x="310" y="118" width="90" height="160" rx="0" fill="#EFF6FF" />
-        {[0, 1, 2, 3].map(i => (
-            <rect key={i} x="320" y={135 + i * 32} width="60" height="18" rx="5" fill={i === 0 ? '#2563EB' : '#BFDBFE'} />
-        ))}
-        {/* Floating nodes */}
-        <circle cx="80" cy="90" r="18" fill="#2563EB" opacity="0.15" />
-        <circle cx="80" cy="90" r="10" fill="#2563EB" opacity="0.4" />
-        <circle cx="450" cy="340" r="22" fill="#2563EB" opacity="0.12" />
-        <circle cx="450" cy="340" r="12" fill="#2563EB" opacity="0.35" />
-        <circle cx="460" cy="80" r="14" fill="#60A5FA" opacity="0.25" />
-        {/* Connecting lines */}
-        <line x1="80" y1="90" x2="120" y2="130" stroke="#93C5FD" strokeWidth="1.5" strokeDasharray="4 3" />
-        <line x1="460" y1="80" x2="400" y2="118" stroke="#93C5FD" strokeWidth="1.5" strokeDasharray="4 3" />
-        {/* Bottom bar */}
-        <rect x="140" y="340" width="240" height="12" rx="6" fill="#DBEAFE" />
-        <rect x="140" y="340" width="160" height="12" rx="6" fill="#2563EB" opacity="0.7" />
-        {/* Gear */}
-        <circle cx="430" cy="200" r="28" fill="#EFF6FF" stroke="#BFDBFE" strokeWidth="2" />
-        <circle cx="430" cy="200" r="14" fill="#DBEAFE" />
-        <circle cx="430" cy="200" r="6" fill="#2563EB" opacity="0.5" />
-        {[0, 60, 120, 180, 240, 300].map((deg, i) => (
-            <rect key={i} x="426" y="167" width="8" height="14" rx="3" fill="#93C5FD"
-                transform={`rotate(${deg} 430 200)`} />
-        ))}
-    </svg>
+    <img
+        src={heroImage}
+        alt="Hero Illustration"
+        className="w-full h-auto object-contain"
+    />
 )
 
 const CircularWhoWeAre = () => {
@@ -378,12 +349,12 @@ const AboutPage = () => {
 
     /* ── Roadmap steps ── */
     const roadmap = [
-        { step: '01', phase: 'Discovery', label: 'Understand', color: 'bg-blue-700', desc: 'Deep-dive into your business goals, processes, and pain points.' },
-        { step: '02', phase: 'Design', label: 'Architect', color: 'bg-blue-600', desc: 'Design scalable, secure architecture tailored to your requirements.' },
-        { step: '03', phase: 'Build', label: 'Develop', color: 'bg-blue-500', desc: 'Agile sprint-based development with continuous client collaboration.' },
-        { step: '04', phase: 'Test', label: 'Validate', color: 'bg-blue-400', desc: 'Comprehensive QA, security audits, and performance benchmarking.' },
-        { step: '05', phase: 'Deploy', label: 'Launch', color: 'bg-blue-300', desc: 'Smooth production deployment with zero-downtime strategies.' },
-        { step: '06', phase: 'Support', label: 'Evolve', color: 'bg-blue-200', desc: 'Ongoing monitoring, improvements, and feature expansions.' },
+        { step: '01', phase: 'Discovery', label: 'Understand', color: '#10b981', desc: 'Deep-dive into your business goals, processes, and pain points.' },
+        { step: '02', phase: 'Design', label: 'Architect', color: '#f59e0b', desc: 'Design scalable, secure architecture tailored to your requirements.' },
+        { step: '03', phase: 'Build', label: 'Develop', color: '#0ea5e9', desc: 'Agile sprint-based development with continuous client collaboration.' },
+        { step: '04', phase: 'Test', label: 'Validate', color: '#3b82f6', desc: 'Comprehensive QA, security audits, and performance benchmarking.' },
+        { step: '05', phase: 'Deploy', label: 'Launch', color: '#6366f1', desc: 'Smooth production deployment with zero-downtime strategies.' },
+        { step: '06', phase: 'Support', label: 'Evolve', color: '#1e3a8a', desc: 'Ongoing monitoring, improvements, and feature expansions.' },
     ]
 
     return (
@@ -415,7 +386,7 @@ const AboutPage = () => {
                         scalable, future-ready environments that drive measurable business value.
                     </p>
                     <div className="flex flex-wrap gap-6 mt-10">
-                        {[['10+', 'Projects Delivered'], ['100%', 'Client Focus'], ['24/7', 'Support']].map(([val, lbl]) => (
+                        {[['10+', 'Projects Delivered'], ['100%', 'Client Focus']].map(([val, lbl]) => (
                             <div key={lbl} className="text-center">
                                 <div className="text-3xl font-black text-blue-600">{val}</div>
                                 <div className="text-xs text-gray-500 uppercase tracking-widest mt-1">{lbl}</div>
@@ -424,8 +395,8 @@ const AboutPage = () => {
                     </div>
                 </FadeIn>
 
-                <FadeIn direction="right" delay={0.2} className="flex-1 flex justify-center">
-                    <div className="w-full max-w-lg aspect-square">
+                <FadeIn direction="right" delay={0.2} className="flex-1 flex justify-center lg:justify-end">
+                    <div className="w-full max-w-2xl transform lg:scale-110">
                         <HeroSVG />
                     </div>
                 </FadeIn>
@@ -470,205 +441,174 @@ const AboutPage = () => {
             {/* ══════════════════════════════════════════════════════════
                 3. MISSION & VISION
             ══════════════════════════════════════════════════════════ */}
-            <section className="py-24 bg-[#f8fafc]">
-                <div className="section-container grid grid-cols-1 lg:grid-cols-2 gap-10">
-                    {/* Mission */}
-                    <FadeIn direction="left">
-                        <div className="h-full rounded-[2.5rem] bg-white border border-[#002B54]/5 shadow-[0_30px_70px_rgba(0,43,84,0.04)] overflow-hidden flex flex-col group p-2">
-                            <div className="bg-[#fcfdfe] rounded-[2rem] p-8 lg:p-12 flex flex-col h-full border border-gray-50">
-                                <div className="flex items-center gap-6 mb-12">
-                                    <div className="w-16 h-16 bg-[#002B54] rounded-2xl flex items-center justify-center shadow-lg shadow-blue-900/10">
-                                        <Target size={30} className="text-white" />
-                                    </div>
-                                    <div>
-                                        <h3 className="text-3xl font-black text-[#002B54] tracking-tight uppercase">Our Mission</h3>
-                                        <div className="h-1 w-12 bg-[#002B54]/10 rounded-full mt-2" />
-                                    </div>
-                                </div>
-
-                                <div className="flex flex-col gap-10">
-                                    <div className="w-full flex justify-center">
-                                        <div className="w-48 h-48 opacity-80 group-hover:opacity-100 transition-opacity duration-500">
-                                            <MissionSVG />
-                                        </div>
-                                    </div>
-                                    <div className="space-y-6">
-                                        {[
-                                            'To empower organizations through intelligent, efficient, and reliable software solutions.',
-                                            'To transform complex business processes into streamlined digital experiences.',
-                                        ].map((pt, i) => (
-                                            <div key={i} className="flex items-start gap-5">
-                                                <div className="mt-1.5 w-2 h-2 rounded-full bg-[#002B54] shrink-0" />
-                                                <p className="text-[#002B54]/80 text-base leading-relaxed font-medium">{pt}</p>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </FadeIn>
-
-                    {/* Vision */}
-                    <FadeIn direction="right" delay={0.15}>
-                        <div className="h-full rounded-[2.5rem] bg-white border border-[#002B54]/5 shadow-[0_30px_70px_rgba(0,43,84,0.04)] overflow-hidden flex flex-col group p-2">
-                            <div className="bg-[#fcfdfe] rounded-[2rem] p-8 lg:p-12 flex flex-col h-full border border-gray-50">
-                                <div className="flex items-center gap-6 mb-12">
-                                    <div className="w-16 h-16 bg-[#002B54] rounded-2xl flex items-center justify-center shadow-lg shadow-blue-900/10">
-                                        <Telescope size={30} className="text-white" />
-                                    </div>
-                                    <div>
-                                        <h3 className="text-3xl font-black text-[#002B54] tracking-tight uppercase">Our Vision</h3>
-                                        <div className="h-1 w-12 bg-[#002B54]/10 rounded-full mt-2" />
-                                    </div>
-                                </div>
-
-                                <div className="flex flex-col gap-10">
-                                    <div className="w-full flex justify-center">
-                                        <div className="w-48 h-48 opacity-80 group-hover:opacity-100 transition-opacity duration-500">
-                                            <VisionSVG />
-                                        </div>
-                                    </div>
-                                    <div className="space-y-6">
-                                        {[
-                                            'To be a trusted technology partner delivering impactful and future-ready solutions.',
-                                            'To drive digital transformation through innovation and excellence.',
-                                        ].map((pt, i) => (
-                                            <div key={i} className="flex items-start gap-5">
-                                                <div className="mt-1.5 w-2 h-2 rounded-full bg-[#002B54] shrink-0" />
-                                                <p className="text-[#002B54]/80 text-base leading-relaxed font-medium">{pt}</p>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </FadeIn>
-                </div>
-            </section>
-
-            {/* ══════════════════════════════════════════════════════════
-                4. WHAT WE DO — Roadmap Graph
-            ══════════════════════════════════════════════════════════ */}
-            <section className="py-24 bg-gray-50 border-y border-blue-600/10">
+            <section className="py-16 bg-white">
                 <div className="section-container">
-                    <div className="flex flex-col lg:flex-row items-center gap-16 mb-16">
-                        <div className="flex-1">
-                            <SectionHeader
-                                iconStyle={{ background: 'linear-gradient(135deg,#06B6D4 0%,#10B981 55%,#0D9488 100%)', boxShadow: '0 0 28px rgba(6,182,212,0.5)' }}
-                                icon={<Globe size={22} className="text-white" />}
-                                title="What We Do"
-                                subtitle="Five pillars that form the foundation of everything we build."
-                            />
-                        </div>
-                        <FadeIn direction="right" className="flex-1 flex justify-center">
-                            <div className="w-full max-w-sm aspect-video"><WhatWeDoSVG /></div>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                        {/* Mission */}
+                        <FadeIn direction="left">
+                            <div className="space-y-8">
+                                <div className="space-y-4">
+                                    <h3 className="text-4xl font-black text-[#002B54] tracking-tight uppercase">Our Mission</h3>
+                                    <div className="h-1.5 w-16 bg-[#002B54] rounded-full" />
+                                </div>
+                                <div className="space-y-8">
+                                    {[
+                                        'To empower organizations through intelligent, efficient, and reliable software solutions.',
+                                        'To transform complex business processes into streamlined digital experiences.',
+                                    ].map((pt, i) => (
+                                        <div key={i} className="flex items-start gap-6 group">
+                                            <div className="mt-2.5 w-2 h-2 rounded-full bg-[#002B54] shrink-0 group-hover:scale-150 transition-transform duration-300" />
+                                            <p className="text-[#002B54]/70 text-lg leading-relaxed font-medium transition-colors group-hover:text-[#002B54]">{pt}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </FadeIn>
+
+                        {/* Vision */}
+                        <FadeIn direction="right" delay={0.2}>
+                            <div className="space-y-8">
+                                <div className="space-y-4">
+                                    <h3 className="text-4xl font-black text-[#002B54] tracking-tight uppercase">Our Vision</h3>
+                                    <div className="h-1.5 w-16 bg-[#002B54] rounded-full" />
+                                </div>
+                                <div className="space-y-8">
+                                    {[
+                                        'To be a trusted technology partner delivering impactful and future-ready solutions.',
+                                        'To drive digital transformation through innovation and excellence.',
+                                    ].map((pt, i) => (
+                                        <div key={i} className="flex items-start gap-6 group">
+                                            <div className="mt-2.5 w-2 h-2 rounded-full bg-[#002B54] shrink-0 group-hover:scale-150 transition-transform duration-300" />
+                                            <p className="text-[#002B54]/70 text-lg leading-relaxed font-medium transition-colors group-hover:text-[#002B54]">{pt}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
                         </FadeIn>
                     </div>
-
-                    {/* Horizontal graph roadmap */}
-                    <div className="relative">
-                        {/* Connector line */}
-                        <div className="hidden lg:block absolute top-[52px] left-[10%] right-[10%] h-[3px] bg-gradient-to-r from-blue-700 via-blue-400 to-blue-200 rounded-full" />
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-                            {whatWeDo.map((step, i) => (
-                                <FadeIn key={i} delay={i * 0.12} direction="up">
-                                    <div className="flex flex-col items-center text-center group">
-                                        {/* Node */}
-                                        <div className="relative mb-6">
-                                            <div className="relative w-[112px] h-[112px] bg-white border border-gray-100 rounded-full flex flex-col items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.04)] group-hover:shadow-[0_12px_45px_rgba(37,99,235,0.15)] group-hover:scale-105 transition-all duration-500 z-10 overflow-hidden">
-                                                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-blue-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                                                <span className="text-[10px] font-black text-gray-300 group-hover:text-blue-500 transition-colors uppercase tracking-widest mb-1">{step.num}</span>
-                                                <div className="transform group-hover:scale-110 transition-transform duration-500">
-                                                    {step.icon}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="w-full bg-white border border-blue-600/10 rounded-2xl p-5 group-hover:border-blue-600/30 group-hover:shadow-lg transition-all duration-300">
-                                            <h3 className="text-sm font-black text-black mb-2 leading-snug uppercase tracking-tight">{step.title}</h3>
-                                            <p className="text-gray-500 text-xs leading-relaxed">{step.desc}</p>
-                                        </div>
-                                    </div>
-                                </FadeIn>
-                            ))}
-                        </div>
-                    </div>
                 </div>
             </section>
 
+
+
             {/* ══════════════════════════════════════════════════════════
-                5. DELIVERY ROADMAP — Full-Width Timeline
+                5. DELIVERY ROADMAP — Exact 3D Infographic Style
             ══════════════════════════════════════════════════════════ */}
-            <section className="py-28 bg-white overflow-hidden">
+            <section className="py-32 bg-gray-50/30 overflow-hidden">
                 <div className="section-container">
-                    <FadeIn className="text-center mb-20">
-                        {/* <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 border border-blue-200 rounded-full text-blue-600 text-sm font-semibold mb-5">
-                            <GitBranch size={14} /> Our Delivery Process
-                        </div> */}
-                        <h2 className="text-4xl md:text-5xl font-black text-black tracking-tight">How We Deliver</h2>
-                        <p className="text-gray-500 text-lg mt-4 max-w-2xl mx-auto">
-                            A structured, transparent roadmap from initial discovery to long-term support.
+                    <FadeIn className="text-center mb-32">
+                        <h2 className="text-4xl md:text-5xl font-black text-black tracking-tight uppercase italic underline decoration-blue-600/30 decoration-8 underline-offset-8">Our Delivery <span className="text-blue-600">Framework</span></h2>
+                        <p className="text-gray-500 text-lg mt-6 max-w-2xl mx-auto font-medium">
+                            A high-precision engineering roadmap designed for transparency, speed, and impact.
                         </p>
                     </FadeIn>
 
-                    {/* ZigZag timeline */}
-                    <div className="relative">
-                        {/* Zigzag spine path */}
-                        <svg className="hidden lg:block absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none">
-                            <defs>
-                                <linearGradient id="zigzagGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                                    <stop offset="0%" stopColor="#1D4ED8" />
-                                    <stop offset="50%" stopColor="#3B82F6" />
-                                    <stop offset="100%" stopColor="#DBEAFE" />
-                                </linearGradient>
-                            </defs>
-                            <path
-                                d="M 50 0 L 42 8 L 58 25 L 42 42 L 58 58 L 42 75 L 58 92 L 50 100"
-                                stroke="url(#zigzagGradient)"
-                                strokeWidth="3"
-                                fill="none"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeDasharray="12 12"
-                                style={{ vectorEffect: 'non-scaling-stroke' }}
-                            />
-                        </svg>
+                    {/* Infographic Container */}
+                    <div className="relative max-w-6xl mx-auto">
 
-                        {roadmap.map((item, i) => {
-                            const isLeft = i % 2 === 0
-                            const nodePosition = isLeft ? 'lg:left-[42%]' : 'lg:left-[58%]'
-
-                            return (
-                                <FadeIn key={i} delay={i * 0.12} direction={isLeft ? 'left' : 'right'}>
-                                    <div className={`relative flex items-center mb-16 ${isLeft ? 'lg:flex-row' : 'lg:flex-row-reverse'} flex-col lg:gap-0 gap-8`}>
-
-                                        {/* Card */}
-                                        <div className={`w-full lg:w-[40%] ${isLeft ? 'lg:pr-8 lg:text-right' : 'lg:pl-8 lg:text-left'} text-left`}>
-                                            <div className="bg-white border border-blue-600/10 rounded-2xl p-7 shadow-sm hover:shadow-[0_10px_40px_rgba(37,99,235,0.12)] hover:border-blue-300 transition-all duration-500 group relative overflow-hidden">
-                                                <div className={`absolute top-0 ${isLeft ? 'right-0' : 'left-0'} w-1 h-full bg-gradient-to-b from-blue-600 to-transparent opacity-20`} />
-                                                <div className={`flex items-center gap-3 mb-3 ${isLeft ? 'lg:justify-end' : ''}`}>
-                                                    <div className={`w-2 h-2 rounded-full ${item.color}`} />
-                                                    <span className="text-xs text-blue-600 font-bold uppercase tracking-widest">{item.phase}</span>
-                                                </div>
-                                                <h3 className="text-xl font-black text-black mb-2">{item.label}</h3>
-                                                <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
-                                            </div>
+                        {/* 3D CENTRAL SPINE - Vertical Zigzag Path */}
+                        <div className="absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-40 hidden lg:block z-0">
+                            <div className="relative h-full flex flex-col items-center">
+                                {[
+                                    { color: '#8BC34A', shadow: '#689F38' }, // Step 1 joint
+                                    { color: '#FFCA28', shadow: '#F57F17' }, // Step 2 joint
+                                    { color: '#78909C', shadow: '#455A64' }, // Step 3 joint
+                                    { color: '#26A69A', shadow: '#00695C' }, // Step 4 joint
+                                    { color: '#1a237e', shadow: '#0d1642' }  // Step 5 joint
+                                ].map((joint, idx) => (
+                                    <div key={idx} className="relative h-[200px] w-full flex items-center justify-center">
+                                        {/* Isometric 3D Diamond Joint */}
+                                        <div className="relative w-20 h-20 perspective-[1000px]">
+                                            <div
+                                                className="absolute inset-0 transform rotate-45 border-[6px] border-white shadow-2xl transition-transform duration-700 hover:rotate-[225deg]"
+                                                style={{ backgroundColor: joint.color }}
+                                            />
+                                            {/* Side Faces for 3D depth */}
+                                            <div className="absolute top-[10px] -left-[14px] w-[28px] h-full transform skew-y-[45deg] z-[-1]" style={{ backgroundColor: joint.shadow }} />
+                                            <div className="absolute -bottom-[14px] left-[10px] w-full h-[28px] transform skew-x-[45deg] z-[-1]" style={{ backgroundColor: joint.shadow, opacity: 0.7 }} />
                                         </div>
-
-                                        {/* Spacer */}
-                                        <div className="hidden lg:block lg:w-[15%]" />
-
-                                        {/* Center node (now zigzagging) */}
-                                        <div className={`hidden lg:flex absolute ${nodePosition} -translate-x-1/2 z-10 w-16 h-16 bg-white border-[3px] border-blue-600 rounded-full items-center justify-center shadow-[0_0_24px_rgba(37,99,235,0.2)] group-hover:scale-110 transition-transform duration-300`}>
-                                            <div className="absolute inset-0 bg-blue-50 rounded-full scale-[0.85]" />
-                                            <span className="relative text-blue-600 font-black text-lg">{item.step}</span>
-                                        </div>
-
-                                        {/* Spacer for opposite side */}
-                                        <div className="hidden lg:block w-full lg:w-[45%]" />
+                                        {/* Vertical Connector Line */}
+                                        {idx < 4 && <div className="absolute top-[70%] w-[6px] h-full bg-blue-600/10" />}
                                     </div>
-                                </FadeIn>
-                            )
-                        })}
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* BANNER GRID (2 Columns matching infographic) */}
+                        <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-56 gap-y-12 lg:gap-y-0 relative z-10">
+
+                            {/* LEFT COLUMN: Steps 1, 2, 3 */}
+                            <div className="space-y-12 lg:space-y-0">
+                                {[roadmap[0], roadmap[1], roadmap[2]].map((item, i) => (
+                                    <div key={i} className="lg:h-[200px] flex items-center justify-end">
+                                        <motion.div
+                                            initial={{ opacity: 0, x: -150, rotateY: 30 }}
+                                            whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
+                                            viewport={{ once: true, margin: "-100px" }}
+                                            transition={{ duration: 0.8, delay: i * 0.2, type: "spring", stiffness: 40 }}
+                                            className="relative w-full max-w-[440px] group"
+                                        >
+                                            {/* Slanted Card with Exact Infographic Shape */}
+                                            <div
+                                                className="bg-white p-6 pl-12 pr-24 shadow-[0_20px_60px_rgba(0,0,0,0.05)] border-y border-l border-gray-100 transition-all duration-500 group-hover:shadow-[0_40px_100px_rgba(37,99,235,0.15)] group-hover:-translate-y-2 relative overflow-hidden"
+                                                style={{ clipPath: 'polygon(0% 0%, 90% 0%, 100% 50%, 90% 100%, 0% 100%)' }}
+                                            >
+                                                {/* Glossy Overlay */}
+                                                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+
+                                                <div className="flex items-center gap-8">
+                                                    {/* Step Number in Circle */}
+                                                    <div className="w-20 h-20 rounded-full bg-white shadow-[inset_0_4px_12px_rgba(0,0,0,0.05)] flex items-center justify-center border-2 border-gray-50 flex-shrink-0">
+                                                        <span className="text-5xl font-black italic tracking-tighter" style={{ color: item.color, opacity: 0.8 }}>{item.step.replace(/^0/, '')}</span>
+                                                    </div>
+                                                    <div>
+                                                        <h3 className="text-[10px] font-black uppercase tracking-[0.4em] mb-2" style={{ color: item.color }}>{item.phase}</h3>
+                                                        <h4 className="text-xl font-black text-black leading-tight uppercase tracking-tight mb-2 italic">{item.label}</h4>
+                                                        <p className="text-gray-500 text-xs leading-relaxed font-semibold">{item.desc}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </motion.div>
+                                    </div>
+                                ))}
+                            </div>
+
+                            {/* RIGHT COLUMN: Steps 4, 5, 6 */}
+                            <div className="space-y-12 lg:space-y-0">
+                                {[roadmap[3], roadmap[4], roadmap[5]].map((item, i) => (
+                                    <div key={i} className="lg:h-[200px] flex items-center justify-start">
+                                        <motion.div
+                                            initial={{ opacity: 0, x: 150, rotateY: -30 }}
+                                            whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
+                                            viewport={{ once: true, margin: "-100px" }}
+                                            transition={{ duration: 0.8, delay: (i + 3) * 0.2, type: "spring", stiffness: 40 }}
+                                            className="relative w-full max-w-[440px] group"
+                                        >
+                                            {/* Mirrored Slanted Card */}
+                                            <div
+                                                className="bg-white p-6 pr-12 pl-24 shadow-[0_20px_60px_rgba(0,0,0,0.05)] border-y border-r border-gray-100 transition-all duration-500 group-hover:shadow-[0_40px_100px_rgba(37,99,235,0.15)] group-hover:-translate-y-2 relative overflow-hidden"
+                                                style={{ clipPath: 'polygon(10% 0%, 100% 0%, 100% 100%, 10% 100%, 0% 50%)' }}
+                                            >
+                                                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+
+                                                <div className="flex flex-row-reverse items-center gap-8 text-right">
+                                                    {/* Step Number in Circle */}
+                                                    <div className="w-20 h-20 rounded-full bg-white shadow-[inset_0_4px_12px_rgba(0,0,0,0.05)] flex items-center justify-center border-2 border-gray-50 flex-shrink-0">
+                                                        <span className="text-5xl font-black italic tracking-tighter" style={{ color: item.color, opacity: 0.8 }}>{item.step.replace(/^0/, '')}</span>
+                                                    </div>
+                                                    <div>
+                                                        <h3 className="text-[10px] font-black uppercase tracking-[0.4em] mb-2" style={{ color: item.color }}>{item.phase}</h3>
+                                                        <h4 className="text-xl font-black text-black leading-tight uppercase tracking-tight mb-2 italic">{item.label}</h4>
+                                                        <p className="text-gray-500 text-xs leading-relaxed font-semibold">{item.desc}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </motion.div>
+                                    </div>
+                                ))}
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </section>
@@ -676,7 +616,7 @@ const AboutPage = () => {
             {/* ══════════════════════════════════════════════════════════
                 6. OUR APPROACH
             ══════════════════════════════════════════════════════════ */}
-            <section className="py-24 bg-gray-50 border-y border-blue-600/10">
+            <section className="py-16 bg-gray-50 border-y border-blue-600/10">
                 <div className="section-container flex flex-col lg:flex-row items-center gap-16">
                     <FadeIn direction="left" className="flex-1 flex justify-center">
                         <div className="w-full max-w-sm aspect-square"><ApproachSVG /></div>
@@ -687,6 +627,7 @@ const AboutPage = () => {
                             icon={<Target size={22} className="text-white" />}
                             title="Our Approach"
                             subtitle="How we think, work, and deliver every engagement."
+                            className="mb-10"
                         />
                         <div className="grid grid-cols-1 gap-5">
                             {approach.map((item, i) => (
@@ -710,7 +651,7 @@ const AboutPage = () => {
             {/* ══════════════════════════════════════════════════════════
                 7. OUR COMMITMENT
             ══════════════════════════════════════════════════════════ */}
-            <section className="py-24 bg-white">
+            <section className="py-16 bg-white">
                 <div className="section-container">
                     <div className="flex flex-col lg:flex-row items-start gap-16">
                         <div className="flex-1">
@@ -719,6 +660,7 @@ const AboutPage = () => {
                                 icon={<Shield size={22} className="text-white" />}
                                 title="Our Commitment"
                                 subtitle="The promises we keep — every project, every client, every time."
+                                className="mb-10"
                             />
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                                 {commitment.map((item, i) => (
