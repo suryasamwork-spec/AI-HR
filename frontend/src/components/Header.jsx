@@ -3,6 +3,7 @@ import { Menu, X, ChevronDown } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import caldimLogo from '../assets/caldim-logo.png'
+import { projectsData } from '../data/projectsData'
 
 const Header = () => {
     const [isScrolled, setIsScrolled] = useState(false)
@@ -30,20 +31,13 @@ const Header = () => {
     }, [])
 
     const navLinks = [
-        { name: 'Home', href: '/', sectionId: 'home' },
-        { name: 'Products', href: '/products', hasDropdown: true },
-        // { name: 'Feature Ideas', href: '/', sectionId: 'features' },
-        { name: 'About Us', href: '/about' },
-        { name: 'Contact', href: '/contact' },
+        { name: 'HOME', href: '/', sectionId: 'home' },
+        { name: 'PROJECTS', href: '/projects', hasDropdown: true },
+        { name: 'ABOUT US', href: '/about' },
+        { name: 'CONTACT', href: '/', sectionId: 'contact-section' },
+        { name: 'ARCHIVE', href: '/archive' },
     ]
 
-    const projectsList = [
-        { id: 1, title: 'CALTIMS - Time Information Management System' },
-        { id: 2, title: 'Project Management' },
-        { id: 3, title: 'Inventory Management' },
-        { id: 4, title: 'CALRIMS - Recruitment Intelligent Management System' },
-        { id: 5, title: 'AI Procurement Workflow' }
-    ]
 
     const handleNavClick = (e, link) => {
         if (link.hasDropdown) {
@@ -71,10 +65,10 @@ const Header = () => {
         }
     }
 
-    const handleProjectItemClick = (projectId) => {
+    const handleProjectItemClick = (index) => {
         setIsProjectsDropdownOpen(false)
         setIsMobileMenuOpen(false)
-        navigate('/projects', { state: { projectIndex: projectId - 1 } })
+        navigate('/projects', { state: { projectIndex: index } })
     }
 
     // Handle scroll to section after navigation
@@ -120,8 +114,8 @@ const Header = () => {
                                 className="w-full h-full object-contain filter"
                                 style={{
                                     filter: isScrolled
-                                        ? 'brightness(0) invert(1) drop-shadow(0 0 5px rgba(255,255,255,0.2))'
-                                        : 'brightness(0) saturate(100%) invert(11%) sepia(87%) saturate(2222%) hue-rotate(196deg) brightness(97%) contrast(106%) drop-shadow(0 0 10px rgba(59,130,246,0.3))'
+                                        ? 'brightness(0) invert(1)'
+                                        : 'brightness(0) saturate(100%) invert(11%) sepia(87%) saturate(2222%) hue-rotate(196deg) brightness(97%) contrast(106%)'
                                 }}
                             />
                         </div>
@@ -149,7 +143,7 @@ const Header = () => {
                                             handleNavClick(e, link)
                                         }
                                     }}
-                                    className={`nav-link text-sm uppercase tracking-widest font-bold bg-transparent border-none cursor-pointer flex items-center gap-2 px-4 py-2 rounded-xl transition-all ${isScrolled ? 'text-white' : 'text-gray-700'} ${isProjectsDropdownOpen && link.hasDropdown ? 'bg-blue-600/10 text-blue-400 ring-1 ring-blue-400/30' : ''}`}
+                                    className={`nav-link text-xs uppercase tracking-[0.2em] font-black bg-transparent border-none cursor-pointer flex items-center gap-1.5 px-3 py-2 rounded-xl transition-all ${isScrolled ? 'text-white' : 'text-[#002B54] hover:text-blue-600'} ${isProjectsDropdownOpen && link.hasDropdown ? 'bg-blue-600/10 text-blue-400' : ''}`}
                                     initial={{ opacity: 0, y: -20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: index * 0.1 }}
@@ -172,10 +166,10 @@ const Header = () => {
                                                 className="absolute top-full left-1/2 -translate-x-1/2 pt-4 w-64 z-[60]"
                                             >
                                                 <div className="bg-[#002B54] border border-white/10 rounded-2xl overflow-hidden shadow-2xl backdrop-blur-xl py-3">
-                                                    {projectsList.map((project) => (
+                                                    {projectsData.map((project, idx) => (
                                                         <button
                                                             key={project.id}
-                                                            onClick={() => handleProjectItemClick(project.id)}
+                                                            onClick={() => handleProjectItemClick(idx)}
                                                             className="w-full px-6 py-4 text-left text-xs font-bold uppercase tracking-[0.15em] text-white/70 hover:text-white hover:bg-white/5 transition-all flex items-center justify-between group"
                                                         >
                                                             {project.title}
@@ -233,10 +227,10 @@ const Header = () => {
 
                                         {link.hasDropdown && isProjectsDropdownOpen && (
                                             <div className="pl-4 mt-2 mb-4 space-y-2 border-l border-white/10">
-                                                {projectsList.map((project) => (
+                                                {projectsData.map((project, idx) => (
                                                     <button
                                                         key={project.id}
-                                                        onClick={() => handleProjectItemClick(project.id)}
+                                                        onClick={() => handleProjectItemClick(idx)}
                                                         className="block w-full text-left text-sm font-medium text-gray-500 hover:text-white py-2"
                                                     >
                                                         {project.title}

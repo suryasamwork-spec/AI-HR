@@ -12,7 +12,7 @@ import {
     Globe,
     Zap
 } from 'lucide-react'
-import loginPageImg from '../assets/loginpage.jpg'
+import loginPageImg from '../assets/Timesheet.png'
 import backgroundImage from '../assets/2650401.jpg'
 
 const FuturisticHero = () => {

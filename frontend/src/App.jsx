@@ -6,9 +6,9 @@ import Home from './pages/Home'
 import AboutPage from './pages/AboutPage'
 import ProjectsPage from './pages/ProjectsPage'
 import AllProjectsPage from './pages/AllProjectsPage'
-import ContactPage from './pages/ContactPage'
 import PortalHome from './pages/PortalHome'
 import ServicesPage from './pages/ServicesPage'
+import RegisterPage from './pages/RegisterPage'
 import ScrollToTop from './components/ScrollToTop'
 
 function App() {
@@ -22,9 +22,9 @@ function App() {
                     <Route path="/about" element={<AboutPage />} />
                     <Route path="/projects" element={<ProjectsPage />} />
                     <Route path="/all-projects" element={<AllProjectsPage />} />
-                    <Route path="/contact" element={<ContactPage />} />
                     <Route path="/services" element={<ServicesPage />} />
                     <Route path="/portal" element={<PortalHome />} />
+                    <Route path="/register" element={<RegisterPage />} />
                 </Routes>
                 <Footer />
             </div>

@@ -25,12 +25,13 @@ const ProjectDemoModal = ({ project, isOpen, onClose }) => {
         if (videoRef.current) {
             const time = videoRef.current.currentTime
             setCurrentTime(time)
+        }
+    }
 
-            // Pause at 20 seconds if lead is not captured
-            if (time >= 20 && !isLeadCaptured) {
-                videoRef.current.pause()
-                setIsPaused(true)
-            }
+    const handleVideoEnded = () => {
+        if (!isLeadCaptured && videoRef.current) {
+            videoRef.current.pause()
+            setIsPaused(true)
         }
     }
 
@@ -195,11 +196,14 @@ const ProjectDemoModal = ({ project, isOpen, onClose }) => {
                                 src={project.demoVideo}
                                 className="w-full h-full object-cover"
                                 onTimeUpdate={handleTimeUpdate}
+                                onEnded={handleVideoEnded}
                                 controls={!isPaused || isLeadCaptured}
+                                controlsList="nodownload"
+                                onContextMenu={(e) => e.preventDefault()}
                                 autoPlay
                             />
 
-                            {/* Overlay when paused at 20s */}
+                            {/* Overlay when paused at the end */}
                             {isPaused && !isLeadCaptured && (
                                 <div className="absolute inset-0 bg-blue-900/40 backdrop-blur-sm flex flex-col items-center justify-center p-8 text-center">
                                     <motion.div
@@ -209,9 +213,9 @@ const ProjectDemoModal = ({ project, isOpen, onClose }) => {
                                     >
                                         <Clock size={40} className="text-white" />
                                     </motion.div>
-                                    <h3 className="text-4xl font-black text-white uppercase tracking-tighter mb-4">Verification Required</h3>
+                                    <h3 className="text-3xl font-black text-white uppercase tracking-tighter mb-4">Want a real application experience?</h3>
                                     <p className="text-white/80 max-w-sm font-medium">
-                                        To protect industrial confidentiality, please verify your professional identity to continue the walkthrough.
+                                        Fillup the details and go for the free trial.
                                     </p>
                                 </div>
                             )}
@@ -220,7 +224,7 @@ const ProjectDemoModal = ({ project, isOpen, onClose }) => {
                             {!isPaused && !isLeadCaptured && (
                                 <div className="absolute bottom-10 left-1/2 -translate-x-1/2 px-6 py-3 rounded-full bg-black/60 backdrop-blur-xl border border-white/10 flex items-center gap-4 text-white/60 text-xs font-bold uppercase tracking-widest">
                                     <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-                                    Free Preview: {Math.floor(currentTime)}s / 20s
+                                    Demo Playing: {Math.floor(currentTime)}s
                                 </div>
                             )}
                         </div>

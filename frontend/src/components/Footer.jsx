@@ -1,10 +1,45 @@
-import React from 'react'
-import { motion } from 'framer-motion'
-import { Github, Linkedin, Instagram, Youtube } from 'lucide-react'
+import React, { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Github, Linkedin, Instagram, Youtube, Send, Loader, CheckCircle, AlertCircle } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import caldimLogo from '../assets/caldim-logo.png'
+import { API_URL } from '../emailConfig'
 
 const Footer = () => {
+    const [supportEmail, setSupportEmail] = useState('')
+    const [status, setStatus] = useState('idle') // 'idle' | 'loading' | 'success' | 'error'
+
+    const handleSendSupport = async (e) => {
+        e.preventDefault()
+        if (!supportEmail) return
+
+        setStatus('loading')
+        try {
+            const res = await fetch(`${API_URL}/api/contact`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: supportEmail,
+                    firstName: 'Support',
+                    lastName: 'Request',
+                    projectInfo: 'General Support Inquiry from Footer',
+                    contactNumber: 'N/A'
+                }),
+            })
+            const data = await res.json()
+            if (res.ok && data.success) {
+                setStatus('success')
+                setSupportEmail('')
+                setTimeout(() => setStatus('idle'), 5000)
+            } else {
+                throw new Error(data.message || 'Error')
+            }
+        } catch (error) {
+            console.error('Support email error:', error)
+            setStatus('error')
+            setTimeout(() => setStatus('idle'), 5000)
+        }
+    }
     const socialLinks = [
         { icon: Github, href: '#', label: 'GitHub' },
         { icon: Youtube, href: 'https://www.youtube.com/@CaldimEngineering', label: 'YouTube' },
@@ -120,18 +155,54 @@ const Footer = () => {
                     {/* Newsletter Section */}
                     <div className="lg:col-span-1 max-w-xs">
                         <h3 className="font-bold text-xs uppercase tracking-widest mb-4 text-white">support</h3>
-                        <div className="space-y-3">
+                        <form onSubmit={handleSendSupport} className="space-y-3">
                             <div className="relative">
                                 <input
                                     type="email"
+                                    value={supportEmail}
+                                    onChange={(e) => setSupportEmail(e.target.value)}
                                     placeholder="Enter your email"
+                                    required
                                     className="w-full bg-white px-3 py-2 rounded-lg text-black border border-blue-600/10 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-400 text-xs"
                                 />
                             </div>
-                            <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-bold text-xs transition-all active:scale-95 shadow-lg shadow-blue-600/20">
-                                Send
+                            <button
+                                type="submit"
+                                disabled={status === 'loading'}
+                                className={`w-full sm:w-auto px-6 py-2 rounded-lg font-bold text-xs transition-all active:scale-95 shadow-lg flex items-center justify-center gap-2 ${status === 'success' ? 'bg-green-500' : 'bg-blue-600 hover:bg-blue-700'
+                                    } text-white`}
+                            >
+                                {status === 'loading' ? (
+                                    <>
+                                        <Loader size={14} className="animate-spin" />
+                                        <span>SENDING...</span>
+                                    </>
+                                ) : status === 'success' ? (
+                                    <>
+                                        <CheckCircle size={14} />
+                                        <span>SENT!</span>
+                                    </>
+                                ) : (
+                                    <>
+                                        <span>Send</span>
+                                        <Send size={14} />
+                                    </>
+                                )}
                             </button>
-                        </div>
+                            <AnimatePresence>
+                                {status === 'error' && (
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0 }}
+                                        className="text-[10px] text-red-400 font-bold flex items-center gap-1"
+                                    >
+                                        <AlertCircle size={12} />
+                                        SEND FAILED. RETRY?
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </form>
                     </div>
                 </div>
 

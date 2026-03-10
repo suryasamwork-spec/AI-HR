@@ -28,6 +28,8 @@ app.use(cors({
     origin: [
         'http://localhost:5173',
         'http://127.0.0.1:5173',
+        'http://localhost:3000',
+        'http://127.0.0.1:3000',
         'http://localhost:4173',
         'https://caldimengg.in',
         'https://www.caldimengg.in',
@@ -284,7 +286,7 @@ app.post(['/api/contact', '/contact'], async (req, res) => {
     try {
         const name = `${firstName} ${lastName}`.trim()
         // ── Email to CALDIM (notification) ──────────────────────────────────
-        await transporter.sendMail({
+        await transporter. sendMail({
             from: `"CALDIM Website" <${process.env.EMAIL_USER}>`,
             to: process.env.EMAIL_USER,   // support@caldimengg.in
             cc: ccList,                   // member1, member2, member3

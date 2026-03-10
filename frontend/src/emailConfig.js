@@ -8,5 +8,5 @@ const isLocal =
     (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
 
 export const API_URL = isLocal
-    ? 'http://localhost:5000'
+    ? 'http://localhost:5001'
     : ''   // ← Using an empty string for production makes paths relative (e.g., /api/contact) to avoid SSL errors.
