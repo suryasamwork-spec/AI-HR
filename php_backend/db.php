@@ -9,15 +9,16 @@ $is_local = ($_SERVER['REMOTE_ADDR'] === '127.0.0.1' || $_SERVER['REMOTE_ADDR'] 
 $host = 'localhost';
 
 if ($is_local) {
-    // LOCAL COMPUTER settings
+    // ── LOCAL COMPUTER settings ─────
     $user = 'root';
     $pass = 'Caldim@2026';
     $db = 'caldimwebsite';
 } else {
-    // BIGROCK SERVER settings - Hardcoded for reliability
-    $user = 'caldina1_test';
-    $pass = 'Caldim@2026';
-    $db = 'caldina1_test';
+    // ── BIGROCK SERVER settings ─────
+    // IMPORTANT: Replace these with your actual database details from BigRock cPanel
+    $user = 'caldina1_test'; // Your MySQL Username
+    $pass = 'Caldim@2026';   // Your MySQL Password
+    $db = 'caldina1_test';   // Your Database Name
 }
 
 mysqli_report(MYSQLI_REPORT_OFF);

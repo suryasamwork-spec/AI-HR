@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, Play, Clock, ShieldCheck, Mail, User, Phone, Send, Building2, KeyRound, ArrowRight, CheckCircle2 } from 'lucide-react'
+import { X, Play, Clock, ShieldCheck, Mail, User, Phone, Send, Building2, KeyRound, ArrowRight, CheckCircle2, Volume2, VolumeX } from 'lucide-react'
 import { API_URL } from '../emailConfig'
 
 const ProjectDemoModal = ({ project, isOpen, onClose }) => {
     const [currentTime, setCurrentTime] = useState(0)
-    const [isPaused, setIsPaused] = useState(false)
+    const [isEndingReady, setIsEndingReady] = useState(false)
     const [isLeadCaptured, setIsLeadCaptured] = useState(false)
     const [step, setStep] = useState('form') // 'form', 'otp', 'success'
     const [formData, setFormData] = useState({
@@ -19,6 +19,7 @@ const ProjectDemoModal = ({ project, isOpen, onClose }) => {
     const [isOtpSent, setIsOtpSent] = useState(false)
     const [isVerified, setIsVerified] = useState(false)
     const [error, setError] = useState('')
+    const [isMuted, setIsMuted] = useState(false)
     const videoRef = useRef(null)
 
     const handleTimeUpdate = () => {
@@ -31,7 +32,7 @@ const ProjectDemoModal = ({ project, isOpen, onClose }) => {
     const handleVideoEnded = () => {
         if (!isLeadCaptured && videoRef.current) {
             videoRef.current.pause()
-            setIsPaused(true)
+            setIsEndingReady(true)
         }
     }
 
@@ -124,7 +125,6 @@ const ProjectDemoModal = ({ project, isOpen, onClose }) => {
             if (data.success) {
                 setIsLeadCaptured(true)
                 setStep('success')
-                setIsPaused(false)
                 if (videoRef.current) {
                     videoRef.current.play()
                 }
@@ -138,11 +138,19 @@ const ProjectDemoModal = ({ project, isOpen, onClose }) => {
         }
     }
 
+    // Ensure sound is active when playing
+    useEffect(() => {
+        if (isOpen && videoRef.current) {
+            videoRef.current.muted = false;
+            videoRef.current.volume = 1.0;
+        }
+    }, [isOpen])
+
     // Reset state when modal opens
     useEffect(() => {
         if (isOpen) {
             setCurrentTime(0)
-            setIsPaused(false)
+            setIsEndingReady(false)
             if (!isLeadCaptured) {
                 setStep('form')
                 setIsOtpSent(false)
@@ -190,22 +198,47 @@ const ProjectDemoModal = ({ project, isOpen, onClose }) => {
 
                     <div className="grid lg:grid-cols-12 min-h-[600px]">
                         {/* Video Section */}
-                        <div className={`${(isPaused && !isLeadCaptured) ? 'lg:col-span-7' : 'lg:col-span-12'} bg-black relative transition-all duration-700 ease-in-out`}>
+                        <div
+                            className={`${(isEndingReady && !isLeadCaptured) ? 'lg:col-span-7' : 'lg:col-span-12'} bg-black relative transition-all duration-700 ease-in-out cursor-pointer`}
+                            onClick={() => {
+                                if (videoRef.current) {
+                                    if (videoRef.current.paused) {
+                                        videoRef.current.play()
+                                    } else {
+                                        videoRef.current.pause()
+                                    }
+                                }
+                            }}
+                        >
                             <video
                                 ref={videoRef}
                                 src={project.demoVideo}
                                 className="w-full h-full object-cover"
                                 onTimeUpdate={handleTimeUpdate}
                                 onEnded={handleVideoEnded}
-                                controls={!isPaused || isLeadCaptured}
+                                controls={false}
+                                playsInline
+                                muted={isMuted}
                                 controlsList="nodownload"
                                 onContextMenu={(e) => e.preventDefault()}
                                 autoPlay
                             />
 
-                            {/* Overlay when paused at the end */}
-                            {isPaused && !isLeadCaptured && (
-                                <div className="absolute inset-0 bg-blue-900/40 backdrop-blur-sm flex flex-col items-center justify-center p-8 text-center">
+                            {/* Volume Toggle */}
+                            <button
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    setIsMuted(!isMuted);
+                                    if (videoRef.current) videoRef.current.muted = !isMuted;
+                                }}
+                                className="absolute bottom-6 right-6 z-50 p-3 rounded-full bg-black/50 text-white hover:bg-black/70 transition-all border border-white/10 backdrop-blur-md"
+                            >
+                                {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
+                            </button>
+
+                            {/* Overlay when paused at the end ONLY */}
+                            {isEndingReady && !isLeadCaptured && (
+                                <div className="absolute inset-0 bg-blue-900/40 backdrop-blur-sm flex flex-col items-center justify-center p-8 text-center pointer-events-none">
                                     <motion.div
                                         initial={{ scale: 0 }}
                                         animate={{ scale: 1 }}
@@ -219,19 +252,11 @@ const ProjectDemoModal = ({ project, isOpen, onClose }) => {
                                     </p>
                                 </div>
                             )}
-
-                            {/* Progress bar info */}
-                            {!isPaused && !isLeadCaptured && (
-                                <div className="absolute bottom-10 left-1/2 -translate-x-1/2 px-6 py-3 rounded-full bg-black/60 backdrop-blur-xl border border-white/10 flex items-center gap-4 text-white/60 text-xs font-bold uppercase tracking-widest">
-                                    <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-                                    Demo Playing: {Math.floor(currentTime)}s
-                                </div>
-                            )}
                         </div>
 
                         {/* White Theme Lead Capture Panel */}
                         <AnimatePresence>
-                            {(isPaused && !isLeadCaptured) && (
+                            {(isEndingReady && !isLeadCaptured) && (
                                 <motion.div
                                     initial={{ x: 400, opacity: 0 }}
                                     animate={{ x: 0, opacity: 1 }}

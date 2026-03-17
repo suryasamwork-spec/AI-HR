@@ -40,11 +40,10 @@ if ($action == 'send-otp') {
     $stmt->execute();
 
     // Send the email
-    $to = $email;
-    $subject = "Verification Code: $otp";
-    $headers = "MIME-Version: 1.0\r\n";
-    $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
-    $headers .= "From: CALDIM Demo Access <support@caldimengg.in>\r\n";
+    $from = "support@caldimengg.in";
+    $headers = "MIME-Version: 1.0\n";
+    $headers .= "Content-Type: text/html; charset=UTF-8\n";
+    $headers .= "From: CALDIM Demo Access <$from>\n";
 
     $message = "
         <div style='font-family: Arial, sans-serif; max-width: 500px; margin: 0 auto; background: #002B54; border: 1px solid #e5e7eb; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05);'>
@@ -57,7 +56,7 @@ if ($action == 'send-otp') {
         </div>
     ";
 
-    mail($to, $subject, $message, $headers);
+    @mail($to, "$otp is your CALDIM code", $message, $headers, "-f$from");
     echo json_encode(["success" => true, "message" => "OTP sent to your email."]);
     exit;
 }

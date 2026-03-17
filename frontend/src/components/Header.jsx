@@ -3,7 +3,7 @@ import { Menu, X, ChevronDown } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import caldimLogo from '../assets/caldim-logo.png'
-import { projectsData } from '../data/projectsData'
+import { projectsData } from '../data/projectsData.jsx'
 
 const Header = () => {
     const [isScrolled, setIsScrolled] = useState(false)
@@ -32,17 +32,23 @@ const Header = () => {
 
     const navLinks = [
         { name: 'HOME', href: '/', sectionId: 'home' },
-        { name: 'PROJECTS', href: '/projects', hasDropdown: true },
+        { name: 'PRODUCTS', href: '/products', hasDropdown: true },
         { name: 'ABOUT US', href: '/about' },
+        { name: 'CAREERS', href: '/careers' },
         { name: 'CONTACT', href: '/', sectionId: 'contact-section' },
-        { name: 'ARCHIVE', href: '/archive' },
     ]
 
 
     const handleNavClick = (e, link) => {
         if (link.hasDropdown) {
             e.preventDefault()
-            setIsProjectsDropdownOpen(!isProjectsDropdownOpen)
+            // On desktop, clicking 'PRODUCTS' redirects to the first project
+            // On mobile, it toggles the dropdown
+            if (window.innerWidth >= 768) {
+                handleProjectItemClick(0)
+            } else {
+                setIsProjectsDropdownOpen(!isProjectsDropdownOpen)
+            }
             return
         }
 
@@ -68,7 +74,7 @@ const Header = () => {
     const handleProjectItemClick = (index) => {
         setIsProjectsDropdownOpen(false)
         setIsMobileMenuOpen(false)
-        navigate('/projects', { state: { projectIndex: index } })
+        navigate('/projects', { state: { projectIndex: index, timestamp: Date.now() } })
     }
 
     // Handle scroll to section after navigation
@@ -89,9 +95,9 @@ const Header = () => {
         <motion.header
             initial={{ y: -100 }}
             animate={{ y: 0 }}
-            transition={{ duration: 0.5 }}
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-                ? 'bg-[#002B54] shadow-lg'
+            transition={{ type: 'spring', stiffness: 150, damping: 25 }}
+            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${isScrolled
+                ? 'bg-[#002B54]/80 backdrop-blur-xl border-b border-white/10 shadow-2xl'
                 : 'bg-transparent'
                 }`}
         >
@@ -138,15 +144,15 @@ const Header = () => {
                                     onClick={(e) => {
                                         if (link.hasDropdown) {
                                             e.preventDefault()
-                                            setIsProjectsDropdownOpen(!isProjectsDropdownOpen)
+                                            handleProjectItemClick(0)
                                         } else {
                                             handleNavClick(e, link)
                                         }
                                     }}
-                                    className={`nav-link text-xs uppercase tracking-[0.2em] font-black bg-transparent border-none cursor-pointer flex items-center gap-1.5 px-3 py-2 rounded-xl transition-all ${isScrolled ? 'text-white' : 'text-[#002B54] hover:text-blue-600'} ${isProjectsDropdownOpen && link.hasDropdown ? 'bg-blue-600/10 text-blue-400' : ''}`}
+                                    className={`nav-link text-xs uppercase tracking-[0.2em] font-black bg-transparent border-none cursor-pointer flex items-center gap-1.5 px-3 py-2 rounded-xl transition-all duration-500 ${isScrolled ? 'text-white/90 hover:text-blue-400' : 'text-[#002B54] hover:text-blue-600'} ${isProjectsDropdownOpen && link.hasDropdown ? 'bg-blue-600/10 text-blue-600' : ''}`}
                                     initial={{ opacity: 0, y: -20 }}
                                     animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: index * 0.1 }}
+                                    transition={{ type: 'spring', stiffness: 150, damping: 25, delay: index * 0.05 }}
                                 >
                                     {link.name}
                                     {link.hasDropdown && (
@@ -197,7 +203,7 @@ const Header = () => {
 
                     {/* Mobile Menu Button */}
                     <button
-                        className={`md:hidden p-2 transition-colors ${isScrolled ? 'text-white' : 'text-black'} hover:text-blue-400`}
+                        className={`md:hidden p-2 transition-colors ${isScrolled ? 'text-white' : 'text-[#002B54]'} hover:text-blue-400`}
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                     >
                         {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}

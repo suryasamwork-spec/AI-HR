@@ -73,15 +73,15 @@ $message_client = "
     </div>
 ";
 
-// Use mail() function
-@mail($to, $subject, $message_admin, $headers_admin, "-f$from_admin");
-@mail($email, "Enquiry Received — CALDIM Engineering", $message_client, $headers_client, "-f$from_client");
+// Use mail() function and store status
+$mail_admin = @mail($to, $subject, $message_admin, $headers_admin, "-f$from_admin");
+$mail_client = @mail($email, "Enquiry Received — CALDIM Engineering", $message_client, $headers_client, "-f$from_client");
 @mail($from_admin, $subject, $message_admin, $headers_admin, "-f$from_admin"); // Send copy to Gmail too
 
 @ob_clean();
 echo json_encode([
     "success" => true,
     "message" => "Enquiry received successfully.",
-    "mail_status" => ($mail_admin && $mail_client) ? "triggered" : "deferred"
+    "mail_status" => ($mail_admin || $mail_client) ? "triggered" : "deferred"
 ]);
 ?>

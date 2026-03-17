@@ -1,4 +1,5 @@
 import { useRef, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import {
     Users, Code, Globe, Shield, Cpu, Layers, Eye, Rocket,
@@ -693,10 +694,10 @@ const AboutPage = () => {
                         <p className="text-blue-200 text-lg mb-10 max-w-xl mx-auto">
                             Partner with CALDIM Engineering to transform your vision into a powerful digital reality.
                         </p>
-                        <a href="/contact"
+                        <Link to="/" state={{ targetSection: 'contact-section' }}
                             className="inline-block px-10 py-5 bg-white text-blue-700 font-black text-sm uppercase tracking-widest rounded-xl shadow-xl hover:scale-105 active:scale-95 transition-transform duration-200">
                             Start a Conversation →
-                        </a>
+                        </Link>
                     </FadeIn>
                 </div>
             </section>

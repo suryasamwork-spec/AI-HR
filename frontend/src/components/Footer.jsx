@@ -1,43 +1,17 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Github, Linkedin, Instagram, Youtube, Send, Loader, CheckCircle, AlertCircle } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Github, Linkedin, Instagram, Youtube, MapPin, Mail, Phone } from 'lucide-react'
+import { Link, useNavigate } from 'react-router-dom'
 import caldimLogo from '../assets/caldim-logo.png'
 import { API_URL } from '../emailConfig'
 
 const Footer = () => {
-    const [supportEmail, setSupportEmail] = useState('')
-    const [status, setStatus] = useState('idle') // 'idle' | 'loading' | 'success' | 'error'
+    const navigate = useNavigate()
 
-    const handleSendSupport = async (e) => {
-        e.preventDefault()
-        if (!supportEmail) return
-
-        setStatus('loading')
-        try {
-            const res = await fetch(`${API_URL}/api/contact`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    email: supportEmail,
-                    firstName: 'Support',
-                    lastName: 'Request',
-                    projectInfo: 'General Support Inquiry from Footer',
-                    contactNumber: 'N/A'
-                }),
-            })
-            const data = await res.json()
-            if (res.ok && data.success) {
-                setStatus('success')
-                setSupportEmail('')
-                setTimeout(() => setStatus('idle'), 5000)
-            } else {
-                throw new Error(data.message || 'Error')
-            }
-        } catch (error) {
-            console.error('Support email error:', error)
-            setStatus('error')
-            setTimeout(() => setStatus('idle'), 5000)
+    const handleFooterLinkClick = (e, link) => {
+        if (link.sectionId) {
+            e.preventDefault()
+            navigate('/', { state: { targetSection: link.sectionId } })
         }
     }
     const socialLinks = [
@@ -53,8 +27,8 @@ const Footer = () => {
             links: [
                 { name: 'About Us', href: '/about' },
                 { name: 'Projects', href: '/projects' },
-                // { name: 'Careers', href: '#' },
-                { name: 'Contact', href: '/contact' },
+                { name: 'Careers', href: '/careers' },
+                { name: 'Contact', href: '/', sectionId: 'contact-section' },
             ]
         },
         {
@@ -137,6 +111,7 @@ const Footer = () => {
                                         {link.href ? (
                                             <Link
                                                 to={link.href}
+                                                onClick={(e) => handleFooterLinkClick(e, link)}
                                                 className="text-blue-100/60 hover:text-blue-400 transition-all inline-block hover:translate-x-1 duration-200 text-sm"
                                             >
                                                 {link.name}
@@ -152,57 +127,47 @@ const Footer = () => {
                         </div>
                     ))}
 
-                    {/* Newsletter Section */}
-                    <div className="lg:col-span-1 max-w-xs">
-                        <h3 className="font-bold text-xs uppercase tracking-widest mb-4 text-white">support</h3>
-                        <form onSubmit={handleSendSupport} className="space-y-3">
-                            <div className="relative">
-                                <input
-                                    type="email"
-                                    value={supportEmail}
-                                    onChange={(e) => setSupportEmail(e.target.value)}
-                                    placeholder="Enter your email"
-                                    required
-                                    className="w-full bg-white px-3 py-2 rounded-lg text-black border border-blue-600/10 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-400 text-xs"
-                                />
+                    {/* Contact Info Section */}
+                    <div className="lg:col-span-1 min-w-[200px]">
+                        <h3 className="font-bold text-sm uppercase tracking-widest mb-6 text-white">Contact Us:</h3>
+                        <p className="text-blue-100/40 text-xs leading-relaxed mb-6">
+                            Get in touch with our team for expert consultation and business solutions.
+                        </p>
+
+                        <div className="space-y-4">
+                            {/* Address */}
+                            <div className="flex items-start gap-3 group">
+                                <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center shrink-0 border border-white/10 group-hover:bg-blue-400/20 transition-colors">
+                                    <MapPin className="w-4 h-4 text-blue-400" />
+                                </div>
+                                <div>
+                                    <p className="text-[10px] font-black uppercase tracking-wider text-blue-400 opacity-70 mb-0.5">Address:</p>
+                                    <p className="text-xs font-bold text-white/90">Chennai & Hosur, Tamil Nadu, India</p>
+                                </div>
                             </div>
-                            <button
-                                type="submit"
-                                disabled={status === 'loading'}
-                                className={`w-full sm:w-auto px-6 py-2 rounded-lg font-bold text-xs transition-all active:scale-95 shadow-lg flex items-center justify-center gap-2 ${status === 'success' ? 'bg-green-500' : 'bg-blue-600 hover:bg-blue-700'
-                                    } text-white`}
-                            >
-                                {status === 'loading' ? (
-                                    <>
-                                        <Loader size={14} className="animate-spin" />
-                                        <span>SENDING...</span>
-                                    </>
-                                ) : status === 'success' ? (
-                                    <>
-                                        <CheckCircle size={14} />
-                                        <span>SENT!</span>
-                                    </>
-                                ) : (
-                                    <>
-                                        <span>Send</span>
-                                        <Send size={14} />
-                                    </>
-                                )}
-                            </button>
-                            <AnimatePresence>
-                                {status === 'error' && (
-                                    <motion.div
-                                        initial={{ opacity: 0, y: 10 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        exit={{ opacity: 0 }}
-                                        className="text-[10px] text-red-400 font-bold flex items-center gap-1"
-                                    >
-                                        <AlertCircle size={12} />
-                                        SEND FAILED. RETRY?
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
-                        </form>
+
+                            {/* Email */}
+                            <a href="mailto:support@caldimengg.in" className="flex items-start gap-3 group">
+                                <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center shrink-0 border border-white/10 group-hover:bg-blue-400/20 transition-colors">
+                                    <Mail className="w-4 h-4 text-blue-400" />
+                                </div>
+                                <div className="overflow-hidden">
+                                    <p className="text-[10px] font-black uppercase tracking-wider text-blue-400 opacity-70 mb-0.5">Email:</p>
+                                    <p className="text-xs font-bold text-white/90 truncate">salesandsupport@caldimengg.com</p>
+                                </div>
+                            </a>
+
+                            {/* Phone */}
+                            <a href="tel:+914344610637" className="flex items-start gap-3 group">
+                                <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center shrink-0 border border-white/10 group-hover:bg-blue-400/20 transition-colors">
+                                    <Phone className="w-4 h-4 text-blue-400" />
+                                </div>
+                                <div>
+                                    <p className="text-[10px] font-black uppercase tracking-wider text-blue-400 opacity-70 mb-0.5">Phone:</p>
+                                    <p className="text-xs font-bold text-white/90">+91 4344-610637</p>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 </div>
 

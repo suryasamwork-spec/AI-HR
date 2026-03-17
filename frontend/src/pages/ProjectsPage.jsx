@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform, useInView, animate } from 'framer-motion'
-import { ChevronRight, BarChart3, TrendingUp, Shield, PieChart, Sparkles, Play, CheckCircle2, CheckCircle, Check, X, Network, Cpu, Database, Gauge, Cloud, AlertCircle } from 'lucide-react'
+import { ChevronLeft, ChevronRight, BarChart3, TrendingUp, Shield, PieChart, Sparkles, Play, CheckCircle2, CheckCircle, Check, X, Network, Cpu, Database, Gauge, Cloud, AlertCircle } from 'lucide-react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import ProjectDemoModal from '../components/ProjectDemoModal'
 import ScrollToTop from '../components/ScrollToTop'
+import TechnologyStack from '../components/TechnologyStack'
 import backgroundImage from '../assets/2650401.jpg'
 import designImage from '../assets/26760925_2112.i301.031.S.m004.c13.UI_and_UX_designers_concepts_isometric_composition-removebg-preview.png'
 import caldimLogo from '../assets/caldim-logo.png'
@@ -30,7 +31,7 @@ const logoMap = {
 }
 
 
-import { projectsData } from '../data/projectsData'
+import { projectsData } from '../data/projectsData.jsx'
 
 // Counter Component for Stat Animation
 const Counter = ({ value, duration = 3 }) => {
@@ -66,83 +67,34 @@ const Counter = ({ value, duration = 3 }) => {
 const PremiumLayout = ({ project, setIsDemoModalOpen }) => {
     const navigate = useNavigate()
     const [internalImgIndex, setInternalImgIndex] = useState(0)
-    const [isPlayingInline, setIsPlayingInline] = useState(false)
-    const [isPaused, setIsPaused] = useState(false)
-    const inlineVideoRef = useRef(null)
+    const [direction, setDirection] = useState(1) // 1 for right-to-left, -1 for left-to-right
     const containerRef = useRef(null)
-    const revertTimerRef = useRef(null)
-    const isInView = useInView(containerRef, { amount: 0.2 })
-
-    // Auto-stop video if scrolled out of view
-    useEffect(() => {
-        if (!isInView && isPlayingInline) {
-            setIsPlayingInline(false)
-            setIsPaused(false)
-        }
-    }, [isInView, isPlayingInline])
-
-    const clearRevertTimer = () => {
-        if (revertTimerRef.current) {
-            clearTimeout(revertTimerRef.current)
-            revertTimerRef.current = null
-        }
-    }
-
-    const startRevertTimer = () => {
-        clearRevertTimer()
-        revertTimerRef.current = setTimeout(() => {
-            setIsPlayingInline(false)
-            setIsPaused(false)
-        }, 30000) // 30 seconds
-    }
 
     useEffect(() => {
-        if (isPlayingInline && isPaused) {
-            startRevertTimer()
-        } else {
-            clearRevertTimer()
-        }
-        return () => clearRevertTimer()
-    }, [isPlayingInline, isPaused])
-
-    useEffect(() => {
-        if (isPlayingInline) return // pause slideshow while video plays
         const imgCount = project?.images?.length || 5
         const interval = setInterval(() => {
+            setDirection(1)
             setInternalImgIndex((prev) => (prev + 1) % imgCount)
-        }, 3000)
+        }, 4000)
         return () => clearInterval(interval)
-    }, [project, isPlayingInline])
-
-    const handleInlineVideoEnd = () => {
-        setIsPlayingInline(false)
-        setIsPaused(false)
-        setIsDemoModalOpen(true)
-    }
-
-    const handleMaximize = (e) => {
-        e.stopPropagation()
-        if (inlineVideoRef.current) inlineVideoRef.current.pause()
-        setIsPlayingInline(false)
-        setIsPaused(false)
-        setIsDemoModalOpen(true)
-    }
-
-    const togglePlayPause = () => {
-        if (!inlineVideoRef.current) return
-        if (inlineVideoRef.current.paused) {
-            inlineVideoRef.current.play()
-            setIsPaused(false)
-        } else {
-            inlineVideoRef.current.pause()
-            setIsPaused(true)
-        }
-    }
+    }, [project, internalImgIndex]) // Reset timer when index changes manually
 
     const startVideo = () => {
-        setIsPlayingInline(true)
-        setIsPaused(false)
-        // Video will auto-play, and it starts from beginning by default when element is mounted
+        setIsDemoModalOpen(true)
+    }
+
+    const nextImage = (e) => {
+        e.stopPropagation()
+        setDirection(1)
+        const imgCount = project?.images?.length || 5
+        setInternalImgIndex((prev) => (prev + 1) % imgCount)
+    }
+
+    const prevImage = (e) => {
+        e.stopPropagation()
+        setDirection(-1)
+        const imgCount = project?.images?.length || 5
+        setInternalImgIndex((prev) => (prev - 1 + imgCount) % imgCount)
     }
 
     const iconMap = {
@@ -188,96 +140,98 @@ const PremiumLayout = ({ project, setIsDemoModalOpen }) => {
                             <div className="absolute inset-0 bg-blue-600/5 rounded-[3rem] blur-3xl transform group-hover:scale-105 transition-transform duration-700" />
                             <div className="relative aspect-video rounded-[3rem] overflow-hidden shadow-2xl border border-black/5 bg-black">
                                 <AnimatePresence mode="wait">
-                                    {!isPlayingInline && (
-                                        <motion.img
-                                            key={internalImgIndex}
-                                            src={project.images[internalImgIndex]}
-                                            initial={{ opacity: 0, x: 60 }}
-                                            animate={{ opacity: 1, x: 0 }}
-                                            exit={{ opacity: 0, x: -60 }}
-                                            transition={{ duration: 0.6, ease: 'easeInOut' }}
-                                            className="w-full h-full object-cover"
-                                            alt="hero"
-                                        />
-                                    )}
+                                    <motion.img
+                                        key={internalImgIndex}
+                                        src={project.images[internalImgIndex]}
+                                        initial={{ opacity: 0, x: direction === 1 ? 60 : -60 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        exit={{ opacity: 0, x: direction === 1 ? -60 : 60 }}
+                                        transition={{ duration: 0.6, ease: 'easeInOut' }}
+                                        className="w-full h-full object-cover"
+                                        alt="hero"
+                                    />
                                 </AnimatePresence>
 
-                                {/* Inline Video Player */}
-                                {isPlayingInline && (
-                                    <div
-                                        className="absolute inset-0 z-20 cursor-pointer"
-                                        onClick={togglePlayPause}
-                                    >
-                                        <video
-                                            ref={inlineVideoRef}
-                                            src={project.demoVideo}
-                                            className="w-full h-full object-cover"
-                                            autoPlay
-                                            controls={false}
-                                            controlsList="nodownload"
-                                            onContextMenu={(e) => e.preventDefault()}
-                                            onEnded={handleInlineVideoEnd}
-                                        />
-
-                                        {/* Pause Indicator overlay */}
-                                        {isPaused && (
-                                            <div className="absolute inset-0 flex items-center justify-center bg-black/20 backdrop-blur-[2px]">
-                                                <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/30">
-                                                    <Play size={32} fill="white" className="text-white ml-1" />
-                                                </div>
-                                            </div>
-                                        )}
-
-                                        {/* Maximize button */}
-                                        <button
-                                            onClick={handleMaximize}
-                                            title="Maximize"
-                                            className="absolute bottom-4 right-4 z-30 flex items-center justify-center w-10 h-10 rounded-xl bg-black/70 backdrop-blur-md border border-white/20 text-white hover:bg-black/90 transition-all shadow-xl"
-                                        >
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                                <polyline points="15 3 21 3 21 9" />
-                                                <polyline points="9 21 3 21 3 15" />
-                                                <line x1="21" y1="3" x2="14" y2="10" />
-                                                <line x1="3" y1="21" x2="10" y2="14" />
-                                            </svg>
-                                        </button>
-                                    </div>
-                                )}
-
-                                {/* Play Button Overlay (shown only when NOT playing inline) */}
-                                {!isPlayingInline && (
-                                    <button
-                                        onClick={startVideo}
-                                        className="absolute inset-0 flex flex-col items-center justify-center group/play z-10"
-                                        aria-label="Play Demo"
-                                    >
-                                        <div className="w-20 h-20 rounded-full bg-black/30 backdrop-blur-md border border-white/40 flex items-center justify-center shadow-2xl transition-all duration-300 group-hover/play:scale-110 group-hover/play:bg-black/50">
-                                            <Play size={28} fill="white" className="text-white ml-1" />
-                                        </div>
-                                        <span className="mt-3 text-white/90 text-[11px] font-bold uppercase tracking-widest drop-shadow-lg">Click to play demo</span>
-                                    </button>
-                                )}
+                                {/* Navigation Arrows with Hitboxes */}
+                                <button
+                                    onClick={prevImage}
+                                    className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-16 h-full flex items-center justify-start pl-4 text-black hover:scale-110 transition-all drop-shadow-md group/prev"
+                                    aria-label="Previous Image"
+                                >
+                                    <span className="text-4xl font-black select-none group-hover/prev:translate-x-[-2px] transition-transform">‹</span>
+                                </button>
+                                <button
+                                    onClick={nextImage}
+                                    className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-16 h-full flex items-center justify-end pr-4 text-black hover:scale-110 transition-all drop-shadow-md group/next"
+                                    aria-label="Next Image"
+                                >
+                                    <span className="text-4xl font-black select-none group-hover/next:translate-x-[2px] transition-transform">›</span>
+                                </button>
                             </div>
                         </div>
 
-                        {/* Tech Matrix */}
-                        <div className="space-y-6">
-                            <h3 className="text-[11px] font-black uppercase tracking-wider text-black/40 flex items-center gap-3">
-                                Technology Matrix <div className="h-[1px] flex-1 bg-black/10" />
-                            </h3>
-                            <div className="flex flex-wrap items-center gap-3 relative">
-                                {project.tech.map((tech) => (
-                                    <span key={tech} className="px-5 py-2 rounded-xl bg-gray-50 border border-black/5 text-[10px] font-bold uppercase tracking-widest text-black">
-                                        {tech}
-                                    </span>
-                                ))}
+                        {/* Tech Matrix - only show if detailed tech stack is NOT present */}
+                        {!project.techStackDetail && (
+                            <div className="space-y-6">
+                                <h3 className="text-[11px] font-black uppercase tracking-wider text-black/40 flex items-center gap-3">
+                                    Technology Matrix <div className="h-[1px] flex-1 bg-black/10" />
+                                </h3>
+                                <div className="flex flex-wrap items-center gap-3 relative">
+                                    {project.tech.map((tech) => (
+                                        <span key={tech} className="px-5 py-2 rounded-xl bg-gray-50 border border-black/5 text-[10px] font-bold uppercase tracking-widest text-black">
+                                            {tech}
+                                        </span>
+                                    ))}
 
-                                {/* New Launch Application Button */}
+                                    {project.demoVideo && (
+                                        <motion.button
+                                            whileHover={{ scale: 1.05 }}
+                                            whileTap={{ scale: 0.95 }}
+                                            onClick={startVideo}
+                                            className="px-5 py-2 rounded-xl bg-white border border-black/10 text-[10px] font-black uppercase tracking-widest text-[#002B54] flex items-center gap-2 shadow-sm hover:border-blue-600 transition-all group/demo"
+                                        >
+                                            <Play size={10} fill="currentColor" className="text-blue-600" />
+                                            Watch Demo
+                                        </motion.button>
+                                    )}
+
+                                    <motion.button
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        onClick={() => navigate('/register')}
+                                        className="px-5 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-[#f25c78] text-[10px] font-black uppercase tracking-widest text-white shadow-[0_0_15px_rgba(37,99,235,0.2)] hover:shadow-[0_0_20px_rgba(37,99,235,0.4)] transition-all flex items-center gap-2 group/launch"
+                                    >
+                                        Launch Application
+                                        <span className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center group-hover/launch:translate-x-0.5 transition-transform">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                <polyline points="12 5 19 12 12 19"></polyline>
+                                            </svg>
+                                        </span>
+                                    </motion.button>
+                                </div>
+                            </div>
+                        )}
+
+                        {project.techStackDetail && (
+                            <div className="flex flex-wrap items-center gap-3 relative">
+                                {project.demoVideo && (
+                                    <motion.button
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        onClick={startVideo}
+                                        className="px-5 py-2 rounded-xl bg-white border border-black/10 text-[10px] font-black uppercase tracking-widest text-[#002B54] flex items-center gap-2 shadow-sm hover:border-blue-600 transition-all group/demo"
+                                    >
+                                        <Play size={10} fill="currentColor" className="text-blue-600" />
+                                        Watch Demo
+                                    </motion.button>
+                                )}
+
                                 <motion.button
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
                                     onClick={() => navigate('/register')}
-                                    className="px-5 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-[10px] font-black uppercase tracking-widest text-white shadow-[0_0_15px_rgba(37,99,235,0.2)] hover:shadow-[0_0_20px_rgba(37,99,235,0.4)] transition-all flex items-center gap-2 group/launch"
+                                    className="px-5 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-[#f25c78] text-[10px] font-black uppercase tracking-widest text-white shadow-[0_0_15px_rgba(37,99,235,0.2)] hover:shadow-[0_0_20px_rgba(37,99,235,0.4)] transition-all flex items-center gap-2 group/launch"
                                 >
                                     Launch Application
                                     <span className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center group-hover/launch:translate-x-0.5 transition-transform">
@@ -288,7 +242,7 @@ const PremiumLayout = ({ project, setIsDemoModalOpen }) => {
                                     </span>
                                 </motion.button>
                             </div>
-                        </div>
+                        )}
                     </div>
                 </div>
             </section>
@@ -316,7 +270,7 @@ const PremiumLayout = ({ project, setIsDemoModalOpen }) => {
                         </div>
                     ))}
                 </div>
-            </section >
+            </section>
 
             {/* Feature Comparison Table Section (if applicable) */}
             {/* Pricing Plans Section (if applicable) */}
@@ -392,7 +346,7 @@ const PremiumLayout = ({ project, setIsDemoModalOpen }) => {
                                                     if (plan.isFreeTrial || plan.name === 'REGISTER') {
                                                         navigate('/register')
                                                     } else {
-                                                        navigate('/contact')
+                                                        navigate('/', { state: { targetSection: 'contact-section' } })
                                                     }
                                                 }}
                                                 className={`w-full py-6 rounded-2xl text-[11px] font-black uppercase tracking-[0.3em] transition-all duration-300 ${plan.isPopular
@@ -524,10 +478,17 @@ const PremiumLayout = ({ project, setIsDemoModalOpen }) => {
                     .feat-fade-l { left: 0; background: linear-gradient(to right, #ffffff, transparent); }
                     .feat-fade-r { right: 0; background: linear-gradient(to left, #ffffff, transparent); }
                 `}</style>
-            </section >
+            </section>
+
+            {/* Detailed Technology Stack — Only for projects with techStackDetail */}
+            {project.techStackDetail && (
+                <section className="border-t border-black/5">
+                    <TechnologyStack data={project.techStackDetail} />
+                </section>
+            )}
 
             {/* Security Section Redesign */}
-            < section className="max-w-[1700px] mx-auto px-6 lg:px-12 py-32" >
+            <section className="max-w-[1700px] mx-auto px-6 lg:px-12 py-32">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-24">
                     <div className="lg:col-span-4 space-y-8">
                         <h2 className="text-6xl font-black uppercase tracking-tighter text-black leading-[0.9]">Security & Governance</h2>
@@ -550,7 +511,7 @@ const PremiumLayout = ({ project, setIsDemoModalOpen }) => {
                         </div>
                     </div>
                 </div>
-            </section >
+            </section>
 
             {/* Outcome & Business Value — universal for premium projects */}
             {
@@ -607,97 +568,46 @@ const ProjectsPage = () => {
     const projects = projectsData
 
     const [activeIndex, setActiveIndex] = useState(0)
-    const [isAnimating, setIsAnimating] = useState(false)
     const [internalImgIndex, setInternalImgIndex] = useState(0)
+    const [direction, setDirection] = useState(1)
     const [isDemoModalOpen, setIsDemoModalOpen] = useState(false)
-    const [isPlayingInline, setIsPlayingInline] = useState(false)
-    const [isPaused, setIsPaused] = useState(false)
-    const inlineVideoRef = useRef(null)
     const containerRef = useRef(null)
-    const revertTimerRef = useRef(null)
-    const isInView = useInView(containerRef, { amount: 0.2 })
-
-    // Auto-stop video if scrolled out of view
-    useEffect(() => {
-        if (!isInView && isPlayingInline) {
-            setIsPlayingInline(false)
-            setIsPaused(false)
-        }
-    }, [isInView, isPlayingInline])
-
-    const clearRevertTimer = () => {
-        if (revertTimerRef.current) {
-            clearTimeout(revertTimerRef.current)
-            revertTimerRef.current = null
-        }
-    }
-
-    const startRevertTimer = () => {
-        clearRevertTimer()
-        revertTimerRef.current = setTimeout(() => {
-            setIsPlayingInline(false)
-            setIsPaused(false)
-        }, 30000) // 30 seconds
-    }
-
-    useEffect(() => {
-        if (isPlayingInline && isPaused) {
-            startRevertTimer()
-        } else {
-            clearRevertTimer()
-        }
-        return () => clearRevertTimer()
-    }, [isPlayingInline, isPaused])
 
     useEffect(() => {
         if (location.state?.projectIndex !== undefined) {
             const index = location.state.projectIndex
-            if (index !== activeIndex) {
-                setActiveIndex(index)
-                setInternalImgIndex(0)
-            }
+            setActiveIndex(index)
+            setInternalImgIndex(0)
         }
-    }, [location.state, activeIndex])
+    }, [location.state])
 
     const currentProject = projects[activeIndex]
 
     useEffect(() => {
-        if (isPlayingInline) return
         const imgCount = currentProject?.images?.length || 5
         const interval = setInterval(() => {
+            setDirection(1)
             setInternalImgIndex((prev) => (prev + 1) % imgCount)
-        }, 3000)
+        }, 4000)
         return () => clearInterval(interval)
-    }, [activeIndex, isPlayingInline])
-
-    const handleInlineVideoEnd = () => {
-        setIsPlayingInline(false)
-        setIsPaused(false)
-        setIsDemoModalOpen(true)
-    }
-
-    const handleMaximize = (e) => {
-        e.stopPropagation()
-        if (inlineVideoRef.current) inlineVideoRef.current.pause()
-        setIsPlayingInline(false)
-        setIsPaused(false)
-        setIsDemoModalOpen(true)
-    }
-
-    const togglePlayPause = () => {
-        if (!inlineVideoRef.current) return
-        if (inlineVideoRef.current.paused) {
-            inlineVideoRef.current.play()
-            setIsPaused(false)
-        } else {
-            inlineVideoRef.current.pause()
-            setIsPaused(true)
-        }
-    }
+    }, [activeIndex, currentProject, internalImgIndex]) // Reset timer when index changes
 
     const startVideo = () => {
-        setIsPlayingInline(true)
-        setIsPaused(false)
+        setIsDemoModalOpen(true)
+    }
+
+    const nextImage = (e) => {
+        e.stopPropagation()
+        setDirection(1)
+        const imgCount = currentProject?.images?.length || 5
+        setInternalImgIndex((prev) => (prev + 1) % imgCount)
+    }
+
+    const prevImage = (e) => {
+        e.stopPropagation()
+        setDirection(-1)
+        const imgCount = currentProject?.images?.length || 5
+        setInternalImgIndex((prev) => (prev - 1 + imgCount) % imgCount)
     }
 
 
@@ -726,75 +636,33 @@ const ProjectsPage = () => {
                     <div className="lg:col-span-7 space-y-8" ref={containerRef}>
                         <div className="aspect-video relative overflow-hidden flex items-center justify-center rounded-[2rem] shadow-xl border border-black/5 bg-black">
                             <AnimatePresence mode="wait">
-                                {!isPlayingInline && (
-                                    <motion.img
-                                        key={`${currentProject.id}-${internalImgIndex}`}
-                                        src={currentProject.images[internalImgIndex]}
-                                        alt={currentProject.title}
-                                        initial={{ opacity: 0, x: 60 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        exit={{ opacity: 0, x: -60 }}
-                                        transition={{ duration: 0.6, ease: 'easeInOut' }}
-                                        className="w-full h-full object-cover"
-                                    />
-                                )}
+                                <motion.img
+                                    key={`${currentProject.id}-${internalImgIndex}`}
+                                    src={currentProject.images[internalImgIndex]}
+                                    alt={currentProject.title}
+                                    initial={{ opacity: 0, x: direction === 1 ? 60 : -60 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    exit={{ opacity: 0, x: direction === 1 ? -60 : 60 }}
+                                    transition={{ duration: 0.6, ease: 'easeInOut' }}
+                                    className="w-full h-full object-cover"
+                                />
                             </AnimatePresence>
 
-                            {/* Inline Video Player */}
-                            {isPlayingInline && (
-                                <div
-                                    className="absolute inset-0 z-20 cursor-pointer"
-                                    onClick={togglePlayPause}
-                                >
-                                    <video
-                                        ref={inlineVideoRef}
-                                        src={currentProject.demoVideo}
-                                        className="w-full h-full object-cover"
-                                        autoPlay
-                                        controls={false}
-                                        controlsList="nodownload"
-                                        onContextMenu={(e) => e.preventDefault()}
-                                        onEnded={handleInlineVideoEnd}
-                                    />
-
-                                    {/* Pause Indicator overlay */}
-                                    {isPaused && (
-                                        <div className="absolute inset-0 flex items-center justify-center bg-black/20 backdrop-blur-[2px]">
-                                            <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/30">
-                                                <Play size={32} fill="white" className="text-white ml-1" />
-                                            </div>
-                                        </div>
-                                    )}
-
-                                    {/* Maximize / Fullscreen button */}
-                                    <button
-                                        onClick={handleMaximize}
-                                        title="Open fullscreen"
-                                        className="absolute bottom-4 right-4 z-30 flex items-center justify-center w-10 h-10 rounded-xl bg-black/70 backdrop-blur-md border border-white/20 text-white hover:bg-black/90 transition-all shadow-xl"
-                                    >
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                            <polyline points="15 3 21 3 21 9" />
-                                            <polyline points="9 21 3 21 3 15" />
-                                            <line x1="21" y1="3" x2="14" y2="10" />
-                                            <line x1="3" y1="21" x2="10" y2="14" />
-                                        </svg>
-                                    </button>
-                                </div>
-                            )}
-
-                            {/* Play Button Overlay — shown only when NOT playing inline */}
-                            {!isPlayingInline && (
-                                <button
-                                    onClick={startVideo}
-                                    className="absolute inset-0 flex flex-col items-center justify-center group/play z-20"
-                                    aria-label="Play Demo"
-                                >
-                                    <div className="w-20 h-20 rounded-full bg-black/30 backdrop-blur-md border border-white/40 flex items-center justify-center shadow-2xl transition-all duration-300 group-hover/play:scale-110 group-hover/play:bg-black/50">
-                                        <Play size={28} fill="white" className="text-white ml-1" />
-                                    </div>
-                                    <span className="mt-3 text-white/90 text-[11px] font-bold uppercase tracking-widest drop-shadow-lg">Click to play demo</span>
-                                </button>
-                            )}
+                            {/* Navigation Arrows with Hitboxes */}
+                            <button
+                                onClick={prevImage}
+                                className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-16 h-full flex items-center justify-start pl-4 text-black hover:scale-110 transition-all drop-shadow-md group/prev"
+                                aria-label="Previous Image"
+                            >
+                                <span className="text-4xl font-black select-none group-hover/prev:translate-x-[-2px] transition-transform">‹</span>
+                            </button>
+                            <button
+                                onClick={nextImage}
+                                className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-16 h-full flex items-center justify-end pr-4 text-black hover:scale-110 transition-all drop-shadow-md group/next"
+                                aria-label="Next Image"
+                            >
+                                <span className="text-4xl font-black select-none group-hover/next:translate-x-[2px] transition-transform">›</span>
+                            </button>
                         </div>
 
                         <div className="space-y-6">
@@ -808,12 +676,23 @@ const ProjectsPage = () => {
                                     </span>
                                 ))}
 
-                                {/* New Launch Application Button */}
+                                {currentProject.demoVideo && (
+                                    <motion.button
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        onClick={startVideo}
+                                        className="px-5 py-2 rounded-xl bg-white border border-black/10 text-[10px] font-black uppercase tracking-widest text-[#002B54] flex items-center gap-2 shadow-sm hover:border-blue-600 transition-all group/demo"
+                                    >
+                                        <Play size={10} fill="currentColor" className="text-blue-600" />
+                                        Watch Demo
+                                    </motion.button>
+                                )}
+
                                 <motion.button
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
                                     onClick={() => navigate('/register')}
-                                    className="px-5 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-[10px] font-black uppercase tracking-widest text-white shadow-[0_0_15px_rgba(37,99,235,0.2)] hover:shadow-[0_0_20px_rgba(37,99,235,0.4)] transition-all flex items-center gap-2 group/launch"
+                                    className="px-5 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-[#f25c78] text-[10px] font-black uppercase tracking-widest text-white shadow-[0_0_15px_rgba(37,99,235,0.2)] hover:shadow-[0_0_20px_rgba(37,99,235,0.4)] transition-all flex items-center gap-2 group/launch"
                                 >
                                     Launch Application
                                     <span className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center group-hover/launch:translate-x-0.5 transition-transform">

@@ -1,0 +1,17 @@
+RewriteEngine On
+
+# ── API Routing (to php_backend) ─────────────────────────────────────────────
+# This allows the frontend to call /api/contact and have it processed by PHP
+# Ensure you upload the 'php_backend' folder to your server root.
+RewriteRule ^api/contact/?$ php_backend/contact.php [L,QSA]
+RewriteRule ^api/send-otp/?$ php_backend/otp.php?action=send-otp [L,QSA]
+RewriteRule ^api/verify-otp-only/?$ php_backend/otp.php?action=verify-otp-only [L,QSA]
+RewriteRule ^api/verify-otp-and-lead/?$ php_backend/otp.php?action=verify-otp-and-lead [L,QSA]
+RewriteRule ^api/health/?$ php_backend/otp.php?action=health [L,QSA]
+
+# ── React Router Support (Static Hosting) ────────────────────────────────────
+# If the request is not for a real file or directory, serve index.html
+# This prevents 404s when refreshing pages like /about or /projects on BigRock
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.html [L]

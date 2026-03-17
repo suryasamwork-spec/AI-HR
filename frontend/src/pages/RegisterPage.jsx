@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Clock, User, AtSign, Building2, ArrowRight, ShieldCheck, CheckCircle2 } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
+import { API_URL } from '../emailConfig'
 
 const RegisterPage = () => {
     const navigate = useNavigate()
@@ -24,34 +25,84 @@ const RegisterPage = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
     }
 
-    const handleSendOtp = () => {
-        if (!formData.businessEmail) return
+    const handleSendOtp = async () => {
+        if (!formData.businessEmail || !formData.firstName) return
         setStatus('sending')
-        // Simulate sending OTP
-        setTimeout(() => {
-            setShowOtp(true)
+        try {
+            const response = await fetch(`${API_URL}/api/send-otp`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: formData.businessEmail,
+                    firstName: formData.firstName
+                })
+            })
+            const data = await response.json()
+            if (data.success) {
+                setShowOtp(true)
+                setStatus('idle')
+            } else {
+                alert(data.message || 'Failed to send verification code.')
+                setStatus('idle')
+            }
+        } catch (err) {
+            console.error('OTP error:', err)
             setStatus('idle')
-        }, 1500)
+        }
     }
 
-    const handleVerifyOtp = () => {
+    const handleVerifyOtp = async () => {
         if (otpValue.length < 4) return
         setStatus('verifying')
-        // Simulate OTP verification (e.g., code is 123456)
-        setTimeout(() => {
-            setIsVerified(true)
-            setStatus('verified')
-        }, 1500)
+        try {
+            const response = await fetch(`${API_URL}/api/verify-otp-only`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: formData.businessEmail,
+                    otp: otpValue
+                })
+            })
+            const data = await response.json()
+            if (data.success) {
+                setIsVerified(true)
+                setStatus('verified')
+            } else {
+                alert(data.message || 'Invalid code')
+                setStatus('idle')
+            }
+        } catch (err) {
+            console.error('Verify error:', err)
+            setStatus('idle')
+        }
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         if (!isVerified) return
         setStatus('loading')
-        // Simulate final API call
-        setTimeout(() => {
-            setStatus('success')
-        }, 2000)
+        try {
+            const response = await fetch(`${API_URL}/api/verify-otp-and-lead`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    ...formData,
+                    email: formData.businessEmail,
+                    otp: otpValue,
+                    projectTitle: 'General Registration'
+                })
+            })
+            const data = await response.json()
+            if (data.success) {
+                setStatus('success')
+            } else {
+                alert(data.message || 'Submission failed')
+                setStatus('verified')
+            }
+        } catch (err) {
+            console.error('Submit error:', err)
+            setStatus('verified')
+        }
     }
 
     const inputClass = "w-full px-6 py-4 rounded-2xl bg-gray-50/50 border border-gray-100 text-black focus:border-blue-600 focus:bg-white focus:outline-none transition-all placeholder:text-gray-300 text-sm font-medium shadow-sm"

@@ -2,7 +2,7 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import { ChevronRight } from 'lucide-react'
-import { projectsData } from '../data/projectsData'
+import { projectsData } from '../data/projectsData.jsx'
 
 const AllProjectsPage = () => {
     const navigate = useNavigate()

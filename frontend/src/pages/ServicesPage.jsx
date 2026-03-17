@@ -327,7 +327,8 @@ const ServicesPage = () => {
 
                                 {/* CTA */}
                                 <Link
-                                    to="/contact"
+                                    to="/"
+                                    state={{ targetSection: 'contact-section' }}
                                     className="inline-flex items-center gap-3 px-7 py-3.5 rounded-2xl text-white text-sm font-black uppercase tracking-widest transition-all hover:opacity-90 hover:-translate-y-1 shadow-lg"
                                     style={{ background: `linear-gradient(135deg, ${svc.gradient[0]}, ${svc.gradient[1]})` }}
                                 >
@@ -354,7 +355,8 @@ const ServicesPage = () => {
                             Tell us about your project and let's engineer the future together.
                         </p>
                         <Link
-                            to="/contact"
+                            to="/"
+                            state={{ targetSection: 'contact-section' }}
                             className="inline-flex items-center gap-3 px-10 py-4 bg-white text-blue-600 font-black text-sm uppercase tracking-widest rounded-2xl hover:bg-blue-50 transition-all shadow-xl hover:-translate-y-1"
                         >
                             Start a Project

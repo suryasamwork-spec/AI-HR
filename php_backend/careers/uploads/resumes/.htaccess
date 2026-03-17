@@ -1,0 +1,4 @@
+# Deny direct access to uploaded resumes
+<FilesMatch ".*">
+    Require all denied
+</FilesMatch>

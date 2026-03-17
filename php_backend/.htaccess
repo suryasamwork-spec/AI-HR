@@ -1,5 +1,9 @@
 RewriteEngine On
 
+# ── CAREERS API: Route /api/careers/* → careers/index.php ──────
+# Note: Apache will handle this via the sub-directory's own .htaccess
+# when requests reach php_backend/careers/
+
 # Route /api/contact to contact.php
 RewriteRule ^contact/?$ contact.php [L]
 

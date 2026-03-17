@@ -13,7 +13,7 @@ const Particle = ({ x, y, color, size }) => {
                 x: x + (Math.random() - 0.5) * 350, // High spread
                 y: y + (Math.random() - 0.5) * 350
             }}
-            transition={{ duration: 1.2, ease: "easeOut" }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="absolute pointer-events-none z-50"
             style={{
                 width: '3px',
@@ -34,9 +34,9 @@ const MechanicalCore = () => {
     const x = useMotionValue(0)
     const y = useMotionValue(0)
 
-    // Smooth movement with springs
-    const mouseX = useSpring(x, { stiffness: 60, damping: 25 })
-    const mouseY = useSpring(y, { stiffness: 60, damping: 25 })
+    // Ultra-smooth movement with refined springs
+    const mouseX = useSpring(x, { stiffness: 40, damping: 20 })
+    const mouseY = useSpring(y, { stiffness: 40, damping: 20 })
 
     // Rotation transforms for the 3D tilt effect (Text only)
     const rotateX = useTransform(mouseY, [-0.5, 0.5], [8, -8])
@@ -115,9 +115,9 @@ const MechanicalCore = () => {
                     rotateY,
                     transformStyle: 'preserve-3d',
                 }}
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 1.2, ease: "easeOut" }}
+                initial={{ opacity: 0, scale: 0.96, filter: 'blur(10px)' }}
+                animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                transition={{ type: 'spring', stiffness: 100, damping: 20, mass: 1 }}
                 className="relative text-center select-none z-10 max-w-6xl px-8"
             >
                 <div className="flex flex-col items-center gap-2" style={{ transformStyle: 'preserve-3d' }}>
@@ -172,13 +172,15 @@ const MechanicalCore = () => {
 
                     {/* Button */}
                     <motion.button
+
                         whileHover={{
                             scale: 1.05,
-                            backgroundColor: '#001a33',
+                            backgroundColor: '#002B54',
+                            boxShadow: '0 25px 60px rgba(0,43,84,0.4)'
                         }}
-                        whileTap={{ scale: 0.98 }}
-                        className="mt-16 px-14 py-4 md:py-6 bg-[#002B54] text-white font-black uppercase text-[10px] md:text-[11px] tracking-[0.4em] rounded-full shadow-[0_20px_50px_rgba(0,43,84,0.3)] transition-all"
-                        style={{ transform: 'translateZ(140px)' }}
+                        whileTap={{ scale: 0.96 }}
+                        className="mt-16 px-14 py-4 md:py-6 bg-[#002B54] text-white font-black uppercase text-[10px] md:text-[11px] tracking-[0.4em] rounded-full shadow-[0_20px_50px_rgba(0,43,84,0.3)] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                        style={{ transform: 'translateZ(100px)' }}
                     >
                         Initialize System
                     </motion.button>

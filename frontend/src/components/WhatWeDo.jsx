@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useRef } from 'react'
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
 import { Code2, Cpu, Settings, Layout, ShieldCheck } from 'lucide-react'
 
 const services = [
@@ -100,8 +101,26 @@ const ContentBlock = ({ titleColor, descColor, labelColor, borderColor, outlineC
 )
 
 const WhatWeDo = () => {
+    const containerRef = useRef(null)
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start end", "center center"]
+    })
+
+    const scale = useSpring(useTransform(scrollYProgress, [0, 1], [0.85, 1]), {
+        stiffness: 100,
+        damping: 30,
+        restDelta: 0.001
+    })
+
+    const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 0.5, 1])
+
     return (
-        <section className="relative overflow-hidden" style={{ background: '#002B54' }}>
+        <section
+            ref={containerRef}
+            className="relative overflow-hidden min-h-screen flex items-center"
+            style={{ background: '#002B54' }}
+        >
 
             {/* ── White triangle (top-left half) ─────────────────────────────── */}
             <div style={{
@@ -113,7 +132,15 @@ const WhatWeDo = () => {
             }} />
 
             {/* ── Base layer: WHITE text — sits on the blue half ───────────── */}
-            <div className="py-24" style={{ position: 'relative', zIndex: 1 }}>
+            <motion.div
+                className="py-32 w-full"
+                style={{
+                    position: 'relative',
+                    zIndex: 1,
+                    scale,
+                    opacity
+                }}
+            >
                 <ContentBlock
                     titleColor="#ffffff"
                     descColor="rgba(255,255,255,0.75)"
@@ -121,18 +148,18 @@ const WhatWeDo = () => {
                     borderColor="rgba(255,255,255,0.2)"
                     outlineColor="#ffffff"
                 />
-            </div>
+            </motion.div>
 
             {/* ── Overlay layer: NAVY text — clipped to white triangle ─────── */}
-            {/* Uses the SAME clip polygon as the white background div above,
-                so text and background edges are pixel-perfect. */}
-            <div
-                className="py-24"
+            <motion.div
+                className="py-32 w-full h-full flex items-center"
                 style={{
                     position: 'absolute',
                     inset: 0,
                     clipPath: CLIP,
-                    zIndex: 2
+                    zIndex: 2,
+                    scale,
+                    opacity
                 }}
             >
                 <ContentBlock
@@ -142,7 +169,7 @@ const WhatWeDo = () => {
                     borderColor="rgba(0,43,84,0.12)"
                     outlineColor="#002B54"
                 />
-            </div>
+            </motion.div>
 
         </section>
     )

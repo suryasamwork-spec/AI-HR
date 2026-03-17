@@ -55,7 +55,7 @@ const WhyItMatters = () => {
                         transition={{ delay: 0.1 }}
                         className="text-slate-500 font-medium leading-relaxed"
                     >
-                        Nam molestie metus et justo hendrerit, non molestie velit imperdiet vivamus ac sapien vitae dui mattis tristique cras finibus convallis ex vel lacinia justo
+                        Our approach is centered on delivering measurable business impact through precision engineering and strategic digital transformation.
                     </motion.p>
                 </div>
 

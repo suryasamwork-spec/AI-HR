@@ -74,7 +74,7 @@ const ContactSection = () => {
                         transition={{ delay: 0.1 }}
                         className="text-slate-500 font-medium leading-relaxed max-w-2xl mx-auto"
                     >
-                        Nam molestie metus et justo hendrerit, non molestie velit imperdiet. Vivamus ac sapien vitae dui mattis tristique cras finibus convallis ex vel lacinia justo.
+                        Have a project in mind or need technical consultation? Reach out to our team of experts and let's build something exceptional together.
                     </motion.p>
                 </div>
 
@@ -89,7 +89,7 @@ const ContactSection = () => {
                         <div>
                             <h3 className="text-2xl font-black text-[#002B54] mb-4">Contact Us:</h3>
                             <p className="text-slate-500 leading-relaxed font-medium">
-                                Pellentesque pharetra in mi eget ornare vestibulum gravida nisl eu libero tincidunt luctus interdum metus
+                                Our team is ready to assist you with technical inquiries, partnership opportunities, or project consultations.
                             </p>
                         </div>
 
@@ -101,7 +101,7 @@ const ContactSection = () => {
                                 </div>
                                 <div className="pt-1">
                                     <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#002B54] opacity-50 mb-1">Address:</p>
-                                    <p className="text-base font-bold text-[#002B54]">London Eye, London</p>
+                                    <p className="text-base font-bold text-[#002B54]">Chennai & Hosur,Tamil Nadu, India</p>
                                 </div>
                             </div>
 
@@ -112,7 +112,7 @@ const ContactSection = () => {
                                 </div>
                                 <div className="pt-1">
                                     <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#002B54] opacity-50 mb-1">Email:</p>
-                                    <p className="text-base font-bold text-[#002B54]">support@caldimengg.in</p>
+                                    <p className="text-base font-bold text-[#002B54]">salesandsupport@caldimengg.com</p>
                                 </div>
                             </a>
 
