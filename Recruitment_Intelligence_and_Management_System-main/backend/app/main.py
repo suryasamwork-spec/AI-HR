@@ -5,7 +5,7 @@ from fastapi.staticfiles import StaticFiles
 import os
 from app.core.config import get_settings
 from app.infrastructure.database import Base, engine
-from app.api import auth, jobs, applications, interviews, decisions, notifications, analytics, tickets
+from app.api import auth, jobs, applications, interviews, decisions, notifications, analytics, tickets, candidate
 from app.domain.models import (
     User, Job, Application, ResumeExtraction, 
     Interview, InterviewQuestion, InterviewAnswer,
@@ -126,6 +126,7 @@ app.include_router(decisions.router)
 app.include_router(notifications.router)
 app.include_router(tickets.router)
 app.include_router(analytics.router, prefix="/api/analytics", tags=["Analytics"])
+app.include_router(candidate.router)
 app.include_router(websocket_router)
 
 # Error handlers

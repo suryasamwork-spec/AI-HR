@@ -4,18 +4,24 @@ from typing import List
 import os
 from pathlib import Path
 
-# Project root (backend folder)
-BASE_DIR = Path(__file__).resolve().parent.parent
+# Project root (backend folder) — absolute path so .env always loads
+BASE_DIR = Path(__file__).resolve().parent.parent.parent  # → backend/
+
+# App directory — backend/app/
+APP_DIR = BASE_DIR / "app"
+
+# Absolute path to .env file (always works regardless of where server is started from)
+ENV_FILE = BASE_DIR / ".env"
 
 class Settings(BaseSettings):
-    base_dir: Path = BASE_DIR
-    logs_dir: Path = BASE_DIR / "logs"
-    uploads_dir: Path = BASE_DIR / "uploads"
+    base_dir: Path = APP_DIR
+    logs_dir: Path = APP_DIR / "logs"
+    uploads_dir: Path = APP_DIR / "uploads"
     # Database
     # To use PostgreSQL, add this to your .env file:
     # DATABASE_URL=postgresql://user:password@host:port/dbname
-    database_url: str = f"sqlite:///{BASE_DIR}/sql_app.db"
-    videos_dir: Path = BASE_DIR / "uploads" / "videos"
+    database_url: str = f"sqlite:///{APP_DIR}/sql_app.db"
+    videos_dir: Path = APP_DIR / "uploads" / "videos"
     # Database
     # To use MySQL (current):
     # DATABASE_URL=mysql+pymysql://user:password@host:port/dbname
@@ -76,7 +82,8 @@ class Settings(BaseSettings):
     frontend_base_url: str = "http://localhost:3000"
 
     class Config:
-        env_file = ".env"
+        env_file = str(ENV_FILE)  # Use ABSOLUTE path so server can be started from any directory
+        env_file_encoding = 'utf-8'
         case_sensitive = False
 
     def get_allowed_origins(self) -> List[str]:

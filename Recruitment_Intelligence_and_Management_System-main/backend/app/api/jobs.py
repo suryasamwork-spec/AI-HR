@@ -12,6 +12,7 @@ import os
 import uuid
 from pathlib import Path
 from datetime import datetime
+from typing import Optional
 
 router = APIRouter(prefix="/api/jobs", tags=["jobs"])
 settings = get_settings()
@@ -34,7 +35,7 @@ def generate_unique_job_id(db: Session) -> str:
         exists = db.query(Job).filter(Job.job_id == job_id).first()
         if not exists:
             return job_id
-
+    return ""
 
 def _validate_interview_pipeline(job_data, experience_level: str):
     """
@@ -108,7 +109,7 @@ async def upload_question_file(
         )
 
     # Validate file size (read content to check)
-    content = await file.read()
+    content: bytes = await file.read() # type: ignore
     if len(content) > MAX_QUESTION_FILE_SIZE:
         raise HTTPException(
             status_code=400,
@@ -149,7 +150,7 @@ async def upload_aptitude_questions(
     if ext not in [".xlsx", ".xls"]:
          raise HTTPException(status_code=400, detail="Only Excel (.xlsx/.xls) files are accepted.")
     
-    content = await file.read()
+    content: bytes = await file.read() # type: ignore
     if len(content) > MAX_QUESTION_FILE_SIZE:
         raise HTTPException(
             status_code=400,
@@ -175,10 +176,10 @@ async def upload_aptitude_questions(
             if not q_text or q_text == 'nan':
                  continue
                  
-            q_dict = {
-                "question": q_text,
-                "answer": answer
-            }
+            q_dict = dict(
+                question=q_text,
+                answer=answer
+            )
             if 'Options' in df.columns and pd.notna(row['Options']):
                  q_dict["options"] = [opt.strip() for opt in str(row['Options']).split(',') if opt.strip()]
                  
@@ -289,7 +290,7 @@ def list_public_jobs(
 
 @router.get("", response_model=list[JobResponse])
 def list_jobs(
-    status: str = None,
+    status: Optional[str] = None,
     current_user: User = Depends(get_current_hr),
     db: Session = Depends(get_db)
 ):

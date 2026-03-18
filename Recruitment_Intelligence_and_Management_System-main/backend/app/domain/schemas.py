@@ -122,7 +122,7 @@ class JobExtractionResponse(BaseModel):
 
 class ApplicationCreate(BaseModel):
     job_id: int
-
+    # Form data will be used, this is mainly for the validated model if needed
 class ApplicationStatusUpdate(BaseModel):
     action: str  # FSM action: 'approve_for_interview', 'reject', 'call_for_interview', 'review_later', 'hire'
     hr_notes: Optional[str] = None
@@ -140,6 +140,7 @@ class TransitionResponse(BaseModel):
 
 class ApplicationResponse(BaseModel):
     id: int
+    user_id: Optional[int] = None
     job_id: int
     candidate_name: str
     candidate_email: str
@@ -417,6 +418,56 @@ class InterviewFeedbackResponse(BaseModel):
 class UserVerifyOTP(BaseModel):
     email: EmailStr
     otp: str
+
+# ============================================================================
+# Candidate Profile Schemas
+# ============================================================================
+
+class CandidateProfileCreate(BaseModel):
+    date_of_birth: Optional[datetime] = None
+    gender: Optional[str] = None
+    citizenship: Optional[str] = None
+    marital_status: Optional[str] = None
+    blood_group: Optional[str] = None
+    passport_number: Optional[str] = None
+    passport_expiry: Optional[datetime] = None
+    
+    address_house_no: Optional[str] = None
+    address_street: Optional[str] = None
+    address_city: Optional[str] = None
+    address_state: Optional[str] = None
+    address_country: Optional[str] = None
+    address_pin: Optional[str] = None
+    
+    education_10th: Optional[str] = None # JSON string
+    education_12th: Optional[str] = None # JSON string
+    education_grad: Optional[str] = None # JSON string
+    education_post_grad: Optional[str] = None # JSON string
+    
+    total_experience_years: Optional[float] = 0
+    current_employer: Optional[str] = None
+    current_designation: Optional[str] = None
+    current_joining_date: Optional[datetime] = None
+    current_ctc: Optional[str] = None
+    notice_period: Optional[str] = None
+    previous_experience: Optional[str] = None # JSON string
+    
+    primary_skills: Optional[str] = None
+    secondary_skills: Optional[str] = None
+    technical_proficiency: Optional[str] = None
+    
+    interview_history: Optional[str] = None
+    preferred_locations: Optional[str] = None
+    languages: Optional[str] = None
+
+class CandidateProfileResponse(CandidateProfileCreate):
+    id: int
+    user_id: int
+    created_at: datetime
+    updated_at: datetime
+    
+    class Config:
+        from_attributes = True
 
 # Rebuild model to resolve forward references
 ApplicationDetailResponse.model_rebuild()

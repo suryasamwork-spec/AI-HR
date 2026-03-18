@@ -85,6 +85,7 @@ class Application(Base):
     )
 
     id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey('users.id', ondelete="CASCADE"), nullable=True, index=True)
     job_id = Column(Integer, ForeignKey('jobs.id', ondelete="CASCADE"), nullable=False, index=True)
     candidate_name = Column(String(255), nullable=False)
     candidate_email = Column(String(255), nullable=False, index=True)
@@ -109,6 +110,7 @@ class Application(Base):
     updated_at = Column(DateTime, default=func.now(), server_default=func.now(), onupdate=func.now())
 
     # Relationships
+    user = relationship("User", backref="applications")
     job = relationship("Job", back_populates="applications")
     resume_extraction = relationship("ResumeExtraction", back_populates="application", uselist=False, cascade="all, delete-orphan")
     interview = relationship("Interview", back_populates="application", uselist=False, cascade="all, delete-orphan")
@@ -456,3 +458,59 @@ class AIEvaluation(Base):
 
     # Relationships
     answer = relationship("InterviewAnswer", back_populates="evaluation")
+
+
+class CandidateProfile(Base):
+    __tablename__ = "candidate_profiles"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey('users.id', ondelete="CASCADE"), unique=True, nullable=False, index=True)
+    
+    # Personal & Contact Details
+    date_of_birth = Column(DateTime)
+    gender = Column(String(20))
+    citizenship = Column(String(100))
+    marital_status = Column(String(50))
+    blood_group = Column(String(10))
+    passport_number = Column(String(50))
+    passport_expiry = Column(DateTime)
+    
+    # Addresses
+    address_house_no = Column(String(255))
+    address_street = Column(String(255))
+    address_city = Column(String(255))
+    address_state = Column(String(255))
+    address_country = Column(String(255))
+    address_pin = Column(String(20))
+    
+    # Educational Qualifications (Storing as JSON for simplicity in schema, but could be separate tables)
+    # Fields: school_name, board, specialization, year_of_passing, score
+    education_10th = Column(Text) # JSON
+    education_12th = Column(Text) # JSON
+    education_grad = Column(Text) # JSON
+    education_post_grad = Column(Text) # JSON
+    
+    # Professional Experience
+    total_experience_years = Column(Float)
+    current_employer = Column(String(255))
+    current_designation = Column(String(255))
+    current_joining_date = Column(DateTime)
+    current_ctc = Column(String(50))
+    notice_period = Column(String(50))
+    previous_experience = Column(Text) # JSON list of employers
+    
+    # Skills
+    primary_skills = Column(Text) # JSON list or comma-separated
+    secondary_skills = Column(Text)
+    technical_proficiency = Column(Text)
+    
+    # Additional Information
+    interview_history = Column(Text) # JSON "interviewed in last 6 months?"
+    preferred_locations = Column(Text) # JSON list
+    languages = Column(Text) # JSON list with proficiency
+    
+    created_at = Column(DateTime, default=func.now(), server_default=func.now())
+    updated_at = Column(DateTime, default=func.now(), server_default=func.now(), onupdate=func.now())
+
+    # Relationships
+    user = relationship("User", backref="profile")

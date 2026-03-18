@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session, joinedload
 import os
 import json
 from datetime import datetime, timezone
+from typing import Optional
 from app.infrastructure.database import get_db, SessionLocal
 from app.domain.models import User, Application, Job, ResumeExtraction, Interview, InterviewAnswer
 from app.domain.schemas import ApplicationCreate, ApplicationStatusUpdate, ApplicationResponse, ApplicationDetailResponse, ApplicationNotesUpdate
@@ -58,6 +59,7 @@ async def apply_for_job(
     resume_file: UploadFile = File(...),
     photo_file: UploadFile = File(None),
     background_tasks: BackgroundTasks = BackgroundTasks(),
+    current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
     """Apply for a job with resume (Public endpoint)"""
@@ -124,7 +126,7 @@ async def apply_for_job(
     rel_file_path = f"uploads/resumes/{filename}"
     
     with open(abs_file_path, "wb") as f:
-        f.write(content)
+        f.write(bytes(content))  # type: ignore
     
     # Save photo file if provided
     rel_photo_path = None
@@ -145,10 +147,11 @@ async def apply_for_job(
         rel_photo_path = f"uploads/photos/{photo_filename}"
         
         with open(abs_photo_path, "wb") as f:
-            f.write(photo_content)
+            f.write(bytes(photo_content))  # type: ignore
     
     # Create application
     new_application = Application(
+        user_id=current_user.id,
         job_id=job_id,
         candidate_name=candidate_name,
         candidate_email=candidate_email,
@@ -288,7 +291,7 @@ async def process_application_background(application_id: int, job_id: int, abs_f
 
 @router.get("", response_model=list[ApplicationDetailResponse])
 def get_hr_applications(
-    job_id: int = None,
+    job_id: Optional[int] = None,
     current_user: User = Depends(get_current_hr),
     db: Session = Depends(get_db)
 ):

@@ -18,11 +18,17 @@ logger = logging.getLogger(__name__)
 def send_email_sync(to_email: str, subject: str, html_body: str) -> bool:
     """Synchronous implementation of sending an email with retries"""
     if not all([settings.smtp_host, settings.smtp_port, settings.smtp_user, settings.smtp_password, settings.smtp_from]):
-        print("\n" + "="*50)
-        print(f"[EMAIL MOCK] To: {to_email}")
-        print(f"[EMAIL MOCK] Subject: {subject}")
-        print(f"[EMAIL MOCK] Body: {html_body}")
-        print("="*50 + "\n")
+        logger.warning(
+            f"[EMAIL MOCK - SMTP NOT CONFIGURED] To: {to_email} | Subject: {subject}\n"
+            f"  → SMTP settings are empty — check that .env is loaded correctly.\n"
+            f"  → smtp_host='{settings.smtp_host}' smtp_user='{settings.smtp_user}' smtp_from='{settings.smtp_from}'"
+        )
+        print("\n" + "="*60)
+        print(f"[EMAIL MOCK - SMTP NOT CONFIGURED]")
+        print(f"To: {to_email}")
+        print(f"Subject: {subject}")
+        print(f"Body: {html_body[:200]}...")
+        print("="*60 + "\n")
         return True
 
     msg = MIMEMultipart("alternative")
@@ -33,12 +39,14 @@ def send_email_sync(to_email: str, subject: str, html_body: str) -> bool:
     part = MIMEText(html_body, "html")
     msg.attach(part)
 
+    logger.info(f"Sending email to {to_email} via {settings.smtp_host}:{settings.smtp_port}")
     # Connect and send
     server = smtplib.SMTP(settings.smtp_host, settings.smtp_port, timeout=10)
     server.starttls()
     server.login(settings.smtp_user, settings.smtp_password)
     server.sendmail(settings.smtp_from, to_email, msg.as_string())
     server.quit()
+    logger.info(f"Email sent successfully to {to_email}")
     return True
 
 async def send_email_async(to_email: str, subject: str, html_body: str) -> bool:
@@ -49,8 +57,12 @@ async def send_email_async(to_email: str, subject: str, html_body: str) -> bool:
         success = await loop.run_in_executor(None, send_email_sync, to_email, subject, html_body)
         return success
     except Exception as e:
-        logger.error(f"Persistent failure sending email to {to_email} after retries: {e}")
-        # We return False here but it's now logged and was retried
+        logger.error(
+            f"SMTP ERROR - Failed to send email to {to_email} after retries.\n"
+            f"  Error type: {type(e).__name__}\n"
+            f"  Error: {e}\n"
+            f"  SMTP config: host={settings.smtp_host} port={settings.smtp_port} user={settings.smtp_user}"
+        )
         return False
 
 # --- Standard Email Templates ---
