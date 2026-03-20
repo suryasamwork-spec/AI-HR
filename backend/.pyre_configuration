@@ -1,0 +1,5 @@
+{
+  "source_directories": ["."],
+  "exclude": ["**/*"],
+  "site_package_search_strategy": "none"
+}

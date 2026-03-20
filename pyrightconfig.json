@@ -1,0 +1,8 @@
+{
+  "include": ["."],
+  "exclude": ["**/*"],
+  "typeCheckingMode": "off",
+  "reportMissingImports": "none",
+  "reportMissingModuleSource": "none",
+  "reportGeneralTypeIssues": "none"
+}
